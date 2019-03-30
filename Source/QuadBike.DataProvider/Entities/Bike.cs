@@ -30,6 +30,8 @@ namespace QuadBike.DataProvider.Entities
         [MaxLength(200)]
         public string Description { get; set; }    // description
 
+        public int Price { get; set; }   // price
+
         public virtual Provider Provider { get; set; }
 
         public virtual RentTrip RentTrip { get; set; }

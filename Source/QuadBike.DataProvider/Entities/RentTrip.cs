@@ -18,8 +18,6 @@ namespace QuadBike.DataProvider.Entities
         [ForeignKey("UserRentTrip")]
         public int UserId { get; set; }
 
-        public int Price { get; set; }    //price
-
         public virtual User User { get; set; }
 
         public virtual Trip Trip { get; set; }
