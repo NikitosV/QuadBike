@@ -8,7 +8,7 @@ namespace QuadBike.DataProvider.EF
 {
     public class QuadBikeContext : DbContext
     {
-        public QuadBikeContext(DbContextOptions<QuadBikeContext> options)
+        public QuadBikeContext(DbContextOptions<QuadBikeContext> options) : base(options)
         {
 
         }

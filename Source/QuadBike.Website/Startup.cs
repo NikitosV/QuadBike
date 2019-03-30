@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using QuadBike.DataProvider.EF;
 
 namespace QuadBike.Website
 {
@@ -22,6 +24,8 @@ namespace QuadBike.Website
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            //var sqlconnection = Configuration["ConnectionStrings:DefaultConnection"];
+            services.AddDbContext<QuadBikeContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
