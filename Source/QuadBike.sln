@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuadBike.Logic", "QuadBike.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuadBike.DataProvider", "QuadBike.DataProvider\QuadBike.DataProvider.csproj", "{EB88FD19-A840-497E-B6E5-97073848372B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuadBike.Website", "QuadBike.Website\QuadBike.Website.csproj", "{7B2022FF-A6EC-487B-B197-A93632422A3B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuadBike.Website", "QuadBike.Website\QuadBike.Website.csproj", "{AFA65E65-1261-41F5-ADFC-C853355470A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{EB88FD19-A840-497E-B6E5-97073848372B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB88FD19-A840-497E-B6E5-97073848372B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB88FD19-A840-497E-B6E5-97073848372B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7B2022FF-A6EC-487B-B197-A93632422A3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B2022FF-A6EC-487B-B197-A93632422A3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B2022FF-A6EC-487B-B197-A93632422A3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B2022FF-A6EC-487B-B197-A93632422A3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA65E65-1261-41F5-ADFC-C853355470A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA65E65-1261-41F5-ADFC-C853355470A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA65E65-1261-41F5-ADFC-C853355470A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA65E65-1261-41F5-ADFC-C853355470A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
