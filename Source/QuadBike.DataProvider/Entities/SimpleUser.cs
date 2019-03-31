@@ -6,8 +6,8 @@ using System.Text;
 
 namespace QuadBike.DataProvider.Entities
 {
-    [Table("User")]
-    public class User
+    [Table("SimpleUser")]
+    public class SimpleUser
     {
         [Key]
         public int Id { get; set; }                //ID
@@ -17,19 +17,6 @@ namespace QuadBike.DataProvider.Entities
 
         [MaxLength(50)]
         public string Surname { get; set; }        //Surname
-
-        [DataType(DataType.Date)]
-        public DateTime Birthday { get; set; }    //Birthday
-
-        [StringLength(13)]
-        public string Mobile { get; set; }        //Mobile
-
-        public byte[] Photo { get; set; }          //Photo
-
-        [ForeignKey("Acc")]
-        public int AccountId { get; set; }
-
-        public Account Account { get; set; }
 
         public virtual ICollection<RentBike> RentBikes { get; set; }
 

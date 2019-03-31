@@ -9,7 +9,7 @@ using System.Text;
 
 namespace QuadBike.DataProvider.Repositories
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IRepository<SimpleUser>
     {
         private QuadBikeContext db;
 
@@ -17,34 +17,34 @@ namespace QuadBike.DataProvider.Repositories
         {
             this.db = context;
         }
-        public void Create(User item)
+        public void Create(SimpleUser item)
         {
-            db.Users.Add(item);
+            db.SimpleUsers.Add(item);
         }
 
         public void Delete(int id)
         {
-            User item = db.Users.Find(id);
+            SimpleUser item = db.SimpleUsers.Find(id);
             if (item != null)
-                db.Users.Remove(item);
+                db.SimpleUsers.Remove(item);
         }
 
-        public IEnumerable<User> Find(Func<User, bool> predicate)
+        public IEnumerable<SimpleUser> Find(Func<SimpleUser, bool> predicate)
         {
-            return db.Users.Where(predicate).ToList();
+            return db.SimpleUsers.Where(predicate).ToList();
         }
 
-        public User Get(int id)
+        public SimpleUser Get(int id)
         {
-            return db.Users.Find(id);
+            return db.SimpleUsers.Find(id);
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<SimpleUser> GetAll()
         {
-            return db.Users;
+            return db.SimpleUsers;
         }
 
-        public void Update(User item)
+        public void Update(SimpleUser item)
         {
             db.Entry(item).State = EntityState.Modified;
         }

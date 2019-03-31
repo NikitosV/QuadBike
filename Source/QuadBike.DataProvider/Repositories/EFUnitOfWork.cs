@@ -11,12 +11,10 @@ namespace QuadBike.DataProvider.Repositories
     {
         QuadBikeContext context;
 
-        private AccountRepository _accountRepository;
         private BikeRepository _bikeRepository;
         private ProviderRepository _providerRepository;
         private RentBikeRepository _rentBikeRepository;
         private RentTripRepository _rentTripRepository;
-        private RoleRepository _roleRepository;
         private TripRepository _tripRepository;
         private UserRepository _userRepository;
 
@@ -24,16 +22,6 @@ namespace QuadBike.DataProvider.Repositories
         public EFUnitOfWork(string connectionstring)
         {
             //context = new QuadBikeContext(connectionstring);
-        }
-
-        public IRepository<Account> Accounts
-        {
-            get
-            {
-                if (_accountRepository == null)
-                    _accountRepository = new AccountRepository(context);
-                return _accountRepository;
-            }
         }
 
         public IRepository<Bike> Bikes
@@ -76,16 +64,6 @@ namespace QuadBike.DataProvider.Repositories
             }
         }
 
-        public IRepository<Role> Roles
-        {
-            get
-            {
-                if (_roleRepository == null)
-                    _roleRepository = new RoleRepository(context);
-                return _roleRepository;
-            }
-        }
-
         public IRepository<Trip> Trips
         {
             get
@@ -95,8 +73,9 @@ namespace QuadBike.DataProvider.Repositories
                 return _tripRepository;
             }
         }
+        
 
-        public IRepository<User> Users
+        public IRepository<SimpleUser> SimpleUsers
         {
             get
             {
