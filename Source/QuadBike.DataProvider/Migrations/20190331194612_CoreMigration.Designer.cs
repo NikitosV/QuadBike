@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuadBike.DataProvider.EF;
 
 namespace QuadBike.DataProvider.Migrations
 {
     [DbContext(typeof(QuadBikeContext))]
-    partial class QuadBikeContextModelSnapshot : ModelSnapshot
+    [Migration("20190331194612_CoreMigration")]
+    partial class CoreMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -12,24 +12,14 @@ namespace QuadBike.DataProvider.Entities
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("AccProvider")]
-        public int AccountId { get; set; }
-
         [MaxLength(50)]
         public string CompanyName { get; set; }
 
         [MaxLength(50)]
         public string Adress { get; set; }
 
-        [StringLength(13)]
-        public string Mobile { get; set; }
-
-        public byte[] Logo { get; set; }
-
         [MaxLength(200)]
         public string Description { get; set; }
-
-        public Account Account { get; set; }
 
         public virtual ICollection<Trip> Trips { get; set; }
 
