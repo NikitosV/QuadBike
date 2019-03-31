@@ -24,5 +24,7 @@ namespace QuadBike.DataProvider.Entities
         public virtual ICollection<Trip> Trips { get; set; }
 
         public virtual ICollection<Bike> Bikes { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
