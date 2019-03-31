@@ -10,7 +10,7 @@ using QuadBike.DataProvider.EF;
 namespace QuadBike.DataProvider.Migrations
 {
     [DbContext(typeof(QuadBikeContext))]
-    [Migration("20190331194612_CoreMigration")]
+    [Migration("20190331201414_CoreMigration")]
     partial class CoreMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -229,6 +229,8 @@ namespace QuadBike.DataProvider.Migrations
                     b.Property<string>("Adress")
                         .HasMaxLength(50);
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<string>("CompanyName")
                         .HasMaxLength(50);
 
@@ -236,6 +238,8 @@ namespace QuadBike.DataProvider.Migrations
                         .HasMaxLength(200);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Provider");
                 });
@@ -287,6 +291,8 @@ namespace QuadBike.DataProvider.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<string>("Name")
                         .HasMaxLength(50);
 
@@ -294,6 +300,8 @@ namespace QuadBike.DataProvider.Migrations
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("SimpleUser");
                 });
@@ -392,6 +400,13 @@ namespace QuadBike.DataProvider.Migrations
                         .HasForeignKey("RentTripId");
                 });
 
+            modelBuilder.Entity("QuadBike.DataProvider.Entities.Provider", b =>
+                {
+                    b.HasOne("QuadBike.DataProvider.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
+                });
+
             modelBuilder.Entity("QuadBike.DataProvider.Entities.RentBike", b =>
                 {
                     b.HasOne("QuadBike.DataProvider.Entities.Bike", "Bike")
@@ -415,6 +430,13 @@ namespace QuadBike.DataProvider.Migrations
                         .WithOne("RentTrip")
                         .HasForeignKey("QuadBike.DataProvider.Entities.RentTrip", "TripId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("QuadBike.DataProvider.Entities.SimpleUser", b =>
+                {
+                    b.HasOne("QuadBike.DataProvider.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("QuadBike.DataProvider.Entities.Trip", b =>
