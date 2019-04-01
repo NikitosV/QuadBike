@@ -27,11 +27,11 @@ namespace QuadBike.Website.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)                                     // register
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { Email = model.Email, UserName = model.Email };
+                ApplicationUser user = new ApplicationUser { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber };
                 // добавляем пользователя 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -59,12 +59,12 @@ namespace QuadBike.Website.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)                                      // Sign in
         {
             if (ModelState.IsValid)
             {
-                var result =
-                await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+
                 if (result.Succeeded)
                 {
                     // проверяем, принадлежит ли URL приложению 
@@ -87,9 +87,9 @@ namespace QuadBike.Website.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogOff()
+        public async Task<IActionResult> LogOff()                                                // logOff
         {
-            // удаляем аутентификационные куки 
+            // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
