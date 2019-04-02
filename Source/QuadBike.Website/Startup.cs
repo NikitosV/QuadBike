@@ -48,6 +48,7 @@ namespace QuadBike.Website
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseStatusCodePages();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();

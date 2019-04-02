@@ -1,4 +1,5 @@
-﻿using QuadBike.DataProvider.EF;
+﻿using Microsoft.EntityFrameworkCore;
+using QuadBike.DataProvider.EF;
 using QuadBike.DataProvider.Entities;
 using QuadBike.DataProvider.Interfaces;
 using System;
@@ -19,9 +20,9 @@ namespace QuadBike.DataProvider.Repositories
         private UserRepository _userRepository;
 
 
-        public EFUnitOfWork(string connectionstring)
+        public EFUnitOfWork(DbContextOptions<QuadBikeContext> options)
         {
-            //context = new QuadBikeContext(connectionstring);
+            context = new QuadBikeContext(options);
         }
 
         public IRepository<Bike> Bikes
