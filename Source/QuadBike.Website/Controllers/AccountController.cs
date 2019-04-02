@@ -32,10 +32,13 @@ namespace QuadBike.Website.Controllers
             if (ModelState.IsValid)
             {
                 ApplicationUser user = new ApplicationUser { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber };
+                
                 // добавляем пользователя 
                 var result = await _userManager.CreateAsync(user, model.Password);
+
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "user");
                     // установка куки 
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");

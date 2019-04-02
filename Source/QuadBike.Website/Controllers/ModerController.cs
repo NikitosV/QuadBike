@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.DataProvider.Entities;
@@ -9,26 +10,29 @@ using QuadBike.Model.ViewModels;
 
 namespace QuadBike.Website.Controllers
 {
+
+    [Authorize(Roles = "moderator")]
     public class ModerController : Controller
     {
+        RoleManager<IdentityRole> _roleManager;
         UserManager<ApplicationUser> _userManager;
 
-        public ModerController(UserManager<ApplicationUser> userManager)
+        public ModerController(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
+            _roleManager = roleManager;
             _userManager = userManager;
         }
-        
-        public IActionResult Index() => View(_userManager.Users.ToList());
+
+        public IActionResult Index() => View(_roleManager.Roles.ToList());
 
         public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateUserViewModel model)                                     // Create user
+        public async Task<IActionResult> Create(string name)
         {
-            if (ModelState.IsValid)
+            if (!string.IsNullOrEmpty(name))
             {
-                ApplicationUser user = new ApplicationUser { Email = model.Email, PhoneNumber = model.PhoneNumber };
-                var result = await _userManager.CreateAsync(user, model.Password);
+                IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -41,61 +45,70 @@ namespace QuadBike.Website.Controllers
                     }
                 }
             }
-
-            return View(model);
-        }
-
-        public async Task<IActionResult> Edit(string id)                                                     // Edit user
-        {
-            ApplicationUser user = await _userManager.FindByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Email = user.Email, PhoneNumber = user.PhoneNumber };
-
-            return View(model);
+            return View(name);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EditUserViewModel model)
+        public async Task<IActionResult> Delete(string id)
         {
-            if (ModelState.IsValid)
+            IdentityRole role = await _roleManager.FindByIdAsync(id);
+            if (role != null)
             {
-                ApplicationUser user = await _userManager.FindByIdAsync(model.Id);
-                if (user != null)
-                {
-                    user.Email = model.Email;
-                    user.PhoneNumber = model.PhoneNumber;
-
-                    var result = await _userManager.UpdateAsync(user);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError(string.Empty, error.Description);
-                        }
-                    }
-                }
+                IdentityResult result = await _roleManager.DeleteAsync(role);
             }
-            return View(model);
+            return RedirectToAction("Index");
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Delete(string id)                                      // Delete user
+        public IActionResult UserList()
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            return View(_userManager.Users.ToList());
+        }
+
+        public async Task<IActionResult> Edit(string userId)
+        {
+            // получаем пользователя
+            ApplicationUser user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
-                IdentityResult result = await _userManager.DeleteAsync(user);
+                // получем список ролей пользователя
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var allRoles = _roleManager.Roles.ToList();
+                ChangeRoleViewModel model = new ChangeRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserEmail = user.Email,
+                    UserRoles = userRoles,
+                    AllRoles = allRoles
+                };
+                return View(model);
             }
 
-            return RedirectToAction("Index");
+            return NotFound();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(string userId, List<string> roles)
+        {
+            // получаем пользователя
+            ApplicationUser user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                // получем список ролей пользователя
+                var userRoles = await _userManager.GetRolesAsync(user);
+                // получаем все роли
+                var allRoles = _roleManager.Roles.ToList();
+                // получаем список ролей, которые были добавлены
+                var addedRoles = roles.Except(userRoles);
+                // получаем роли, которые были удалены
+                var removedRoles = userRoles.Except(roles);
+
+                await _userManager.AddToRolesAsync(user, addedRoles);
+
+                await _userManager.RemoveFromRolesAsync(user, removedRoles);
+
+                return RedirectToAction("UserList");
+            }
+
+            return NotFound();
         }
     }
 }

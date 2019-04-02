@@ -1,33 +1,38 @@
 ﻿@model QuadBike.Model.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
 @if (User.Identity.IsAuthenticated)
 {
-<p>@User.Identity.Name</p>
+    <p>@User.Identity.Name</p>
 
-<form method="post" asp-controller="Account" asp-action="LogOff">
-    <input type="submit" value="Выход" />
-</form>
+    <form method="post" asp-controller="Account" asp-action="LogOff">
+        <input type="submit" value="Log out" />
+    </form>
 }
 else
 {
-<h2>Login</h2>
-<form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div>
-        <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div>
-        <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
-        <span asp-validation-for="Password"></span>
-    </div>
-    <div>
-        <label asp-for="RememberMe"></label><br />
-        <input asp-for="RememberMe" />
-    </div>
-    <div>
-        <input type="submit" value="Enter" />
-    </div>
-</form>
+    <h2>Login</h2>
+    <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <label asp-for="Email"></label><br />
+            <input asp-for="Email" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password" />
+            <span asp-validation-for="Password"></span>
+        </div>
+        <div>
+            <label asp-for="RememberMe"></label><br />
+            <input asp-for="RememberMe" />
+        </div>
+        <div>
+            <input type="submit" value="Enter" />
+        </div>
+    </form>
 }
