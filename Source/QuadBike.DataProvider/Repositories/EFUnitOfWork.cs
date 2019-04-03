@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using QuadBike.DataProvider.EF;
 using QuadBike.DataProvider.Entities;
+using QuadBike.DataProvider.Identity;
 using QuadBike.DataProvider.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace QuadBike.DataProvider.Repositories
 {
@@ -17,12 +20,18 @@ namespace QuadBike.DataProvider.Repositories
         private RentBikeRepository _rentBikeRepository;
         private RentTripRepository _rentTripRepository;
         private TripRepository _tripRepository;
-        private UserRepository _userRepository;
+        private SimpleUserRepository _userRepository;
+
+        private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
 
         public EFUnitOfWork(DbContextOptions<QuadBikeContext> options)
         {
             context = new QuadBikeContext(options);
+
+            //_userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
+            //_roleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(context));
         }
 
         public IRepository<Bike> Bikes
@@ -81,10 +90,22 @@ namespace QuadBike.DataProvider.Repositories
             get
             {
                 if (_userRepository == null)
-                    _userRepository = new UserRepository(context);
+                    _userRepository = new SimpleUserRepository(context);
                 return _userRepository;
             }
         }
+
+        #region !!!!!!!!!!!ATTENTION!!!!!!!!!!!!!!!
+        public ApplicationUserManager UserManager => throw new NotImplementedException();
+
+        public ApplicationRoleManager RoleManager => throw new NotImplementedException();
+
+        public async Task SaveAsync()
+        {
+            await context.SaveChangesAsync();
+        }
+
+        #endregion
 
         public void Save()
         {

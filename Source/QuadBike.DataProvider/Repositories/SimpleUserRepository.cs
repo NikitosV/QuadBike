@@ -9,11 +9,11 @@ using System.Text;
 
 namespace QuadBike.DataProvider.Repositories
 {
-    public class UserRepository : IRepository<SimpleUser>
+    public class SimpleUserRepository : IRepository<SimpleUser>, ISimpleUserRepository
     {
         private QuadBikeContext db;
 
-        public UserRepository(QuadBikeContext context)
+        public SimpleUserRepository(QuadBikeContext context)
         {
             this.db = context;
         }
@@ -27,11 +27,6 @@ namespace QuadBike.DataProvider.Repositories
             SimpleUser item = db.SimpleUsers.Find(id);
             if (item != null)
                 db.SimpleUsers.Remove(item);
-        }
-
-        public IEnumerable<SimpleUser> Find(Func<SimpleUser, bool> predicate)
-        {
-            return db.SimpleUsers.Where(predicate).ToList();
         }
 
         public SimpleUser Get(int id)

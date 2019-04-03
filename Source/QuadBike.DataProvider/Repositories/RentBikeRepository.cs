@@ -30,11 +30,6 @@ namespace QuadBike.DataProvider.Repositories
                 db.RentBikes.Remove(item);
         }
 
-        public IEnumerable<RentBike> Find(Func<RentBike, bool> predicate)
-        {
-            return db.RentBikes.Where(predicate).ToList();
-        }
-
         public RentBike Get(int id)
         {
             return db.RentBikes.Find(id);

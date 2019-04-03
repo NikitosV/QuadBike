@@ -9,7 +9,7 @@ using System.Text;
 
 namespace QuadBike.DataProvider.Repositories
 {
-    public class TripRepository : IRepository<Trip>
+    public class TripRepository : IRepository<Trip>, ITripRepository
     {
         private QuadBikeContext db;
 
@@ -27,11 +27,6 @@ namespace QuadBike.DataProvider.Repositories
             Trip item = db.Trips.Find(id);
             if (item != null)
                 db.Trips.Remove(item);
-        }
-
-        public IEnumerable<Trip> Find(Func<Trip, bool> predicate)
-        {
-            return db.Trips.Where(predicate).ToList();
         }
 
         public Trip Get(int id)
