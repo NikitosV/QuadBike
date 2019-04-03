@@ -1,4 +1,4 @@
-﻿@model QuadBike.Model.ViewModels.LoginViewModel
+﻿@model QuadBike.Model.ViewModels.AccountViewModels.LoginViewModel
 
 @{
     ViewBag.Title = "Login";
@@ -9,13 +9,14 @@
     <p>@User.Identity.Name</p>
 
     <form method="post" asp-controller="Account" asp-action="LogOff">
-        <input type="submit" value="Log out" />
+        <input type="submit" value="Выход" />
     </form>
 }
 else
 {
     <h2>Login</h2>
-    <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+    <form method="post" asp-controller="Account" asp-action="Login"
+          asp-route-returnUrl="@Model.ReturnUrl">
         <div asp-validation-summary="ModelOnly"></div>
         <div>
             <label asp-for="Email"></label><br />

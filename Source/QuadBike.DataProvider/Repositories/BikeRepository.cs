@@ -18,29 +18,29 @@ namespace QuadBike.DataProvider.Repositories
             this.db = context;
         }
 
-        public void Create(Bike item)
+        public void Create(Bike item)                            //create
         {
             db.Bikes.Add(item);
         }
 
-        public void Delete(int id)
+        public void Delete(int id)                                  //delete
         {
             Bike item = db.Bikes.Find(id);
             if (item != null)
                 db.Bikes.Remove(item);
         }
 
-        public Bike Get(int id)
+        public Bike Get(int id)                                    // read
         {
             return db.Bikes.Find(id);
         }
 
-        public IEnumerable<Bike> GetAll()
+        public IEnumerable<Bike> GetAll()                             // read all
         {
             return db.Bikes;
         }
 
-        public void Update(Bike item)
+        public void Update(Bike item)                               // update
         {
             db.Entry(item).State = EntityState.Modified;
         }

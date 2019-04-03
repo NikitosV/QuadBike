@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using QuadBike.DataProvider.Entities;
-using QuadBike.Model.ViewModels;
+using QuadBike.Model.ViewModels.AccountViewModels;
 
 namespace QuadBike.Website.Controllers
 {
@@ -14,32 +15,35 @@ namespace QuadBike.Website.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager) 
         {
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
-        [HttpGet]
-        public IActionResult Register()
+        public IActionResult Index()
         {
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Register(string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)                                     // register
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser user = new ApplicationUser { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber };
-                
-                // добавляем пользователя 
+                ApplicationUser user = new ApplicationUser { Email = model.Email, UserName = model.Email };
+                // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
-
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(user, "user");
-                    // установка куки 
+                    // установка куки
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -62,15 +66,14 @@ namespace QuadBike.Website.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)                                      // Sign in
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
-
                 if (result.Succeeded)
                 {
-                    // проверяем, принадлежит ли URL приложению 
+                    // проверяем, принадлежит ли URL приложению
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
@@ -82,7 +85,7 @@ namespace QuadBike.Website.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    ModelState.AddModelError("", "Not correct login/password");
                 }
             }
             return View(model);
@@ -90,7 +93,7 @@ namespace QuadBike.Website.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogOff()                                                // logOff
+        public async Task<IActionResult> LogOff()
         {
             // удаляем аутентификационные куки
             await _signInManager.SignOutAsync();

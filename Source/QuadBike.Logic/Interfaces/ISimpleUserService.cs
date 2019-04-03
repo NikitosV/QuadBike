@@ -4,7 +4,7 @@ using System.Text;
 
 namespace QuadBike.Logic.Interfaces
 {
-    interface ISimpleUserService
+    public interface ISimpleUserService
     {
     }
 }

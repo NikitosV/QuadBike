@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace QuadBike.Model.ViewModels
+namespace QuadBike.Model.ViewModels.AccountViewModels
 {
     public class LoginViewModel
     {
@@ -16,8 +16,7 @@ namespace QuadBike.Model.ViewModels
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-        [Required]
-        [Display(Name = "Remeber me?")]
+        [Display(Name = "Remember?")]
         public bool RememberMe { get; set; }
 
         public string ReturnUrl { get; set; }

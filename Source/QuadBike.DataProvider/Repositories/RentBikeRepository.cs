@@ -9,7 +9,7 @@ using System.Text;
 
 namespace QuadBike.DataProvider.Repositories
 {
-    public class RentBikeRepository : IRepository<RentBike>
+    public class RentBikeRepository : IRepository<RentBike>, IRentBikeRepository
     {
         private QuadBikeContext db;
 
