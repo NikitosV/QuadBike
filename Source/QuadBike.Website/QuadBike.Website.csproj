@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\QuadBike.Common\QuadBike.Common.csproj" />
-    <ProjectReference Include="..\QuadBike.DataProvider\QuadBike.DataProvider.csproj" />
     <ProjectReference Include="..\QuadBike.Logic\QuadBike.Logic.csproj" />
     <ProjectReference Include="..\QuadBike.Model\QuadBike.Model.csproj" />
   </ItemGroup>
