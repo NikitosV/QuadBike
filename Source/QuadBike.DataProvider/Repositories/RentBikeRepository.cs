@@ -9,7 +9,7 @@ using System.Text;
 
 namespace QuadBike.DataProvider.Repositories
 {
-    public class RentBikeRepository : IRepository<RentBike>
+    public class RentBikeRepository : IRepository<RentBike>, IRentBikeRepository
     {
         private QuadBikeContext db;
 
@@ -28,11 +28,6 @@ namespace QuadBike.DataProvider.Repositories
             RentBike item = db.RentBikes.Find(id);
             if (item != null)
                 db.RentBikes.Remove(item);
-        }
-
-        public IEnumerable<RentBike> Find(Func<RentBike, bool> predicate)
-        {
-            return db.RentBikes.Where(predicate).ToList();
         }
 
         public RentBike Get(int id)

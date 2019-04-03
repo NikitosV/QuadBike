@@ -1,9 +1,10 @@
-﻿@model QuadBike.Model.ViewModels.RegisterViewModel
+﻿@model QuadBike.Model.ViewModels.AccountViewModels.RegisterViewModel
+
 @{
     ViewBag.Title = "Register";
 }
 
-<h2>New user regestration</h2>
+<h2>Register new user</h2>
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
     <div>

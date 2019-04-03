@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace QuadBike.Logic.Interfaces
+namespace QuadBike.DataProvider.Interfaces
 {
-    public interface ISimpleUserService
+    public interface IRentTripRepository
     {
     }
 }

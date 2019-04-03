@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace QuadBike.DataProvider.Entities
+namespace QuadBike.DataProvider.Interfaces
 {
-    class MyRoleManager
+    public interface ITripRepository
     {
     }
 }

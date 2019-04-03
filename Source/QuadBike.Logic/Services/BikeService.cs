@@ -12,6 +12,14 @@ namespace QuadBike.Logic.Services
     public class BikeService : IBikeService
     {
         private readonly IUnitOfWork Database;
+
         Map<Bike, BikeDTO> Map = new Map<Bike, BikeDTO>();
+
+        public BikeService(IUnitOfWork uow, Map<Bike, BikeDTO> map)
+        {
+            Database = uow;
+            Map = map;
+        }
+
     }
 }

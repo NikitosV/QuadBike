@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QuadBike.DataProvider.EF;
 using QuadBike.DataProvider.Entities;
+using QuadBike.Logic.Interfaces;
+using QuadBike.Logic.Services;
 
 namespace QuadBike.Website
 {
@@ -32,6 +34,17 @@ namespace QuadBike.Website
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<QuadBikeContext>();
+
+            services.AddScoped<IBikeService, BikeService>();
+            services.AddScoped<IProviderService, ProviderService>();
+            services.AddScoped<IRentBikeService, RentBikeService>();
+            services.AddScoped<IRentTripService, RentTripService>();
+            services.AddScoped<ISimpleUserService, SimpleUserService>();
+            services.AddScoped<ITripService, TripService>();
+
+
+            //services.AddScoped<UserManager<ApplicationUser>>();
+            //services.AddScoped<RoleManager<ApplicationRole>>();
 
             services.AddMvc();
         }

@@ -1,4 +1,5 @@
-﻿using QuadBike.Logic.DTO;
+﻿using QuadBike.DataProvider.Entities;
+using QuadBike.Logic.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;

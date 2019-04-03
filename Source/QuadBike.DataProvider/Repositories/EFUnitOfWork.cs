@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using QuadBike.DataProvider.EF;
 using QuadBike.DataProvider.Entities;
 using QuadBike.DataProvider.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace QuadBike.DataProvider.Repositories
 {
@@ -17,14 +19,17 @@ namespace QuadBike.DataProvider.Repositories
         private RentBikeRepository _rentBikeRepository;
         private RentTripRepository _rentTripRepository;
         private TripRepository _tripRepository;
-        private UserRepository _userRepository;
+        private SimpleUserRepository _userRepository;
 
+        //private ApplicationUserManager _userManager;
+        //private ApplicationRoleManager _roleManager;
 
         public EFUnitOfWork(DbContextOptions<QuadBikeContext> options)
         {
             context = new QuadBikeContext(options);
         }
 
+        #region ====== IRepository<T> ==========
         public IRepository<Bike> Bikes
         {
             get
@@ -81,10 +86,73 @@ namespace QuadBike.DataProvider.Repositories
             get
             {
                 if (_userRepository == null)
-                    _userRepository = new UserRepository(context);
+                    _userRepository = new SimpleUserRepository(context);
                 return _userRepository;
             }
         }
+        #endregion
+
+        #region ====== MethodRepositories ======
+        public IBikeRepository bikeRepository
+        {
+            get
+            {
+                if (_bikeRepository == null)
+                    _bikeRepository = new BikeRepository(context);
+                return _bikeRepository;
+            }
+        }
+
+        public IProviderRepository providerRepository
+        {
+            get
+            {
+                if (_providerRepository == null)
+                    _providerRepository = new ProviderRepository(context);
+                return _providerRepository;
+            }
+        }
+
+        public IRentBikeRepository rentBikeRepository
+        {
+            get
+            {
+                if (_rentBikeRepository == null)
+                    _rentBikeRepository = new RentBikeRepository(context);
+                return _rentBikeRepository;
+            }
+        }
+
+        public IRentTripRepository rentTripRepository
+        {
+            get
+            {
+                if (_rentTripRepository == null)
+                    _rentTripRepository = new RentTripRepository(context);
+                return _rentTripRepository;
+            }
+        }
+
+        public ISimpleUserRepository simpleUserRepository
+        {
+            get
+            {
+                if (_userRepository == null)
+                    _userRepository = new SimpleUserRepository(context);
+                return _userRepository;
+            }
+        }
+
+        public ITripRepository tripRepository
+        {
+            get
+            {
+                if (_tripRepository == null)
+                    _tripRepository = new TripRepository(context);
+                return _tripRepository;
+            }
+        }
+        #endregion
 
         public void Save()
         {
