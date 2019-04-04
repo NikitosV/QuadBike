@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using QuadBike.DataProvider.EF;
-using QuadBike.DataProvider.Entities;
 using QuadBike.DataProvider.Interfaces;
+using QuadBike.Model.Context;
+using QuadBike.Model.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace QuadBike.DataProvider.Repositories
@@ -38,6 +37,11 @@ namespace QuadBike.DataProvider.Repositories
         public IEnumerable<Bike> GetAll()                             // read all
         {
             return db.Bikes;
+        }
+
+        public string Send()
+        {
+            return "Sent by Test";
         }
 
         public void Update(Bike item)                               // update

@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using QuadBike.DataProvider.EF;
-using QuadBike.DataProvider.Entities;
 using QuadBike.DataProvider.Interfaces;
+using QuadBike.Model.Context;
+using QuadBike.Model.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace QuadBike.DataProvider.Repositories

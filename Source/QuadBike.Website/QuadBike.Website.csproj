@@ -9,14 +9,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
   </ItemGroup>
 
 
   <ItemGroup>
     <ProjectReference Include="..\QuadBike.Common\QuadBike.Common.csproj" />
+    <ProjectReference Include="..\QuadBike.DataProvider\QuadBike.DataProvider.csproj" />
     <ProjectReference Include="..\QuadBike.Logic\QuadBike.Logic.csproj" />
-    <ProjectReference Include="..\QuadBike.Model\QuadBike.Model.csproj" />
   </ItemGroup>
 
 </Project>
