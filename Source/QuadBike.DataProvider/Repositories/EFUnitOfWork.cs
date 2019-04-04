@@ -21,12 +21,24 @@ namespace QuadBike.DataProvider.Repositories
         private TripRepository _tripRepository;
         private SimpleUserRepository _userRepository;
 
+        private ApplicationUserRepository _applicationUserRepository;
+
         //private ApplicationUserManager _userManager;
         //private ApplicationRoleManager _roleManager;
 
         public EFUnitOfWork(DbContextOptions<QuadBikeContext> options)
         {
             context = new QuadBikeContext(options);
+        }
+
+        public IApplicationUserRepository applicationUserRepository
+        {
+            get
+            {
+                if (_applicationUserRepository == null)
+                    _applicationUserRepository = new ApplicationUserRepository(context);
+                return _applicationUserRepository;
+            }
         }
 
         #region ====== IRepository<T> ==========
@@ -152,6 +164,7 @@ namespace QuadBike.DataProvider.Repositories
                 return _tripRepository;
             }
         }
+
         #endregion
 
         public void Save()

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace QuadBike.DataProvider.Interfaces
 {
-    public interface IProviderRepository
+    public interface IMyUserRepository
     {
     }
 }

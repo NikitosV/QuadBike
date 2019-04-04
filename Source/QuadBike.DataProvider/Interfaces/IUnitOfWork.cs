@@ -9,6 +9,8 @@ namespace QuadBike.DataProvider.Interfaces
     public interface IUnitOfWork : IDisposable
     {
 
+        IApplicationUserRepository applicationUserRepository { get; }
+
         IRepository<Bike> Bikes { get; }
         IRepository<Provider> Providers { get; }
         IRepository<RentBike> RentBikes { get; }

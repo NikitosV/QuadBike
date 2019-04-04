@@ -6,6 +6,6 @@ namespace QuadBike.DataProvider.Interfaces
 {
     public interface IBikeRepository
     {
-
+        string Send();
     }
 }

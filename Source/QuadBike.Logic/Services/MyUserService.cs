@@ -5,7 +5,7 @@ using System.Text;
 
 namespace QuadBike.Logic.Services
 {
-    public class TripService : ITripService
+    public class MyUserService : IMyUserService
     {
     }
 }

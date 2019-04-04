@@ -8,38 +8,37 @@ using System.Text;
 
 namespace QuadBike.DataProvider.Repositories
 {
-    public class RentBikeRepository : IRepository<RentBike>, IRentBikeRepository
+    public class MyUserRepository : IRepository<MyUser>, IMyUserRepository
     {
         private QuadBikeContext db;
 
-        public RentBikeRepository(QuadBikeContext context)
+        public MyUserRepository(QuadBikeContext context)
         {
             this.db = context;
         }
-
-        public void Create(RentBike item)
+        public void Create(MyUser item)
         {
-            db.RentBikes.Add(item);
+            db.MyUsers.Add(item);
         }
 
         public void Delete(int id)
         {
-            RentBike item = db.RentBikes.Find(id);
+            MyUser item = db.MyUsers.Find(id);
             if (item != null)
-                db.RentBikes.Remove(item);
+                db.MyUsers.Remove(item);
         }
 
-        public RentBike Get(int id)
+        public MyUser Get(int id)
         {
-            return db.RentBikes.Find(id);
+            return db.MyUsers.Find(id);
         }
 
-        public IEnumerable<RentBike> GetAll()
+        public IEnumerable<MyUser> GetAll()
         {
-            return db.RentBikes;
+            return db.MyUsers;
         }
 
-        public void Update(RentBike item)
+        public void Update(MyUser item)
         {
             db.Entry(item).State = EntityState.Modified;
         }
