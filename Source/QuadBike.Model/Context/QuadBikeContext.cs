@@ -16,11 +16,11 @@ namespace QuadBike.Model.Context
             Database.EnsureCreated();
         }
 
-        public DbSet<Provider> Providers { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<Bike> Bikes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<Trip> Trips { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<RentBike> RentBikes { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<RentTrip> RentTrips { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public DbSet<MyUser> MyUsers { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DbSet<Provider> Providers { get; set; }
+        public DbSet<Bike> Bikes { get; set; }
+        public DbSet<Trip> Trips { get; set; }
+        public DbSet<RentBike> RentBikes { get; set; }
+        public DbSet<RentTrip> RentTrips { get; set; }
+        public DbSet<MyUser> MyUsers { get; set; }
     }
 }
