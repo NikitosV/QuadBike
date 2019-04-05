@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.Logic.Interfaces;
 using QuadBike.Website.Models;
@@ -11,18 +12,18 @@ namespace QuadBike.Website.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProviderService _providerService;
-        private readonly IUserManagerService _userManagerService;
+        private IBikeService _bikeService;
 
-        public HomeController(IProviderService providerService, IUserManagerService userManagerService)
+        public HomeController(IBikeService bikeService)
         {
-            _providerService = providerService;
-            _userManagerService = userManagerService;
+            _bikeService = bikeService;
         }
 
-        public IActionResult Index()
+        public void Index()
         {
-            return View();
+
+            Response.WriteAsync(_bikeService.test());
+            //return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

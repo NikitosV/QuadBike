@@ -6,6 +6,6 @@ namespace QuadBike.Logic.Interfaces
 {
     public interface IBikeService
     {
-
+        string test();
     }
 }
