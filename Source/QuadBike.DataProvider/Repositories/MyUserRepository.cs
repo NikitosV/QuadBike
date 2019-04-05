@@ -8,7 +8,7 @@ using System.Text;
 
 namespace QuadBike.DataProvider.Repositories
 {
-    public class MyUserRepository : IRepository<MyUser>, IMyUserRepository
+    public class MyUserRepository : IMyUserRepository
     {
         private QuadBikeContext db;
 
@@ -16,6 +16,7 @@ namespace QuadBike.DataProvider.Repositories
         {
             this.db = context;
         }
+
         public void Create(MyUser item)
         {
             db.MyUsers.Add(item);

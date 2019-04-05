@@ -8,7 +8,7 @@ using System.Text;
 
 namespace QuadBike.DataProvider.Repositories
 {
-    public class BikeRepository : IRepository<Bike>, IBikeRepository
+    public class BikeRepository : IBikeRepository
     {
         private QuadBikeContext db;
 
@@ -37,11 +37,6 @@ namespace QuadBike.DataProvider.Repositories
         public IEnumerable<Bike> GetAll()                             // read all
         {
             return db.Bikes;
-        }
-
-        public string Send()
-        {
-            return "Sent by Test";
         }
 
         public void Update(Bike item)                               // update
