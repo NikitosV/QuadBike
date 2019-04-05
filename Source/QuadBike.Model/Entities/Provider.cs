@@ -21,10 +21,13 @@ namespace QuadBike.Model.Entities
         [MaxLength(200)]
         public string Description { get; set; }
 
+        //public int AccountId { get; set; }
+
+        [ForeignKey("AccountId")]
+        public virtual Account Account { get; set; }
+
         public virtual ICollection<Trip> Trips { get; set; }
 
         public virtual ICollection<Bike> Bikes { get; set; }
-
-        public Account Account { get; set; }
     }
 }

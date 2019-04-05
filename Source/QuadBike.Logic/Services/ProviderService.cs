@@ -7,5 +7,9 @@ namespace QuadBike.Logic.Services
 {
     public class ProviderService : IProviderService
     {
+        public void test()
+        {
+            
+        }
     }
 }

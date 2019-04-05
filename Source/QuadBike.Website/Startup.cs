@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QuadBike.DataProvider.Interfaces;
 using QuadBike.DataProvider.Repositories;
+using QuadBike.Logic.Interfaces;
+using QuadBike.Logic.Services;
 using QuadBike.Model.Context;
 using QuadBike.Model.Entities;
 
@@ -29,13 +31,11 @@ namespace QuadBike.Website
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<QuadBikeContext>(options =>
+            services.AddDbContext<IQuadBikeContext, QuadBikeContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<Account, IdentityRole>()
+            services.AddIdentity<Account, IdentityRole>()           // Attention
                 .AddEntityFrameworkStores<QuadBikeContext>();
-
-            services.AddScoped<IQuadBikeContext, QuadBikeContext>();
 
             services.AddScoped<IBikeRepository, BikeRepository>();
             services.AddScoped<IMyUserRepository, MyUserRepository>();
@@ -44,8 +44,14 @@ namespace QuadBike.Website
             services.AddScoped<IRentTripRepository, RentTripRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
 
+            services.AddScoped<IBikeService, BikeService>();
+            services.AddScoped<IMyUserService, MyUserService>();
+            services.AddScoped<IProviderService, ProviderService>();
+            services.AddScoped<IRentBikeService, RentBikeService>();
+            services.AddScoped<IRentTripService, RentTripService>();
+            services.AddScoped<ITripService, TripService>();
 
-            //builder.RegisterType<BikeRepository>().As<IBikeRepository>().InstancePerRequest();
+            services.AddScoped<IUserManagerService, UserManagerService>();
 
             services.AddMvc();
         }

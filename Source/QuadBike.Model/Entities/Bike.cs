@@ -12,9 +12,6 @@ namespace QuadBike.Model.Entities
         [Key]
         public int Id { get; set; }           //Id
 
-        [ForeignKey("BikeProvider")]
-        public int ProvideId { get; set; }
-
         [MaxLength(50)]
         public string Name { get; set; }     //Name
 
@@ -31,6 +28,9 @@ namespace QuadBike.Model.Entities
         public string Description { get; set; }    // description
 
         public int Price { get; set; }   // price
+
+        [ForeignKey("ProviderId")]
+        public int ProviderId { get; set; }
 
         public virtual Provider Provider { get; set; }
 

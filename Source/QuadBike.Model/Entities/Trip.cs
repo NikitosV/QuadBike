@@ -12,9 +12,6 @@ namespace QuadBike.Model.Entities
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("TripProvider")]
-        public int ProvideId { get; set; }
-
         [MaxLength(50)]
         public string TripName { get; set; }     //Name of Trip
 
@@ -37,6 +34,9 @@ namespace QuadBike.Model.Entities
         public int Price { get; set; }    //price
 
         public bool IsActivate { get; set; }   // is activate of trip
+
+        [ForeignKey("ProviderId")]
+        public int ProviderId { get; set; }
 
         public virtual Provider Provider { get; set; }
 
