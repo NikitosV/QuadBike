@@ -20,6 +20,8 @@ namespace QuadBike.Model.Context
 
         DbSet<RentTrip> RentTrips { get; set; }
 
+        DbSet<Account> Accounts { get; set; }
+
         int SaveChanges();
     }
 }

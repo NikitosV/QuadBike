@@ -22,5 +22,6 @@ namespace QuadBike.Model.Context
         public DbSet<RentBike> RentBikes { get; set; }
         public DbSet<RentTrip> RentTrips { get; set; }
         public DbSet<MyUser> MyUsers { get; set; }
+        public DbSet<Account> Accounts { get; set; }
     }
 }

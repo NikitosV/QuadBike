@@ -12,13 +12,13 @@ namespace QuadBike.Model.Entities
         [Key]
         public int Id { get; set; }         //id
 
-        [ForeignKey("TripRentTrip")]
-        public int TripId { get; set; }
-
-        [ForeignKey("UserRentTrip")]
-        public int UserId { get; set; }
+        [ForeignKey("MyUserId")]
+        public int MyUserId { get; set; }
 
         public virtual MyUser MyUser { get; set; }
+
+        [ForeignKey("TripId")]
+        public int TripId { get; set; }
 
         public virtual Trip Trip { get; set; }
     }
