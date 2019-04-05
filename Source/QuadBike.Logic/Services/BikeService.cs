@@ -7,5 +7,9 @@ namespace QuadBike.Logic.Services
 {
     public class BikeService : IBikeService
     {
+        public string test()
+        {
+            return "if you see this. Its mean DI work :))";
+        }
     }
 }
