@@ -38,6 +38,7 @@ namespace QuadBike.Website
                 .AddEntityFrameworkStores<QuadBikeContext>();
 
             services.AddScoped<IQuadBikeContext, QuadBikeContext>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IBikeRepository, BikeRepository>();
             services.AddScoped<IMyUserRepository, MyUserRepository>();
             services.AddScoped<IProviderRepository, ProviderRepository>();

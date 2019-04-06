@@ -10,8 +10,8 @@ namespace QuadBike.Logic.Interfaces
 {
     public interface IUserManagerService
     {
-        Task<IdentityResult> CreateAccount(RegisterViewModel model, string password);
-        Task<SignInResult> LogInAccount(string email, string password, bool check);
+        Task<IdentityResult> CreateAccount(RegisterViewModel model);
+        Task<SignInResult> LogInAccount(LoginViewModel model);
         Task LogOffAccount();
     }
 }

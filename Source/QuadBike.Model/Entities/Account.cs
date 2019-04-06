@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using QuadBike.Model.ViewModel.AccountViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,5 +11,6 @@ namespace QuadBike.Model.Entities
     {
         public virtual MyUser MyUser { get; set; }
         public virtual Provider Provider { get; set; }
+
     }
 }
