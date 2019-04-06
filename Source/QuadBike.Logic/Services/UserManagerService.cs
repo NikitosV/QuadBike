@@ -1,53 +1,39 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using QuadBike.DataProvider.Interfaces;
 using QuadBike.Logic.Interfaces;
-using QuadBike.Model.Context;
 using QuadBike.Model.Entities;
 using QuadBike.Model.ViewModel.AccountViewModels;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace QuadBike.Logic.Services
 {
     public class UserManagerService : IUserManagerService
     {
-        UserManager<Account> _userManager;
-        SignInManager<Account> _signInManager;
-        IQuadBikeContext _quadBikeContext;
+        private readonly IAccountRepository _accountRepository;
 
-        public UserManagerService(UserManager<Account> userManager, SignInManager<Account> signInManager, IQuadBikeContext quadBikeContext)
+        public UserManagerService(IAccountRepository accountRepository)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _quadBikeContext = quadBikeContext;
+            _accountRepository = accountRepository;
         }
 
-        public Task<IdentityResult> CreateAccount(RegisterViewModel model, string password)
+        public async Task<IdentityResult> CreateAccount(RegisterViewModel model)
         {
-            Account user = new Account { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber };
-            var res = _userManager.CreateAsync(user, password = model.Password);
-            if (res.Result.Succeeded)
-            {
-                _signInManager.SignInAsync(user, false);
+            var res = await _accountRepository.CreateAccount(new Account { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber }, model.Password);
+            if (res != null)
                 return res;
-            }
-            else
-            {
-                return null;
-            }
+            return new IdentityResult();
         }
 
-        public Task<SignInResult> LogInAccount(string email, string password, bool check)
+        public async Task<SignInResult> LogInAccount(LoginViewModel model)
         {
-            var res = _signInManager.PasswordSignInAsync(email, password, check, false);
+            var res = await _accountRepository.LogInAccount(model.Email, model.Password, model.RememberMe);
             return res;
         }
 
-        public Task LogOffAccount()
+        public async Task LogOffAccount()
         {
-            var res = _signInManager.SignOutAsync();
-            return res;
+            await _accountRepository.LogOffAccount();
         }
     }
 }

@@ -26,11 +26,11 @@ namespace QuadBike.Website.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model)                   // Register
         {
             if (ModelState.IsValid)
             {
-                var result =  await _userManagerService.CreateAccount(model, model.Password);
+                var result =  await _userManagerService.CreateAccount(model);
 
                 if (result.Succeeded)
                 {
@@ -59,7 +59,7 @@ namespace QuadBike.Website.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _userManagerService.LogInAccount(model.Email, model.Password, model.RememberMe);
+                var result = await _userManagerService.LogInAccount(model);
                 if (result.Succeeded)
                 {
                     // проверяем, принадлежит ли URL приложению

@@ -1,37 +1,39 @@
 ﻿@model QuadBike.Model.ViewModel.AccountViewModels.LoginViewModel
 @if (User.Identity.IsAuthenticated)
 {
-    <p>@User.Identity.Name</p>
-
     <form method="post" asp-controller="Account" asp-action="LogOff">
-        <input type="submit" value="Log Off" />
+        <input class="btn btn-danger" type="submit" value="Log Off" />
     </form>
 }
 else
 {
-    <h2>Login</h2>
     <form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
         <div asp-validation-summary="ModelOnly"></div>
-        <div>
-            <label asp-for="Email"></label><br />
-            <input asp-for="Email" />
-            <span asp-validation-for="Email"></span>
-        </div>
-        <div>
-            <label asp-for="Password"></label><br />
-            <input asp-for="Password" />
-            <span asp-validation-for="Password"></span>
-        </div>
-        <div>
-            <label asp-for="RememberMe"></label><br />
-            <input asp-for="RememberMe" />
-        </div>
-        <div>
-            <a class="link text-primary" asp-controller="Account" asp-action="Register">I am not registered yet :(</a>
-        </div>
-        <br />
-        <div>
-            <input type="submit" value="Enter" />
+        <div class="col-3">
+            <h2>Login</h2>
+            <div class="form-group">
+                <label asp-for="Email"></label><br />
+                <input class="form-control" asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password"></label><br />
+                <input class="form-control" asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RememberMe"></label><br />
+                <div class="form-check">
+                    <input class="form-check-input" asp-for="RememberMe" />
+                </div><br />
+            </div>
+            <div>
+                <a class="link text-primary" asp-controller="Account" asp-action="Register">I am not registered yet :(</a>
+            </div>
+            <br/>
+            <div>
+                <input class="btn btn-primary" type="submit" value="Submit" />
+            </div>
         </div>
     </form>
 }

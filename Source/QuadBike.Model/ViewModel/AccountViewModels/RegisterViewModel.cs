@@ -25,5 +25,6 @@ namespace QuadBike.Model.ViewModel.AccountViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         public string PasswordConfirm { get; set; }
+
     }
 }
