@@ -349,12 +349,16 @@ namespace QuadBike.Model.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_MyUser_AccountId",
                 table: "MyUser",
-                column: "AccountId");
+                column: "AccountId",
+                unique: true,
+                filter: "[AccountId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Provider_AccountId",
                 table: "Provider",
-                column: "AccountId");
+                column: "AccountId",
+                unique: true,
+                filter: "[AccountId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RentBike_BikeId",
