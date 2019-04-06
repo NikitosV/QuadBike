@@ -31,12 +31,13 @@ namespace QuadBike.Website
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<IQuadBikeContext, QuadBikeContext>(options =>
+            services.AddDbContext<QuadBikeContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<Account, IdentityRole>()           // Attention
                 .AddEntityFrameworkStores<QuadBikeContext>();
 
+            services.AddScoped<IQuadBikeContext, QuadBikeContext>();
             services.AddScoped<IBikeRepository, BikeRepository>();
             services.AddScoped<IMyUserRepository, MyUserRepository>();
             services.AddScoped<IProviderRepository, ProviderRepository>();

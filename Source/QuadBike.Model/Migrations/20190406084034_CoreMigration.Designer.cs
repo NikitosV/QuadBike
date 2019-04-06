@@ -10,7 +10,7 @@ using QuadBike.Model.Context;
 namespace QuadBike.Model.Migrations
 {
     [DbContext(typeof(QuadBikeContext))]
-    [Migration("20190405122137_CoreMigration")]
+    [Migration("20190406084034_CoreMigration")]
     partial class CoreMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -230,7 +230,9 @@ namespace QuadBike.Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountId")
+                        .IsUnique()
+                        .HasFilter("[AccountId] IS NOT NULL");
 
                     b.ToTable("MyUser");
                 });
@@ -254,7 +256,9 @@ namespace QuadBike.Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountId")
+                        .IsUnique()
+                        .HasFilter("[AccountId] IS NOT NULL");
 
                     b.ToTable("Provider");
                 });
@@ -389,15 +393,15 @@ namespace QuadBike.Model.Migrations
             modelBuilder.Entity("QuadBike.Model.Entities.MyUser", b =>
                 {
                     b.HasOne("QuadBike.Model.Entities.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId");
+                        .WithOne("MyUser")
+                        .HasForeignKey("QuadBike.Model.Entities.MyUser", "AccountId");
                 });
 
             modelBuilder.Entity("QuadBike.Model.Entities.Provider", b =>
                 {
                     b.HasOne("QuadBike.Model.Entities.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId");
+                        .WithOne("Provider")
+                        .HasForeignKey("QuadBike.Model.Entities.Provider", "AccountId");
                 });
 
             modelBuilder.Entity("QuadBike.Model.Entities.RentBike", b =>

@@ -8,6 +8,7 @@ namespace QuadBike.Model.Entities
 {
     public class Account : IdentityUser
     {
-
+        public virtual MyUser MyUser { get; set; }
+        public virtual Provider Provider { get; set; }
     }
 }

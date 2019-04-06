@@ -19,11 +19,9 @@ namespace QuadBike.Website.Controllers
             _bikeService = bikeService;
         }
 
-        public void Index()
+        public IActionResult Index()
         {
-
-            Response.WriteAsync(_bikeService.test());
-            //return View();
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
