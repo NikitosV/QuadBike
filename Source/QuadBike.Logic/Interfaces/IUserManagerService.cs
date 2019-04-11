@@ -15,12 +15,14 @@ namespace QuadBike.Logic.Interfaces
         Task<SignInResult> LogInAccount(LoginViewModel model);
         Task LogOffAccount();
 
-        List<IdentityRole> ShowListOfRoles();
+        IList<IdentityRole> ShowListOfRoles();
+        //Task<IList<IdentityRole>> ShowListOfRoles();
         Task<IdentityResult> CreateRole(string name);
         Task<IdentityRole> FindByIdRole(string id);
         Task<IdentityResult> DeleteRole(IdentityRole role);
         List<Account> ShowListUsers();
 
+        Task<Account> GetUserById(string userId);
         ChangeRoleViewModel Edit(string userId);
         Task<IList<string>> GetRolesByAccount(string userId);
         Task<IdentityResult> AddToRole(string userId, IEnumerable<string> rol);

@@ -11,7 +11,8 @@ namespace QuadBike.DataProvider.Interfaces
         Task<SignInResult> LogInAccount(string email, string password, bool check);
         Task LogOffAccount();
 
-        List<IdentityRole> ShowListOfRoles();
+        IList<IdentityRole> ShowListOfRoles();
+       // Task<IList<IdentityRole>> ShowListOfRoles();
         Task<IdentityResult> CreateRole(string name);
         Task<IdentityRole> FindByIdRole(string id);
         Task<IdentityResult> DeleteRole(IdentityRole role);

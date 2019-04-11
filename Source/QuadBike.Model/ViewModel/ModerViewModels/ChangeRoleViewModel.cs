@@ -10,7 +10,7 @@ namespace QuadBike.Model.ViewModel.ModerViewModels
     {
         public string UserId { get; set; }
         public string UserEmail { get; set; }
-        public List<IdentityRole> AllRoles { get; set; }
+        public IList<IdentityRole> AllRoles { get; set; }
         public IList<string> UserRoles { get; set; }
         public ChangeRoleViewModel()
         {

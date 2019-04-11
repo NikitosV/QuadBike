@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.Logic.Interfaces;
+using QuadBike.Model.ViewModel.ModerViewModels;
 
 namespace QuadBike.Website.Controllers
 {
+    [Authorize(Roles = "moderator")]
     public class ModerController : Controller
     {
         private readonly IUserManagerService _userManagerService;
@@ -66,16 +69,24 @@ namespace QuadBike.Website.Controllers
 
         public async Task<IActionResult> Edit(string userId)
         {
-            var res = _userManagerService.Edit(userId);
+            // получаем пользователя
+            var account = _userManagerService.GetUserById(userId);
+            if (account != null)
+            {
+                // получем список ролей пользователя
+                var userRoles = await _userManagerService.GetRolesByAccount(userId);
+                var allRoles = _userManagerService.ShowListOfRoles();
+                ChangeRoleViewModel model = new ChangeRoleViewModel
+                {
+                    UserId = account.Result.Id,
+                    UserEmail = account.Result.Email,
+                    UserRoles = userRoles,
+                    AllRoles = allRoles
+                };
+                return View(model);
+            }
 
-            if (res != null)
-            {
-                return View(res);
-            }
-            else
-            {
-                return NotFound();
-            }
+            return NotFound();
         }
 
         [HttpPost]
@@ -105,3 +116,15 @@ namespace QuadBike.Website.Controllers
         }
     }
 }
+
+
+//var res = _userManagerService.Edit(userId);
+
+//if (res != null)
+//{
+//    return View(res);
+//}
+//else
+//{
+//    return NotFound();
+//}

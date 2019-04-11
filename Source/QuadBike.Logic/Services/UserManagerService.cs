@@ -38,9 +38,10 @@ namespace QuadBike.Logic.Services
             await _accountRepository.LogOffAccount();
         }
 
-        public List<IdentityRole> ShowListOfRoles()
+        public IList<IdentityRole> ShowListOfRoles()
         {
-            return _accountRepository.ShowListOfRoles();
+            var res = _accountRepository.ShowListOfRoles();
+            return res;
         }
 
         public Task<IdentityResult> CreateRole(string name)
@@ -67,10 +68,16 @@ namespace QuadBike.Logic.Services
             return res;
         }
 
+        public Task<Account> GetUserById(string userId)
+        {
+            var res = _accountRepository.GetUserById(userId);
+            return res;
+        }
+
         public ChangeRoleViewModel Edit(string userId)
         {
             var account = _accountRepository.GetUserById(userId);
-            if(account != null)
+            if (account != null)
             {
                 var userRoles = _accountRepository.GetRolesOfUser(account.Result);
                 var allRoles = _accountRepository.ShowListOfRoles();
@@ -86,6 +93,7 @@ namespace QuadBike.Logic.Services
             }
             return null;
         }
+
         public Task<IList<string>> GetRolesByAccount(string userId)
         {
             var res = _accountRepository.GetRolesByAccount(userId);

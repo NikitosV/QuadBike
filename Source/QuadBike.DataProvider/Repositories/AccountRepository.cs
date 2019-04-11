@@ -17,7 +17,7 @@ namespace QuadBike.DataProvider.Repositories
         private SignInManager<Account> _signInManager;
         private RoleManager<IdentityRole> _roleManager;
 
-        public AccountRepository(QuadBikeContext context, UserManager<Account> userManager, SignInManager<Account> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountRepository(UserManager<Account> userManager, SignInManager<Account> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -50,7 +50,7 @@ namespace QuadBike.DataProvider.Repositories
             return res;
         }
 
-        public List<IdentityRole> ShowListOfRoles()                            // list of roles
+        public IList<IdentityRole> ShowListOfRoles()                            // list of roles
         {
             var res = _roleManager.Roles.ToList();
             return res;
