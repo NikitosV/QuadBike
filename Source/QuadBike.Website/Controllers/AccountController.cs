@@ -55,7 +55,7 @@ namespace QuadBike.Website.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)                                        // Login In
         {
             if (ModelState.IsValid)
             {
@@ -82,7 +82,7 @@ namespace QuadBike.Website.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> LogOff()
+        public async Task<IActionResult> LogOff()                                                    //Log Out
         {
             // удаляем аутентификационные куки
             await _userManagerService.LogOffAccount();
