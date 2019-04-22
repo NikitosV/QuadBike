@@ -10,9 +10,9 @@ namespace QuadBike.DataProvider.Repositories
 {
     public class BikeRepository : IBikeRepository
     {
-        private QuadBikeContext db;
+        private IQuadBikeContext db;
 
-        public BikeRepository(QuadBikeContext context)
+        public BikeRepository(IQuadBikeContext context)
         {
             this.db = context;
         }
@@ -42,6 +42,17 @@ namespace QuadBike.DataProvider.Repositories
         public void Update(Bike item)                               // update
         {
             db.Entry(item).State = EntityState.Modified;
+        }
+
+        public void DeleteById(int? bikeId)
+        {
+            //FirstOrDefaultAsync(p => p.Id == bikeId);
+            Bike bike = db.Bikes.Find(bikeId);
+            if (bike != null)
+            {
+                db.Bikes.Remove(bike);
+            }
+            //db.Entry(bike).State = EntityState.Deleted;
         }
     }
 }

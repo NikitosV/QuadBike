@@ -1,0 +1,31 @@
+﻿@model IEnumerable<QuadBike.Model.Entities.Bike>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bikes:</h2>
+<table class="table">
+    <tr><th>Name</th><th>Max speed</th><th>Power</th><th>TypeEngine</th><th>Fuel(L)</th><th>Description</th><th>Price</th><th></th></tr>
+    @foreach (var bike in Model)
+    {
+        <tr>
+            <td>@bike.Name</td>
+            <td>@bike.MaxSpeed km/h</td>
+            <td>@bike.Power</td>
+            <td>@bike.TypeEngine</td>
+            <td>@bike.Fuel</td>
+            <td>@bike.Description</td>
+            <td>@bike.Price $</td>
+            <td>
+                <form asp-controller="Bike" asp-action="Delete" asp-route-id="@bike.Id" method="post">
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<div>
+    <a class="btn btn-primary" asp-controller="Bike" asp-action="Create">Add Bike</a>
+</div>

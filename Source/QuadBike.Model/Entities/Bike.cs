@@ -29,10 +29,10 @@ namespace QuadBike.Model.Entities
 
         public int Price { get; set; }   // price
 
-        [ForeignKey("ProviderId")]
-        public int ProviderId { get; set; }
+        [ForeignKey("AccountId")]
+        public string AccountId { get; set; }
 
-        public virtual Provider Provider { get; set; }
+        public virtual Account Account { get; set; }
 
         public virtual ICollection<RentBike> RentBikes { get; set; }
     }

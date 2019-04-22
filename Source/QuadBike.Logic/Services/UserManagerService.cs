@@ -74,6 +74,13 @@ namespace QuadBike.Logic.Services
             return res;
         }
 
+        public Task<Account> GetUserByName(string userName)
+        {
+            var res = _accountRepository.GetUserByName(userName);
+            return res;
+        }
+
+
         public ChangeRoleViewModel Edit(string userId)
         {
             var account = _accountRepository.GetUserById(userId);

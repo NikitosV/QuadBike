@@ -40,7 +40,10 @@ namespace QuadBike.Model.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Adress = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -154,49 +157,6 @@ namespace QuadBike.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MyUser",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: true),
-                    Surname = table.Column<string>(maxLength: 50, nullable: true),
-                    AccountId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MyUser", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_MyUser_AspNetUsers_AccountId",
-                        column: x => x.AccountId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Provider",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CompanyName = table.Column<string>(maxLength: 50, nullable: true),
-                    Adress = table.Column<string>(maxLength: 50, nullable: true),
-                    Description = table.Column<string>(maxLength: 200, nullable: true),
-                    AccountId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Provider", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Provider_AspNetUsers_AccountId",
-                        column: x => x.AccountId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Bike",
                 columns: table => new
                 {
@@ -209,17 +169,17 @@ namespace QuadBike.Model.Migrations
                     Fuel = table.Column<int>(nullable: false),
                     Description = table.Column<string>(maxLength: 200, nullable: true),
                     Price = table.Column<int>(nullable: false),
-                    ProviderId = table.Column<int>(nullable: false)
+                    AccountId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bike", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bike_Provider_ProviderId",
-                        column: x => x.ProviderId,
-                        principalTable: "Provider",
+                        name: "FK_Bike_AspNetUsers_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -237,17 +197,17 @@ namespace QuadBike.Model.Migrations
                     Description = table.Column<string>(maxLength: 200, nullable: true),
                     Price = table.Column<int>(nullable: false),
                     IsActivate = table.Column<bool>(nullable: false),
-                    ProviderId = table.Column<int>(nullable: false)
+                    AccountId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Trip", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Trip_Provider_ProviderId",
-                        column: x => x.ProviderId,
-                        principalTable: "Provider",
+                        name: "FK_Trip_AspNetUsers_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -256,22 +216,22 @@ namespace QuadBike.Model.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    MyUserId = table.Column<int>(nullable: false),
+                    AccountId = table.Column<string>(nullable: true),
                     BikeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RentBike", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_RentBike_AspNetUsers_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_RentBike_Bike_BikeId",
                         column: x => x.BikeId,
                         principalTable: "Bike",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_RentBike_MyUser_MyUserId",
-                        column: x => x.MyUserId,
-                        principalTable: "MyUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -282,18 +242,18 @@ namespace QuadBike.Model.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    MyUserId = table.Column<int>(nullable: false),
+                    AccountId = table.Column<string>(nullable: true),
                     TripId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RentTrip", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RentTrip_MyUser_MyUserId",
-                        column: x => x.MyUserId,
-                        principalTable: "MyUser",
+                        name: "FK_RentTrip_AspNetUsers_AccountId",
+                        column: x => x.AccountId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_RentTrip_Trip_TripId",
                         column: x => x.TripId,
@@ -342,23 +302,14 @@ namespace QuadBike.Model.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Bike_ProviderId",
+                name: "IX_Bike_AccountId",
                 table: "Bike",
-                column: "ProviderId");
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MyUser_AccountId",
-                table: "MyUser",
-                column: "AccountId",
-                unique: true,
-                filter: "[AccountId] IS NOT NULL");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Provider_AccountId",
-                table: "Provider",
-                column: "AccountId",
-                unique: true,
-                filter: "[AccountId] IS NOT NULL");
+                name: "IX_RentBike_AccountId",
+                table: "RentBike",
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RentBike_BikeId",
@@ -366,14 +317,9 @@ namespace QuadBike.Model.Migrations
                 column: "BikeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RentBike_MyUserId",
-                table: "RentBike",
-                column: "MyUserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RentTrip_MyUserId",
+                name: "IX_RentTrip_AccountId",
                 table: "RentTrip",
-                column: "MyUserId");
+                column: "AccountId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RentTrip_TripId",
@@ -381,9 +327,9 @@ namespace QuadBike.Model.Migrations
                 column: "TripId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Trip_ProviderId",
+                name: "IX_Trip_AccountId",
                 table: "Trip",
-                column: "ProviderId");
+                column: "AccountId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -416,13 +362,7 @@ namespace QuadBike.Model.Migrations
                 name: "Bike");
 
             migrationBuilder.DropTable(
-                name: "MyUser");
-
-            migrationBuilder.DropTable(
                 name: "Trip");
-
-            migrationBuilder.DropTable(
-                name: "Provider");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

@@ -10,9 +10,9 @@ namespace QuadBike.DataProvider.Repositories
 {
     public class RentBikeRepository : IRentBikeRepository
     {
-        private QuadBikeContext db;
+        private readonly IQuadBikeContext db;
 
-        public RentBikeRepository(QuadBikeContext context)
+        public RentBikeRepository(IQuadBikeContext context)
         {
             this.db = context;
         }
@@ -41,7 +41,8 @@ namespace QuadBike.DataProvider.Repositories
 
         public void Update(RentBike item)
         {
-            db.Entry(item).State = EntityState.Modified;
+            throw new NotImplementedException();
+            //db.Entry(item).State = EntityState.Modified;
         }
     }
 }

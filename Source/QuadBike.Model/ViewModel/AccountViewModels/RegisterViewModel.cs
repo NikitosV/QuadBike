@@ -21,7 +21,7 @@ namespace QuadBike.Model.ViewModel.AccountViewModels
         public string Password { get; set; }
 
         [Required]
-        [Compare("Password", ErrorMessage = "Passwoeds do not match")]
+        [Compare("Password", ErrorMessage = "Passwords do not match")]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         public string PasswordConfirm { get; set; }
