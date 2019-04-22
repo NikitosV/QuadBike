@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using QuadBike.DataProvider.Interfaces;
 using QuadBike.Model.Context;
 using QuadBike.Model.Entities;
@@ -6,6 +7,7 @@ using QuadBike.Model.ViewModel.AccountViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,12 +18,14 @@ namespace QuadBike.DataProvider.Repositories
         private UserManager<Account> _userManager;
         private SignInManager<Account> _signInManager;
         private RoleManager<IdentityRole> _roleManager;
+        private IQuadBikeContext _db;
 
-        public AccountRepository(UserManager<Account> userManager, SignInManager<Account> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountRepository(UserManager<Account> userManager, SignInManager<Account> signInManager, RoleManager<IdentityRole> roleManager, QuadBikeContext db)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _db = db;
         }
 
         public Task<IdentityResult> CreateAccount(Account model, string password)                   // create account
@@ -120,6 +124,12 @@ namespace QuadBike.DataProvider.Repositories
             var account = _userManager.FindByIdAsync(userId);
             var res = _userManager.RemoveFromRolesAsync(account.Result, remRol);
             return res;
+        }
+
+        public Task<Account> GetUserByName(string userName)                     // get user by name
+        {
+            var account = _userManager.FindByEmailAsync(userName);
+            return account;
         }
     }
 }

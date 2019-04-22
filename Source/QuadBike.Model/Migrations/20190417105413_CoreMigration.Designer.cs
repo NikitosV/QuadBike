@@ -10,7 +10,7 @@ using QuadBike.Model.Context;
 namespace QuadBike.Model.Migrations
 {
     [DbContext(typeof(QuadBikeContext))]
-    [Migration("20190406084034_CoreMigration")]
+    [Migration("20190417105413_CoreMigration")]
     partial class CoreMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -138,8 +138,12 @@ namespace QuadBike.Model.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
+                    b.Property<string>("Adress");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
+
+                    b.Property<string>("Description");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -149,6 +153,8 @@ namespace QuadBike.Model.Migrations
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<string>("Name");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -188,6 +194,8 @@ namespace QuadBike.Model.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AccountId");
+
                     b.Property<string>("Description")
                         .HasMaxLength(200);
 
@@ -202,65 +210,14 @@ namespace QuadBike.Model.Migrations
 
                     b.Property<int>("Price");
 
-                    b.Property<int>("ProviderId");
-
                     b.Property<string>("TypeEngine")
                         .HasMaxLength(50);
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProviderId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("Bike");
-                });
-
-            modelBuilder.Entity("QuadBike.Model.Entities.MyUser", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AccountId");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("Surname")
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId")
-                        .IsUnique()
-                        .HasFilter("[AccountId] IS NOT NULL");
-
-                    b.ToTable("MyUser");
-                });
-
-            modelBuilder.Entity("QuadBike.Model.Entities.Provider", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AccountId");
-
-                    b.Property<string>("Adress")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("CompanyName")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(200);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountId")
-                        .IsUnique()
-                        .HasFilter("[AccountId] IS NOT NULL");
-
-                    b.ToTable("Provider");
                 });
 
             modelBuilder.Entity("QuadBike.Model.Entities.RentBike", b =>
@@ -269,15 +226,15 @@ namespace QuadBike.Model.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BikeId");
+                    b.Property<string>("AccountId");
 
-                    b.Property<int>("MyUserId");
+                    b.Property<int>("BikeId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BikeId");
+                    b.HasIndex("AccountId");
 
-                    b.HasIndex("MyUserId");
+                    b.HasIndex("BikeId");
 
                     b.ToTable("RentBike");
                 });
@@ -288,13 +245,13 @@ namespace QuadBike.Model.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("MyUserId");
+                    b.Property<string>("AccountId");
 
                     b.Property<int>("TripId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MyUserId");
+                    b.HasIndex("AccountId");
 
                     b.HasIndex("TripId");
 
@@ -306,6 +263,8 @@ namespace QuadBike.Model.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AccountId");
 
                     b.Property<int>("AmountOfPeople");
 
@@ -320,8 +279,6 @@ namespace QuadBike.Model.Migrations
 
                     b.Property<int>("Price");
 
-                    b.Property<int>("ProviderId");
-
                     b.Property<DateTime>("StartDate");
 
                     b.Property<string>("TripName")
@@ -332,7 +289,7 @@ namespace QuadBike.Model.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProviderId");
+                    b.HasIndex("AccountId");
 
                     b.ToTable("Trip");
                 });
@@ -384,45 +341,28 @@ namespace QuadBike.Model.Migrations
 
             modelBuilder.Entity("QuadBike.Model.Entities.Bike", b =>
                 {
-                    b.HasOne("QuadBike.Model.Entities.Provider", "Provider")
+                    b.HasOne("QuadBike.Model.Entities.Account", "Account")
                         .WithMany("Bikes")
-                        .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("QuadBike.Model.Entities.MyUser", b =>
-                {
-                    b.HasOne("QuadBike.Model.Entities.Account", "Account")
-                        .WithOne("MyUser")
-                        .HasForeignKey("QuadBike.Model.Entities.MyUser", "AccountId");
-                });
-
-            modelBuilder.Entity("QuadBike.Model.Entities.Provider", b =>
-                {
-                    b.HasOne("QuadBike.Model.Entities.Account", "Account")
-                        .WithOne("Provider")
-                        .HasForeignKey("QuadBike.Model.Entities.Provider", "AccountId");
+                        .HasForeignKey("AccountId");
                 });
 
             modelBuilder.Entity("QuadBike.Model.Entities.RentBike", b =>
                 {
+                    b.HasOne("QuadBike.Model.Entities.Account", "Account")
+                        .WithMany("RentBikes")
+                        .HasForeignKey("AccountId");
+
                     b.HasOne("QuadBike.Model.Entities.Bike", "Bike")
                         .WithMany("RentBikes")
                         .HasForeignKey("BikeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("QuadBike.Model.Entities.MyUser", "MyUser")
-                        .WithMany("RentBikes")
-                        .HasForeignKey("MyUserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("QuadBike.Model.Entities.RentTrip", b =>
                 {
-                    b.HasOne("QuadBike.Model.Entities.MyUser", "MyUser")
+                    b.HasOne("QuadBike.Model.Entities.Account", "Account")
                         .WithMany("RentTrips")
-                        .HasForeignKey("MyUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AccountId");
 
                     b.HasOne("QuadBike.Model.Entities.Trip", "Trip")
                         .WithMany("RentTrips")
@@ -432,10 +372,9 @@ namespace QuadBike.Model.Migrations
 
             modelBuilder.Entity("QuadBike.Model.Entities.Trip", b =>
                 {
-                    b.HasOne("QuadBike.Model.Entities.Provider", "Provider")
+                    b.HasOne("QuadBike.Model.Entities.Account", "Account")
                         .WithMany("Trips")
-                        .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AccountId");
                 });
 #pragma warning restore 612, 618
         }

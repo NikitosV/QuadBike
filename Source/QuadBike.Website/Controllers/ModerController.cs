@@ -116,15 +116,3 @@ namespace QuadBike.Website.Controllers
         }
     }
 }
-
-
-//var res = _userManagerService.Edit(userId);
-
-//if (res != null)
-//{
-//    return View(res);
-//}
-//else
-//{
-//    return NotFound();
-//}

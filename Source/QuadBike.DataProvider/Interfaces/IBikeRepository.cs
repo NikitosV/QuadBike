@@ -7,5 +7,6 @@ namespace QuadBike.DataProvider.Interfaces
 {
     public interface IBikeRepository : IRepository<Bike>
     {
+        void DeleteById(int? id);
     }
 }

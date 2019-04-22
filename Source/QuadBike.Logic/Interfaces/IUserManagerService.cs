@@ -19,6 +19,7 @@ namespace QuadBike.Logic.Interfaces
         //Task<IList<IdentityRole>> ShowListOfRoles();
         Task<IdentityResult> CreateRole(string name);
         Task<IdentityRole> FindByIdRole(string id);
+        Task<Account> GetUserByName(string userName);
         Task<IdentityResult> DeleteRole(IdentityRole role);
         List<Account> ShowListUsers();
 

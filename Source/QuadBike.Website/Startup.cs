@@ -15,6 +15,7 @@ using QuadBike.DataProvider.Repositories;
 using QuadBike.Logic.Interfaces;
 using QuadBike.Logic.Services;
 using QuadBike.Model.Context;
+using QuadBike.Model.Context.CommitProvider;
 using QuadBike.Model.Entities;
 
 namespace QuadBike.Website
@@ -31,7 +32,7 @@ namespace QuadBike.Website
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IQuadBikeContext, QuadBikeContext>();
+            services.AddScoped<IQuadBikeContext, QuadBikeContext>();
 
             services.AddDbContext<QuadBikeContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -39,22 +40,18 @@ namespace QuadBike.Website
             services.AddIdentity<Account, IdentityRole>()           // Attention
                 .AddEntityFrameworkStores<QuadBikeContext>();
 
+            services.AddScoped<ICommitProvider, CommitProvider>();
             
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IBikeRepository, BikeRepository>();
-            services.AddScoped<IMyUserRepository, MyUserRepository>();
-            services.AddScoped<IProviderRepository, ProviderRepository>();
             services.AddScoped<IRentBikeRepository, RentBikeRepository>();
             services.AddScoped<IRentTripRepository, RentTripRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
 
             services.AddScoped<IBikeService, BikeService>();
-            services.AddScoped<IMyUserService, MyUserService>();
-            services.AddScoped<IProviderService, ProviderService>();
             services.AddScoped<IRentBikeService, RentBikeService>();
             services.AddScoped<IRentTripService, RentTripService>();
             services.AddScoped<ITripService, TripService>();
-
             services.AddScoped<IUserManagerService, UserManagerService>();
 
             services.AddMvc();

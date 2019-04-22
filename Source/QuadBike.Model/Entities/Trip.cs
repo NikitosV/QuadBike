@@ -35,10 +35,10 @@ namespace QuadBike.Model.Entities
 
         public bool IsActivate { get; set; }   // is activate of trip
 
-        [ForeignKey("ProviderId")]
-        public int ProviderId { get; set; }
+        [ForeignKey("AccountId")]
+        public string AccountId { get; set; }
 
-        public virtual Provider Provider { get; set; }
+        public virtual Account Account { get; set; }
 
         public virtual ICollection<RentTrip> RentTrips { get; set; }
     }

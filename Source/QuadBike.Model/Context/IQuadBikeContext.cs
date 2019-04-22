@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using QuadBike.Model.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,6 @@ namespace QuadBike.Model.Context
 {
     public interface IQuadBikeContext : IDisposable
     {
-        DbSet<MyUser> MyUsers { get; set; }
-
-        DbSet<Provider> Providers { get; set; }
 
         DbSet<Bike> Bikes { get; set; }
 
@@ -21,6 +19,8 @@ namespace QuadBike.Model.Context
         DbSet<RentTrip> RentTrips { get; set; }
 
         DbSet<Account> Accounts { get; set; }
+
+        EntityEntry Entry(object item);
 
         int SaveChanges();
     }
