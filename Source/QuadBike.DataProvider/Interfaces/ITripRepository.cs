@@ -8,5 +8,7 @@ namespace QuadBike.DataProvider.Interfaces
 {
     public interface ITripRepository : IRepository<Trip>
     {
+        IEnumerable<Trip> GetTripsOfCurrentProvider(string id);
+        void DeleteById(int? tripId);
     }
 }

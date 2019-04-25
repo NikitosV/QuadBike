@@ -1,0 +1,49 @@
+﻿@model QuadBike.Model.ViewModel.TripViewModels.TripViewModel
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-controller="Trip" asp-action="Create" method="post">
+    <div class="col-7">
+        <div class="form-group">
+            <label asp-for="TripName"></label><br />
+            <input class="form-control" asp-for="TripName" />
+            <span asp-validation-for="TripName"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Type"></label><br />
+            <input class="form-control" asp-for="Type" />
+            <span asp-validation-for="Type"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Distance"></label><br />
+            <input class="form-control" asp-for="Distance" />
+            <span asp-validation-for="Distance"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="AmountOfPeople"></label><br />
+            <input class="form-control" asp-for="AmountOfPeople" />
+            <span asp-validation-for="AmountOfPeople"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="StartDate"></label><br />
+            <input class="form-control" asp-for="StartDate" />
+            <span asp-validation-for="StartDate"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="EndTrip"></label><br />
+            <input class="form-control" asp-for="EndTrip" />
+            <span asp-validation-for="EndTrip"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label><br />
+            <input class="form-control" asp-for="Description" />
+            <span asp-validation-for="Description"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price"></label><br />
+            <input class="form-control" asp-for="Price" />
+            <span asp-validation-for="Price"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </div>
+</form>
