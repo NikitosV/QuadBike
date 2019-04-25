@@ -26,7 +26,10 @@ namespace QuadBike.Website.Controllers
 
         public IActionResult Index()
         {
-            return View(_bikeService.GetAllBikes());
+            var currentUserName = User.Identity.Name;
+            var userId = _userManagerService.GetUserByName(currentUserName);
+
+            return View(_bikeService.GetBikesOfCurrentProvider(userId.Result.Id));
         }
 
         [HttpGet]
@@ -63,27 +66,3 @@ namespace QuadBike.Website.Controllers
         }
     }
 }
-
-
-//public async Task<IActionResult> Delete(string id)
-//{
-//    var role = await _userManagerService.FindByIdRole(id);
-//    if (role != null)
-//    {
-//        await _userManagerService.DeleteRole(role);
-//    }
-//    return RedirectToAction("Index");
-//}
-
-//public IActionResult UserList()
-//{
-//    return View(_userManagerService.ShowListUsers());
-//}
-
-//public async Task<IActionResult> Edit(string userId)
-//{
-// 
-//    }
-
-//    return NotFound();
-//}

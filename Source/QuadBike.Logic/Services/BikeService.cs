@@ -52,6 +52,12 @@ namespace QuadBike.Logic.Services
             _bikeRepository.DeleteById(id);
         }
 
+        public IEnumerable<Bike> GetBikesOfCurrentProvider(string id)
+        {
+            var res =_bikeRepository.GetBikesOfCurrentProvider(id);
+            return res;
+        }
+
     }
 }
 
