@@ -2,24 +2,22 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.Logic.Interfaces;
 using QuadBike.Model.Context.CommitProvider;
-using QuadBike.Model.ViewModel.BikeViewModels;
+using QuadBike.Model.ViewModel.TripViewModels;
 
 namespace QuadBike.Website.Controllers
 {
-    [Authorize(Roles = "provider")]
-    public class BikeController : Controller
+    public class TripController : Controller
     {
-        private readonly IBikeService _bikeService;
+        private readonly ITripService _tripService;
         private readonly IUserManagerService _userManagerService;
         private readonly ICommitProvider _commitProvider;
 
-        public BikeController(IBikeService bikeService, IUserManagerService userManagerService, ICommitProvider commitProvider)
+        public TripController(ITripService tripService, IUserManagerService userManagerService, ICommitProvider commitProvider)
         {
-            _bikeService = bikeService;
+            _tripService = tripService;
             _userManagerService = userManagerService;
             _commitProvider = commitProvider;
         }
@@ -29,7 +27,7 @@ namespace QuadBike.Website.Controllers
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
 
-            return View(_bikeService.GetBikesOfCurrentProvider(userId.Result.Id));
+            return View(_tripService.GetTripsOfCurrentProvider(userId.Result.Id));
         }
 
         [HttpGet]
@@ -39,30 +37,30 @@ namespace QuadBike.Website.Controllers
         }
 
         [HttpPost]
-        [ActionName("Delete")]
-        public IActionResult Delete(int? id)
-        {
-            if (id != null)
-            {
-                _bikeService.DeleteById(id);
-                _commitProvider.Save();
-                return RedirectToAction("Index");
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public IActionResult Create(BikeViewModel bike)
+        public IActionResult Create(TripViewModel trip)
         {
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
 
             if (ModelState.IsValid)
             {
-                _bikeService.CreateBike(bike, userId.Result.Id);
+                _tripService.CreateTrip(trip, userId.Result.Id);
                 return RedirectToAction("Index");
             }
-            return View(bike);
+            return View(trip);
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public IActionResult Delete(int? id)
+        {
+            if (id != null)
+            {
+                _tripService.DeleteById(id);
+                _commitProvider.Save();
+                return RedirectToAction("Index");
+            }
+            return NotFound();
         }
     }
 }

@@ -4,6 +4,7 @@ using QuadBike.Model.Context;
 using QuadBike.Model.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace QuadBike.DataProvider.Repositories
@@ -37,6 +38,7 @@ namespace QuadBike.DataProvider.Repositories
         public IEnumerable<Bike> GetAll()                             // read all
         {
             return db.Bikes;
+            //Include(x => x.Name)
         }
 
         public void Update(Bike item)                               // update
@@ -46,13 +48,17 @@ namespace QuadBike.DataProvider.Repositories
 
         public void DeleteById(int? bikeId)
         {
-            //FirstOrDefaultAsync(p => p.Id == bikeId);
             Bike bike = db.Bikes.Find(bikeId);
             if (bike != null)
             {
                 db.Bikes.Remove(bike);
             }
-            //db.Entry(bike).State = EntityState.Deleted;
+        }
+
+        public IEnumerable<Bike> GetBikesOfCurrentProvider(string id)
+        {
+            var res = db.Bikes.Where(x => x.AccountId.Equals(id));
+            return res;
         }
     }
 }

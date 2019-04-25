@@ -4,12 +4,17 @@
     if (User.IsInRole("moderator"))
     {
         <h3>Moder</h3>
+        <div>
+            <a class="btn btn-primary" asp-controller="Moder" asp-action="Index">Control</a>
+        </div>
+        <br />
     }
     else if (User.IsInRole("provider"))
     {
         <h3>Provider</h3>
         <div>
-            <a class="btn btn-primary" asp-controller="Bike" asp-action="Index">List Bikes</a>
+            <a class="btn btn-primary" asp-controller="Bike" asp-action="Index">Bikes List</a>
+            <a class="btn btn-primary" asp-controller="Trip" asp-action="Index">Trips List</a>
         </div>
         <br />
     }

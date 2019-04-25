@@ -4,15 +4,16 @@ using QuadBike.Model.Context;
 using QuadBike.Model.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace QuadBike.DataProvider.Repositories
 {
     public class TripRepository : ITripRepository
     {
-        private QuadBikeContext db;
+        private IQuadBikeContext db;
 
-        public TripRepository(QuadBikeContext context)
+        public TripRepository(IQuadBikeContext context)
         {
             this.db = context;
         }
@@ -41,6 +42,21 @@ namespace QuadBike.DataProvider.Repositories
         public void Update(Trip item)
         {
             db.Entry(item).State = EntityState.Modified;
+        }
+
+        public void DeleteById(int? tripId)
+        {
+            Trip trip = db.Trips.Find(tripId);
+            if (trip != null)
+            {
+                db.Trips.Remove(trip);
+            }
+        }
+
+        public IEnumerable<Trip> GetTripsOfCurrentProvider(string id)
+        {
+            var res = db.Trips.Where(x => x.AccountId.Equals(id));
+            return res;
         }
     }
 }

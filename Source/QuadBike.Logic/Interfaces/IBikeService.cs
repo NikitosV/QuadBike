@@ -11,5 +11,6 @@ namespace QuadBike.Logic.Interfaces
         void CreateBike(BikeViewModel model, string userId);
         IEnumerable<Bike> GetAllBikes();
         void DeleteById(int? id);
+        IEnumerable<Bike> GetBikesOfCurrentProvider(string id);
     }
 }

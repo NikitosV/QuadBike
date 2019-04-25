@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.Logic.Interfaces;
+using QuadBike.Model.ViewModel.Pagination;
 using QuadBike.Website.Models;
 
 namespace QuadBike.Website.Controllers
@@ -19,9 +20,21 @@ namespace QuadBike.Website.Controllers
             _bikeService = bikeService;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            return View();
+            int pageSize = 9;   // количество элементов на странице
+
+            var source = _bikeService.GetAllBikes();
+            var count = source.Count();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                Bikes = items
+            };
+            return View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
