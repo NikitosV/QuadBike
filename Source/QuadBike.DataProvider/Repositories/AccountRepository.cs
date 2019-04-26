@@ -28,12 +28,13 @@ namespace QuadBike.DataProvider.Repositories
             _db = db;
         }
 
-        public Task<IdentityResult> CreateAccount(Account model, string password)                   // create account
+        public async Task<IdentityResult> CreateAccount(Account model, string password)                   // create account
         {
-            var res = _userManager.CreateAsync(model, password);
-            if (res.Result.Succeeded)
+            var res = await _userManager.CreateAsync(model, password);
+            if (res.Succeeded)
             {
-                _signInManager.SignInAsync(model, false);
+                await _signInManager.SignInAsync(model, false);
+                await _userManager.AddToRoleAsync(model, "user");
                 return res;
             }
             else
