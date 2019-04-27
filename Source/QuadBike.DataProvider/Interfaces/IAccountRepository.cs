@@ -25,5 +25,6 @@ namespace QuadBike.DataProvider.Interfaces
         Task<IdentityResult> RemovedFromRoles(string userId, IEnumerable<string> remRol);
         Task<IdentityResult> UpdateAccount(Account account);
         IEnumerable<Account> ShowUserInfoById(string accountId);
+        Task<IdentityResult> DeleteAccount(Account account);
     }
 }

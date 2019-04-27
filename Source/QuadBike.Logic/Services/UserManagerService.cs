@@ -130,5 +130,11 @@ namespace QuadBike.Logic.Services
             var res = _accountRepository.ShowUserInfoById(accountId);
             return res;
         }
+
+        public Task<IdentityResult> DeleteAccount(Account account)
+        {
+            var res = _accountRepository.DeleteAccount(account);
+            return res;
+        }
     }
 }

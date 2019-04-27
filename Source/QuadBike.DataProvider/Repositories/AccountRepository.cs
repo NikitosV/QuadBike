@@ -87,6 +87,16 @@ namespace QuadBike.DataProvider.Repositories
             return null;
         }
 
+        public Task<IdentityResult> DeleteAccount(Account account)        // delete by role
+        {
+            if (account != null)
+            {
+                var result = _userManager.DeleteAsync(account);
+                return result;
+            }
+            return null;
+        }
+
         public List<Account> ShowListUsers()                             // list of users
         {
            var res = _userManager.Users.ToList();
