@@ -23,5 +23,7 @@ namespace QuadBike.DataProvider.Interfaces
         Task<IList<string>> GetRolesByAccount(string userId);
         Task<IdentityResult> AddToRole(string userId, IEnumerable<string> rol);
         Task<IdentityResult> RemovedFromRoles(string userId, IEnumerable<string> remRol);
+        Task<IdentityResult> UpdateAccount(Account account);
+        IEnumerable<Account> ShowUserInfoById(string accountId);
     }
 }

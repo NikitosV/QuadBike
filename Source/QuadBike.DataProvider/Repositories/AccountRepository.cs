@@ -93,6 +93,12 @@ namespace QuadBike.DataProvider.Repositories
            return res;
         }
 
+        public IEnumerable<Account> ShowUserInfoById(string accountId)                             // list of users
+        {
+            var res = _userManager.Users.ToList().Where(x => x.Id == accountId);
+            return res;
+        }
+
         public Task<Account> GetUserById(string userId)                     // get user by id
         {
             var account = _userManager.FindByIdAsync(userId);
@@ -131,6 +137,12 @@ namespace QuadBike.DataProvider.Repositories
         {
             var account = _userManager.FindByEmailAsync(userName);
             return account;
+        }
+
+        public Task<IdentityResult> UpdateAccount(Account account)
+        {
+            var res = _userManager.UpdateAsync(account);
+            return res;
         }
     }
 }

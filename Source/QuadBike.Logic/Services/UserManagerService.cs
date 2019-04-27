@@ -118,5 +118,17 @@ namespace QuadBike.Logic.Services
             var res = _accountRepository.RemovedFromRoles(userId, remRol);
             return res;
         }
+
+        public Task<IdentityResult> UpdateAccount(Account account)
+        {
+            var res = _accountRepository.UpdateAccount(account);
+            return res;
+        }
+
+        public IEnumerable<Account> ShowUserInfoById(string accountId)
+        {
+            var res = _accountRepository.ShowUserInfoById(accountId);
+            return res;
+        }
     }
 }
