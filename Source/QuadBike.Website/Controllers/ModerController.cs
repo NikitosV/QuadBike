@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using QuadBike.Logic.Interfaces;
 using QuadBike.Model.Context.CommitProvider;
 using QuadBike.Model.ViewModel.ModerViewModels;
+using QuadBike.Model.ViewModel.Pagination;
 
 namespace QuadBike.Website.Controllers
 {
@@ -28,9 +29,22 @@ namespace QuadBike.Website.Controllers
             return View(_userManagerService.ShowListOfRoles());
         }
 
-        public IActionResult UserList()
+        public IActionResult UserList(int page = 1)
         {
-            return View(_userManagerService.ShowListUsers());
+
+            int pageSize = 10;   // количество элементов на странице
+
+            var source = _userManagerService.ShowListUsers();
+            var count = source.Count();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            AccountViewModel viewModel = new AccountViewModel
+            {
+                PageViewModel = pageViewModel,
+                Accounts = items
+            };
+            return View(viewModel);
         }
 
         public async Task<IActionResult> Edit(string userId)

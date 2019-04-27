@@ -1,5 +1,8 @@
 ﻿@using QuadBike.Model.Entities
 @model QuadBike.Model.ViewModel.Pagination.IndexViewModel
+
+@addTagHelper "*, QuadBike.Website"
+
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -47,19 +50,20 @@
                 </div>
             }
         </div>
-        @if (Model.PageViewModel.HasPreviousPage)
-        {
-            <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" class="btn btn-primary btn">
-                <i class="glyphicon glyphicon-chevron-left"></i>
-                Previous
-            </a>
-        }
-        @if (Model.PageViewModel.HasNextPage)
-        {
-            <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" class="btn btn-primary btn">
-                Next
-                <i class="glyphicon glyphicon-chevron-right"></i>
-            </a>
-        }
+        <page-link page-model="Model.PageViewModel" page-action="Index"></page-link>
+        @*@if (Model.PageViewModel.HasPreviousPage)
+            {
+                <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" class="btn btn-primary btn">
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                    Previous
+                </a>
+            }
+            @if (Model.PageViewModel.HasNextPage)
+            {
+                <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" class="btn btn-primary btn">
+                    Next
+                    <i class="glyphicon glyphicon-chevron-right"></i>
+                </a>
+            }*@
     </div>
 </div>

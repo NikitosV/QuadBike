@@ -12,5 +12,7 @@ namespace QuadBike.Logic.Interfaces
         IEnumerable<Bike> GetAllBikes();
         void DeleteById(int? id);
         IEnumerable<Bike> GetBikesOfCurrentProvider(string id);
+        Bike GetBikeById(int id);
+        bool Update(Bike item);
     }
 }

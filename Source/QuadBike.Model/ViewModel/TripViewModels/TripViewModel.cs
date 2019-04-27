@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QuadBike.Model.Entities;
+using QuadBike.Model.ViewModel.Pagination;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -39,8 +41,8 @@ namespace QuadBike.Model.ViewModel.TripViewModels
         [Display(Name = "Price")]
         public int Price { get; set; }
 
-        //[Required]
-        //[Display(Name = "Is Activate?")]
-        //public bool IsActivate { get; set; }
+        public IEnumerable<Trip> Trips { get; set; }
+
+        public PageViewModel PageViewModel { get; set; }
     }
 }

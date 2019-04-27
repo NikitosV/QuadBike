@@ -62,10 +62,9 @@ namespace QuadBike.Logic.Services
            return res;
         }
 
-        public List<Account> ShowListUsers()
+        public IEnumerable<Account> ShowListUsers()
         {
-            var res = _accountRepository.ShowListUsers();
-            return res;
+            return _accountRepository.ShowListUsers();
         }
 
         public Task<Account> GetUserById(string userId)

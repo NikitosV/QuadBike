@@ -21,7 +21,7 @@ namespace QuadBike.Logic.Interfaces
         Task<IdentityRole> FindByIdRole(string id);
         Task<Account> GetUserByName(string userName);
         Task<IdentityResult> DeleteRole(IdentityRole role);
-        List<Account> ShowListUsers();
+        IEnumerable<Account> ShowListUsers();
 
         Task<Account> GetUserById(string userId);
         ChangeRoleViewModel Edit(string userId);

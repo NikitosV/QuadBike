@@ -58,7 +58,20 @@ namespace QuadBike.Logic.Services
             return res;
         }
 
+        public Bike GetBikeById(int id)
+        {
+            var res = _bikeRepository.Get(id);
+            return res;
+        }
+
+        public bool Update(Bike item)
+        {
+            if(item != null)
+            {
+                _bikeRepository.Update(item);
+                return true;
+            }
+            return false;
+        }
     }
 }
-
-//public int Id { get; set; }           //Id

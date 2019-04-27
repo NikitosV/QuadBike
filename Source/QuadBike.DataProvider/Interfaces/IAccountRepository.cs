@@ -16,7 +16,7 @@ namespace QuadBike.DataProvider.Interfaces
         Task<IdentityRole> FindByIdRole(string id);
         Task<Account> GetUserByName(string userName);
         Task<IdentityResult> DeleteRole(IdentityRole role);
-        List<Account> ShowListUsers();
+        IEnumerable<Account> ShowListUsers();
 
         Task<Account> GetUserById(string userId);
         Task<IList<string>> GetRolesOfUser(Account account);

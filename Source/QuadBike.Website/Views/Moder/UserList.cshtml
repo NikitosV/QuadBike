@@ -1,9 +1,8 @@
-﻿@model IEnumerable<QuadBike.Model.Entities.Account>
-
+﻿@model QuadBike.Model.ViewModel.Pagination.AccountViewModel
 <h2>Users list:</h2>
 <table class="table">
     <tr><th>Email</th><th>PhoneNumber</th><th>Name</th><th></th></tr>
-    @foreach (var user in Model)
+    @foreach (var user in Model.Accounts)
     {
         @if (!user.Email.Equals("moder@moder.by"))
         {
@@ -21,3 +20,4 @@
         }
     }
 </table>
+<page-link page-model="Model.PageViewModel" page-action="UserList"></page-link>

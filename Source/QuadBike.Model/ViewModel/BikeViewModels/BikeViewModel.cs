@@ -1,4 +1,6 @@
-﻿using System;
+﻿using QuadBike.Model.Entities;
+using QuadBike.Model.ViewModel.Pagination;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -34,5 +36,9 @@ namespace QuadBike.Model.ViewModel.BikeViewModels
         [Required]
         [Display(Name = "Price")]
         public int Price { get; set; }
+
+        public IEnumerable<Bike> Bikes { get; set; }
+
+        public PageViewModel PageViewModel { get; set; }
     }
 }

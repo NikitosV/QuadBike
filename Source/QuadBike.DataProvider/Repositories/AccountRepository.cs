@@ -97,10 +97,9 @@ namespace QuadBike.DataProvider.Repositories
             return null;
         }
 
-        public List<Account> ShowListUsers()                             // list of users
+        public IEnumerable<Account> ShowListUsers()                             // list of users
         {
-           var res = _userManager.Users.ToList();
-           return res;
+            return _db.Accounts;
         }
 
         public IEnumerable<Account> ShowUserInfoById(string accountId)                             // list of users

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.Logic.Interfaces;
 using QuadBike.Model.Context.CommitProvider;
+using QuadBike.Model.ViewModel.Pagination;
 using QuadBike.Model.ViewModel.TripViewModels;
 
 namespace QuadBike.Website.Controllers
@@ -22,12 +23,24 @@ namespace QuadBike.Website.Controllers
             _commitProvider = commitProvider;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
 
-            return View(_tripService.GetTripsOfCurrentProvider(userId.Result.Id));
+            int pageSize = 10;   // количество элементов на странице
+
+            var source = _tripService.GetTripsOfCurrentProvider(userId.Result.Id);
+            var count = source.Count();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            TripViewModel viewModel = new TripViewModel
+            {
+                PageViewModel = pageViewModel,
+                Trips = items
+            };
+            return View(viewModel);
         }
 
         [HttpGet]
