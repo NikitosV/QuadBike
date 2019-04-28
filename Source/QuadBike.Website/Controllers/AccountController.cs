@@ -19,6 +19,13 @@ namespace QuadBike.Website.Controllers
             _userManagerService = userManagerService;
         }
 
+        public IActionResult Index()
+        {
+            var currentUserName = User.Identity.Name;
+            var userId = _userManagerService.GetUserByName(currentUserName);
+            return View(_userManagerService.ShowUserInfoById(userId.Result.Id));
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -87,6 +94,54 @@ namespace QuadBike.Website.Controllers
             // удаляем аутентификационные куки
             await _userManagerService.LogOffAccount();
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            var res = await _userManagerService.GetUserById(id);
+
+            if (res == null)
+            {
+                return NotFound();
+            }
+            EditAccountUserViewModel model = new EditAccountUserViewModel {
+                Id = res.Id,
+                Name = res.Name,
+                PhoneNumber = res.PhoneNumber,
+                Adress = res.Adress,
+                Description = res.Description
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditAccountUserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var account = await _userManagerService.GetUserById(model.Id);
+                if (account != null)
+                {
+                    account.Name = model.Name;
+                    account.PhoneNumber = model.PhoneNumber;
+                    account.Adress = model.Adress;
+                    account.Description = model.Description;
+
+                    var result = await _userManagerService.UpdateAccount(account);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+            }
+            return View(model);
         }
     }
 }

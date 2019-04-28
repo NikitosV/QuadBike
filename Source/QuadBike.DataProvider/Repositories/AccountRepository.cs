@@ -28,12 +28,13 @@ namespace QuadBike.DataProvider.Repositories
             _db = db;
         }
 
-        public Task<IdentityResult> CreateAccount(Account model, string password)                   // create account
+        public async Task<IdentityResult> CreateAccount(Account model, string password)                   // create account
         {
-            var res = _userManager.CreateAsync(model, password);
-            if (res.Result.Succeeded)
+            var res = await _userManager.CreateAsync(model, password);
+            if (res.Succeeded)
             {
-                _signInManager.SignInAsync(model, false);
+                await _signInManager.SignInAsync(model, false);
+                await _userManager.AddToRoleAsync(model, "user");
                 return res;
             }
             else
@@ -86,10 +87,25 @@ namespace QuadBike.DataProvider.Repositories
             return null;
         }
 
-        public List<Account> ShowListUsers()                             // list of users
+        public Task<IdentityResult> DeleteAccount(Account account)        // delete by role
         {
-           var res = _userManager.Users.ToList();
-           return res;
+            if (account != null)
+            {
+                var result = _userManager.DeleteAsync(account);
+                return result;
+            }
+            return null;
+        }
+
+        public IEnumerable<Account> ShowListUsers()                             // list of users
+        {
+            return _db.Accounts;
+        }
+
+        public IEnumerable<Account> ShowUserInfoById(string accountId)                             // list of users
+        {
+            var res = _userManager.Users.ToList().Where(x => x.Id == accountId);
+            return res;
         }
 
         public Task<Account> GetUserById(string userId)                     // get user by id
@@ -130,6 +146,12 @@ namespace QuadBike.DataProvider.Repositories
         {
             var account = _userManager.FindByEmailAsync(userName);
             return account;
+        }
+
+        public Task<IdentityResult> UpdateAccount(Account account)
+        {
+            var res = _userManager.UpdateAsync(account);
+            return res;
         }
     }
 }

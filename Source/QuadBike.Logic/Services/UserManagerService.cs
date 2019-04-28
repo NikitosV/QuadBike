@@ -62,10 +62,9 @@ namespace QuadBike.Logic.Services
            return res;
         }
 
-        public List<Account> ShowListUsers()
+        public IEnumerable<Account> ShowListUsers()
         {
-            var res = _accountRepository.ShowListUsers();
-            return res;
+            return _accountRepository.ShowListUsers();
         }
 
         public Task<Account> GetUserById(string userId)
@@ -116,6 +115,24 @@ namespace QuadBike.Logic.Services
         public Task<IdentityResult> RemovedFromRoles(string userId, IEnumerable<string> remRol)
         {
             var res = _accountRepository.RemovedFromRoles(userId, remRol);
+            return res;
+        }
+
+        public Task<IdentityResult> UpdateAccount(Account account)
+        {
+            var res = _accountRepository.UpdateAccount(account);
+            return res;
+        }
+
+        public IEnumerable<Account> ShowUserInfoById(string accountId)
+        {
+            var res = _accountRepository.ShowUserInfoById(accountId);
+            return res;
+        }
+
+        public Task<IdentityResult> DeleteAccount(Account account)
+        {
+            var res = _accountRepository.DeleteAccount(account);
             return res;
         }
     }

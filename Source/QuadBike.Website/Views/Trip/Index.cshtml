@@ -1,13 +1,16 @@
-﻿@model IEnumerable<QuadBike.Model.Entities.Trip>
+﻿@model QuadBike.Model.ViewModel.TripViewModels.TripViewModel
+
 @{
     ViewData["Title"] = "Trips";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Trips:</h2>
-<table class="table">
-    <tr><th>Trip Name</th><th>Type</th><th>Distance</th><th>Amount of people</th><th>Start Trip</th><th>End Trip</th><th>Description</th><th>Price</th><th></th></tr>
-    @foreach (var trip in Model)
+<table class="table table-hover">
+    <thead>
+        <tr><th>Trip Name</th><th>Type</th><th>Distance</th><th>Amount of people</th><th>Start Trip</th><th>End Trip</th><th>Description</th><th>Price</th><th></th></tr>
+    </thead>
+    @foreach (var trip in Model.Trips)
     {
         <tr>
             <td>@trip.TripName</td>
@@ -26,6 +29,7 @@
         </tr>
     }
 </table>
+<page-link page-model="Model.PageViewModel" page-action="Index"></page-link>
 <div>
     <a class="btn btn-primary" asp-controller="Trip" asp-action="Create">Add Trip</a>
 </div>

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QuadBike.Model.Entities.Bike>
+﻿@model QuadBike.Model.ViewModel.BikeViewModels.BikeViewModel
 
 @{
     ViewData["Title"] = "Bikes";
@@ -6,9 +6,11 @@
 }
 
 <h2>Bikes:</h2>
-<table class="table">
-    <tr><th>Name</th><th>Max speed</th><th>Power</th><th>TypeEngine</th><th>Fuel(L)</th><th>Description</th><th>Price</th><th></th></tr>
-    @foreach (var bike in Model)
+<table class="table table-hover">
+    <thead>
+        <tr><th>Name</th><th>Max speed</th><th>Power</th><th>TypeEngine</th><th>Fuel(L)</th><th>Description</th><th>Price</th><th></th></tr>
+    </thead>
+    @foreach (var bike in Model.Bikes)
     {
         <tr>
             <td>@bike.Name</td>
@@ -20,12 +22,14 @@
             <td>@bike.Price $</td>
             <td>
                 <form asp-controller="Bike" asp-action="Delete" asp-route-id="@bike.Id" method="post">
+                    <a asp-controller="Bike" asp-action="Edit" asp-route-id="@bike.Id" class="btn btn-sm btn-primary">Update</a>
                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                 </form>
             </td>
         </tr>
     }
 </table>
+<page-link page-model="Model.PageViewModel" page-action="Index"></page-link>
 <div>
     <a class="btn btn-primary" asp-controller="Bike" asp-action="Create">Add Bike</a>
 </div>

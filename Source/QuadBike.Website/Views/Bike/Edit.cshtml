@@ -1,0 +1,42 @@
+﻿@model QuadBike.Model.ViewModel.BikeViewModels.ChangeBikeViewModel
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form asp-controller="Bike" asp-action="Edit">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <input type="hidden" asp-for="Id" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label">Name</label>
+        <input type="text" asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="MaxSpeed" class="control-label">Max Speed</label>
+        <input type="number" asp-for="MaxSpeed" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="TypeEngine" class="control-label">Type of Engine</label>
+        <input type="text" asp-for="TypeEngine" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Power" class="control-label">Power</label>
+        <input type="number" asp-for="Power" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Fuel" class="control-label">Fuel</label>
+        <input type="number" asp-for="Fuel" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label">Description</label>
+        <input type="text" asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="control-label">Price</label>
+        <input type="number" asp-for="Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>

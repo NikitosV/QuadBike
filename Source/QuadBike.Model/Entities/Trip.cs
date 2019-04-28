@@ -35,6 +35,8 @@ namespace QuadBike.Model.Entities
 
         public bool IsActivate { get; set; }   // is activate of trip
 
+        public byte[] TripImg { get; set; }
+
         [ForeignKey("AccountId")]
         public string AccountId { get; set; }
 

@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.Logic.Interfaces;
+using QuadBike.Model.Context.CommitProvider;
 using QuadBike.Model.ViewModel.ModerViewModels;
+using QuadBike.Model.ViewModel.Pagination;
 
 namespace QuadBike.Website.Controllers
 {
@@ -14,10 +16,12 @@ namespace QuadBike.Website.Controllers
     public class ModerController : Controller
     {
         private readonly IUserManagerService _userManagerService;
+        private readonly ICommitProvider _commitProvider;
 
-        public ModerController(IUserManagerService userManagerService)
+        public ModerController(IUserManagerService userManagerService, ICommitProvider commitProvider)
         {
             _userManagerService = userManagerService;
+            _commitProvider = commitProvider;
         }
 
         public IActionResult Index()
@@ -25,46 +29,22 @@ namespace QuadBike.Website.Controllers
             return View(_userManagerService.ShowListOfRoles());
         }
 
-        public IActionResult Create()
+        public IActionResult UserList(int page = 1)
         {
-            return View();
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(string name)
-        {
-            if (!string.IsNullOrEmpty(name))
+            int pageSize = 10;   // количество элементов на странице
+
+            var source = _userManagerService.ShowListUsers();
+            var count = source.Count();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            AccountViewModel viewModel = new AccountViewModel
             {
-                var result = await _userManagerService.CreateRole(name);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
-            }
-            return View(name);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var role = await _userManagerService.FindByIdRole(id);
-            if (role != null)
-            {
-                await _userManagerService.DeleteRole(role);
-            }
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult UserList()
-        {
-            return View(_userManagerService.ShowListUsers());
+                PageViewModel = pageViewModel,
+                Accounts = items
+            };
+            return View(viewModel);
         }
 
         public async Task<IActionResult> Edit(string userId)
@@ -113,6 +93,19 @@ namespace QuadBike.Website.Controllers
             }
 
             return NotFound();
+        }
+
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<ActionResult> Delete(string userId)
+        {
+            var account = await _userManagerService.GetUserById(userId);
+            if (account != null)
+            {
+                IdentityResult result = await _userManagerService.DeleteAccount(account);
+                _commitProvider.Save();
+            }
+            return RedirectToAction("UserList");
         }
     }
 }

@@ -20,6 +20,8 @@ namespace QuadBike.Model.Context
 
         DbSet<Account> Accounts { get; set; }
 
+        DbSet<FileModel> Files { get; set; }
+
         EntityEntry Entry(object item);
 
         int SaveChanges();

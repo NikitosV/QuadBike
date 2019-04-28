@@ -14,10 +14,12 @@ namespace QuadBike.Website.Controllers
     public class HomeController : Controller
     {
         private IBikeService _bikeService;
+        private ITripService _tripService;
 
-        public HomeController(IBikeService bikeService)
+        public HomeController(IBikeService bikeService, ITripService tripService)
         {
             _bikeService = bikeService;
+            _tripService = tripService;
         }
 
         public IActionResult Index(int page = 1)
@@ -33,6 +35,23 @@ namespace QuadBike.Website.Controllers
             {
                 PageViewModel = pageViewModel,
                 Bikes = items
+            };
+            return View(viewModel);
+        }
+
+        public IActionResult Index2(int page = 1)
+        {
+            int pageSize = 6;   // количество элементов на странице
+
+            var source = _tripService.GetAllTrips();
+            var count = source.Count();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            IndexTripViewModel viewModel = new IndexTripViewModel
+            {
+                PageViewModel = pageViewModel,
+                Trips = items
             };
             return View(viewModel);
         }
