@@ -22,7 +22,7 @@ namespace QuadBike.Logic.Services
             _userManagerService = userManagerService;
         }
 
-        public void CreateTrip(TripViewModel model, string userId)
+        public void CreateTrip(TripViewModel model, string userId, byte[] imageData)
         {
             var res = _userManagerService.GetUserById(userId);
             _tripRepository.Create(new Trip
@@ -35,7 +35,8 @@ namespace QuadBike.Logic.Services
                 EndTrip = model.EndTrip,
                 Description = model.Description,
                 AccountId = res.Result.Id,
-                Price = model.Price
+                Price = model.Price,
+                TripImg = imageData
             });
             _commitProvider.Save();
         }
@@ -49,6 +50,11 @@ namespace QuadBike.Logic.Services
         {
             var res = _tripRepository.GetTripsOfCurrentProvider(id);
             return res;
+        }
+
+        public IEnumerable<Trip> GetAllTrips()
+        {
+            return _tripRepository.GetAll();
         }
     }
 }

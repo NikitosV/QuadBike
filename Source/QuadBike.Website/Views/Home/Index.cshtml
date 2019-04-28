@@ -16,14 +16,28 @@
                 They are not suited for travelling on public roads, mostly because they are light and offer little protection from other vehicles.
                 But we want to solve this situation giving you a chance to enjoy this type of transport.
             </p>
-            <a class="btn btn-primary" href="/docs/4.3/components/navbar/" role="button">See tours »</a>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="Index2" role="button">See trips »</a>
         </div>
         <div class="row">
             @foreach (Bike u in Model.Bikes)
             {
                 <div class="col-md-4">
                     <div class="card mb-4 shadow-sm">
-                        <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="45%" y="55%" fill="#eceeef" dy=".3em">Empty</text></svg>
+                        @if (u.BikeImg != null)
+                        {
+                            <img class="bd-placeholder-img card-img-top" style="width:100%; height:225px" src="data:image/jpg;base64,@(Convert.ToBase64String(u.BikeImg))" />
+                        }
+                        @*else
+                        {
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false"
+                                 role="img" aria-label="Placeholder: Thumbnail">
+                                <title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#55595c">
+                                </rect>
+                                <text x="45%" y="55%" fill="#eceeef" dy=".3em">Empty</text>
+                            </svg>
+                        }*@
+
                         <div class="card-body">
                             <p class="card-text">
                                 <div>
@@ -51,19 +65,5 @@
             }
         </div>
         <page-link page-model="Model.PageViewModel" page-action="Index"></page-link>
-        @*@if (Model.PageViewModel.HasPreviousPage)
-            {
-                <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber - 1)" class="btn btn-primary btn">
-                    <i class="glyphicon glyphicon-chevron-left"></i>
-                    Previous
-                </a>
-            }
-            @if (Model.PageViewModel.HasNextPage)
-            {
-                <a asp-action="Index" asp-route-page="@(Model.PageViewModel.PageNumber + 1)" class="btn btn-primary btn">
-                    Next
-                    <i class="glyphicon glyphicon-chevron-right"></i>
-                </a>
-            }*@
     </div>
 </div>

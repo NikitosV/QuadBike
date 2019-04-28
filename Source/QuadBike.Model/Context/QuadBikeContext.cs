@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using QuadBike.Model.Entities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace QuadBike.Model.Context
@@ -19,5 +20,6 @@ namespace QuadBike.Model.Context
         public DbSet<RentBike> RentBikes { get; set; }
         public DbSet<RentTrip> RentTrips { get; set; }
         public DbSet<Account> Accounts { get; set; }
+        public DbSet<FileModel> Files { get; set; }
     }
 }

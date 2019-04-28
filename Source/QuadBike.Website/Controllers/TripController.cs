@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -57,8 +58,16 @@ namespace QuadBike.Website.Controllers
 
             if (ModelState.IsValid)
             {
-                _tripService.CreateTrip(trip, userId.Result.Id);
-                return RedirectToAction("Index");
+                if (trip.TripImg != null)
+                {
+                    byte[] imageData = null;
+                    using (var binaryReader = new BinaryReader(trip.TripImg.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)trip.TripImg.Length);
+                    }
+                    _tripService.CreateTrip(trip, userId.Result.Id, imageData);
+                    return RedirectToAction("Index");
+                }
             }
             return View(trip);
         }

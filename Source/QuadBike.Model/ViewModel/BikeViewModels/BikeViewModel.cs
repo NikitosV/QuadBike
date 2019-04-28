@@ -1,4 +1,5 @@
-﻿using QuadBike.Model.Entities;
+﻿using Microsoft.AspNetCore.Http;
+using QuadBike.Model.Entities;
 using QuadBike.Model.ViewModel.Pagination;
 using System;
 using System.Collections.Generic;
@@ -40,5 +41,9 @@ namespace QuadBike.Model.ViewModel.BikeViewModels
         public IEnumerable<Bike> Bikes { get; set; }
 
         public PageViewModel PageViewModel { get; set; }
+
+        [Required]
+        [Display(Name = "Bike img")]
+        public IFormFile BikeImg { get; set; }
     }
 }

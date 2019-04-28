@@ -25,7 +25,7 @@ namespace QuadBike.Logic.Services
             _userManagerService = userManagerService;
         }
 
-        public void CreateBike(BikeViewModel model, string userId)
+        public void CreateBike(BikeViewModel model, string userId, byte[] imageData)
         {
             var res = _userManagerService.GetUserById(userId);
             _bikeRepository.Create(new Bike
@@ -37,7 +37,8 @@ namespace QuadBike.Logic.Services
                 Fuel = model.Fuel,
                 Description = model.Description,
                 AccountId = res.Result.Id,
-                Price = model.Price
+                Price = model.Price,
+                BikeImg = imageData
             });
             _commitProvider.Save();
         }

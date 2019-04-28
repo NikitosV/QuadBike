@@ -8,7 +8,7 @@ namespace QuadBike.Logic.Interfaces
 {
     public interface IBikeService
     {
-        void CreateBike(BikeViewModel model, string userId);
+        void CreateBike(BikeViewModel model, string userId, byte[] imageData);
         IEnumerable<Bike> GetAllBikes();
         void DeleteById(int? id);
         IEnumerable<Bike> GetBikesOfCurrentProvider(string id);

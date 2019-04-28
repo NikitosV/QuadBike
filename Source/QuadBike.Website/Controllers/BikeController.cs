@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -69,11 +70,19 @@ namespace QuadBike.Website.Controllers
         {
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
-
+            
             if (ModelState.IsValid)
             {
-                _bikeService.CreateBike(bike, userId.Result.Id);
-                return RedirectToAction("Index");
+                if (bike.BikeImg != null)
+                {
+                    byte[] imageData = null;
+                    using (var binaryReader = new BinaryReader(bike.BikeImg.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)bike.BikeImg.Length);
+                    }
+                    _bikeService.CreateBike(bike, userId.Result.Id, imageData);
+                    return RedirectToAction("Index");
+                }
             }
             return View(bike);
         }

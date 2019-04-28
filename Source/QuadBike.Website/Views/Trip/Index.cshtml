@@ -6,8 +6,10 @@
 }
 
 <h2>Trips:</h2>
-<table class="table">
-    <tr><th>Trip Name</th><th>Type</th><th>Distance</th><th>Amount of people</th><th>Start Trip</th><th>End Trip</th><th>Description</th><th>Price</th><th></th></tr>
+<table class="table table-hover">
+    <thead>
+        <tr><th>Trip Name</th><th>Type</th><th>Distance</th><th>Amount of people</th><th>Start Trip</th><th>End Trip</th><th>Description</th><th>Price</th><th></th></tr>
+    </thead>
     @foreach (var trip in Model.Trips)
     {
         <tr>
