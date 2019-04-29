@@ -84,5 +84,71 @@ namespace QuadBike.Website.Controllers
             }
             return NotFound();
         }
+
+        public IActionResult Edit(int id)
+        {
+            var res = _tripService.GetTripById(id);
+
+            if (res == null)
+            {
+                return NotFound();
+            }
+
+            ChangeTripViewModel model = new ChangeTripViewModel
+            {
+                Id = res.Id,
+                TripName = res.TripName,
+                Type = res.Type,
+                Distance = res.Distance,
+                AmountOfPeople = res.AmountOfPeople,
+                StartDate = res.StartDate,
+                EndTrip = res.EndTrip,
+                Description = res.Description,
+                Price = res.Price
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ChangeTripViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var trip = _tripService.GetTripById(model.Id);
+
+                if (trip != null)
+                {
+                    if (model.TripImg != null)
+                    {
+                        byte[] imageData = null;
+                        using (var binaryReader = new BinaryReader(model.TripImg.OpenReadStream()))
+                        {
+                            imageData = binaryReader.ReadBytes((int)model.TripImg.Length);
+                        }
+
+                        trip.TripName = model.TripName;
+                        trip.Type = model.Type;
+                        trip.Distance = model.Distance;
+                        trip.AmountOfPeople = model.AmountOfPeople;
+                        trip.StartDate = model.StartDate;
+                        trip.EndTrip = model.EndTrip;
+                        trip.Description = model.Description;
+                        trip.TripImg = imageData;
+
+                        var result = _tripService.Update(trip);
+                        if (result == true)
+                        {
+                            _commitProvider.Save();
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index");
+                        }
+                    }
+                }
+            }
+            return View(model);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using QuadBike.Common.Filters.BikeFilter;
 using QuadBike.Model.Entities;
 using QuadBike.Model.ViewModel.Pagination;
 using System;
@@ -41,6 +42,10 @@ namespace QuadBike.Model.ViewModel.BikeViewModels
         public IEnumerable<Bike> Bikes { get; set; }
 
         public PageViewModel PageViewModel { get; set; }
+
+        public BikeFilterViewModel BikeFilterViewModel { get; set; }
+
+        public BikeSortViewModel BikeSortViewModel { get; set; }
 
         [Required]
         [Display(Name = "Bike img")]

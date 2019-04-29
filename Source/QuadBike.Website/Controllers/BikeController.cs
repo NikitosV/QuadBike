@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using QuadBike.Common.Filters.BikeFilter;
 using QuadBike.Logic.Interfaces;
 using QuadBike.Model.Context.CommitProvider;
 using QuadBike.Model.ViewModel.BikeViewModels;
@@ -26,14 +27,62 @@ namespace QuadBike.Website.Controllers
             _commitProvider = commitProvider;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(string name, int page = 1, SortState sortOrder = SortState.NameAsc)
         {
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
 
-            int pageSize = 10;   // количество элементов на странице
+            int pageSize = 3;   // количество элементов на странице
 
             var source = _bikeService.GetBikesOfCurrentProvider(userId.Result.Id);
+
+            if (!String.IsNullOrEmpty(name))
+            {
+                source = source.Where(p => p.Name.Contains(name));
+            }
+
+            // сортировка
+            switch (sortOrder)
+            {
+                case SortState.NameDesc:
+                    source = source.OrderByDescending(s => s.Name);
+                    break;
+                case SortState.MaxSpeedAsc:
+                    source = source.OrderBy(s => s.MaxSpeed);
+                    break;
+                case SortState.MaxSpeedDesc:
+                    source = source.OrderByDescending(s => s.MaxSpeed);
+                    break;
+                case SortState.TypeEngineAsc:
+                    source = source.OrderBy(s => s.TypeEngine);
+                    break;
+                case SortState.TypeEngineDesc:
+                    source = source.OrderByDescending(s => s.TypeEngine);
+                    break;
+                case SortState.PowerAsc:
+                    source = source.OrderBy(s => s.Power);
+                    break;
+                case SortState.PowerDesc:
+                    source = source.OrderByDescending(s => s.Power);
+                    break;
+                case SortState.FuelAsc:
+                    source = source.OrderBy(s => s.Fuel);
+                    break;
+                case SortState.FuelDesc:
+                    source = source.OrderByDescending(s => s.Fuel);
+                    break;
+                case SortState.PriceAsc:
+                    source = source.OrderBy(s => s.Price);
+                    break;
+                case SortState.PriceDesc:
+                    source = source.OrderByDescending(s => s.Price);
+                    break;
+
+                default:
+                    source = source.OrderBy(s => s.Name);
+                    break;
+            }
+
             var count = source.Count();
             var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
@@ -41,6 +90,8 @@ namespace QuadBike.Website.Controllers
             BikeViewModel viewModel = new BikeViewModel
             {
                 PageViewModel = pageViewModel,
+                BikeFilterViewModel = new BikeFilterViewModel(name),
+                BikeSortViewModel = new BikeSortViewModel(sortOrder),
                 Bikes = items
             };
             return View(viewModel);
@@ -70,7 +121,7 @@ namespace QuadBike.Website.Controllers
         {
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
-            
+
             if (ModelState.IsValid)
             {
                 if (bike.BikeImg != null)
@@ -95,6 +146,7 @@ namespace QuadBike.Website.Controllers
             {
                 return NotFound();
             }
+
             ChangeBikeViewModel model = new ChangeBikeViewModel
             {
                 Id = res.Id,
@@ -118,23 +170,33 @@ namespace QuadBike.Website.Controllers
 
                 if (bike != null)
                 {
-                    bike.Name = model.Name;
-                    bike.MaxSpeed = model.MaxSpeed;
-                    bike.TypeEngine = model.TypeEngine;
-                    bike.Power = model.Power;
-                    bike.Fuel = model.Fuel;
-                    bike.Description = model.Description;
-                    bike.Price = model.Price;
+                    if (model.BikeImg != null)
+                    {
+                        byte[] imageData = null;
+                        using (var binaryReader = new BinaryReader(model.BikeImg.OpenReadStream()))
+                        {
+                            imageData = binaryReader.ReadBytes((int)model.BikeImg.Length);
+                        }
 
-                    var result = _bikeService.Update(bike);
-                    if (result == true)
-                    {
-                        _commitProvider.Save();
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index");
+                        bike.Name = model.Name;
+                        bike.MaxSpeed = model.MaxSpeed;
+                        bike.TypeEngine = model.TypeEngine;
+                        bike.Power = model.Power;
+                        bike.Fuel = model.Fuel;
+                        bike.Description = model.Description;
+                        bike.Price = model.Price;
+                        bike.BikeImg = imageData;
+
+                        var result = _bikeService.Update(bike);
+                        if (result == true)
+                        {
+                            _commitProvider.Save();
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index");
+                        }
                     }
                 }
             }

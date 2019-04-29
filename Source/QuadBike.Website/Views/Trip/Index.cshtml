@@ -8,11 +8,12 @@
 <h2>Trips:</h2>
 <table class="table table-hover">
     <thead>
-        <tr><th>Trip Name</th><th>Type</th><th>Distance</th><th>Amount of people</th><th>Start Trip</th><th>End Trip</th><th>Description</th><th>Price</th><th></th></tr>
+        <tr><th>Img</th><th>Trip Name</th><th>Type</th><th>Distance</th><th>Amount of people</th><th>Start Trip</th><th>End Trip</th><th>Description</th><th>Price</th><th></th></tr>
     </thead>
     @foreach (var trip in Model.Trips)
     {
         <tr>
+            <td><img class="bd-placeholder-img card-img-top" style="width:50px; height:50px" src="data:image/jpg;base64,@(Convert.ToBase64String(trip.TripImg))" /></td>
             <td>@trip.TripName</td>
             <td>@trip.Type</td>
             <td>@trip.Distance km</td>
@@ -23,6 +24,7 @@
             <td>@trip.Price $</td>
             <td>
                 <form asp-controller="Trip" asp-action="Delete" asp-route-id="@trip.Id" method="post">
+                    <a asp-controller="Trip" asp-action="Edit" asp-route-id="@trip.Id" class="btn btn-sm btn-primary">Update</a>
                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                 </form>
             </td>

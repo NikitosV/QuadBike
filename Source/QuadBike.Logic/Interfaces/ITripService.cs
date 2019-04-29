@@ -12,5 +12,7 @@ namespace QuadBike.Logic.Interfaces
         void CreateTrip(TripViewModel model, string userId, byte[] imageData);
         void DeleteById(int? id);
         IEnumerable<Trip> GetAllTrips();
+        Trip GetTripById(int id);
+        bool Update(Trip item);
     }
 }
