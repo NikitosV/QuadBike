@@ -17,15 +17,13 @@
     <thead>
         <tr>
             <th><a asp-action="Index">Img</a></th>
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@(Model.BikeSortViewModel.NameSort)" asp-route-name="@(Model.BikeFilterViewModel.SelectedName)">Name</a>
-            </th>
-            <th><a asp-action="Index" asp-route-sortOrder="@(Model.BikeSortViewModel.NameSort)" asp-route-name="@(Model.BikeFilterViewModel.SelectedName)">Max speed</a></th>
-            <th><a asp-action="Index" asp-route-sortOrder="@(Model.BikeSortViewModel.NameSort)" asp-route-name="@(Model.BikeFilterViewModel.SelectedName)">Power</a></th>
-            <th><a asp-action="Index" asp-route-sortOrder="@(Model.BikeSortViewModel.NameSort)" asp-route-name="@(Model.BikeFilterViewModel.SelectedName)">TypeEngine</a></th>
-            <th><a asp-action="Index" asp-route-sortOrder="@(Model.BikeSortViewModel.NameSort)" asp-route-name="@(Model.BikeFilterViewModel.SelectedName)">Fuel(L)</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@(Model.BikeSortViewModel.NameSort)" asp-route-name="@(Model.BikeFilterViewModel.SelectedName)">Name</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@(Model.BikeSortViewModel.MaxSpeedSort)" asp-route-name="@(Model.BikeFilterViewModel.SelectedName)">Max speed</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@(Model.BikeSortViewModel.PowerSort)" asp-route-name="@(Model.BikeFilterViewModel.SelectedName)">Power</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@(Model.BikeSortViewModel.TypeEngineSort)" asp-route-name="@(Model.BikeFilterViewModel.SelectedName)">TypeEngine</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@(Model.BikeSortViewModel.FuelSort)" asp-route-name="@(Model.BikeFilterViewModel.SelectedName)">Fuel(L)</a></th>
             <th><a asp-action="Index">Description</a></th>
-            <th><a asp-action="Index" asp-route-sortOrder="@(Model.BikeSortViewModel.NameSort)" asp-route-name="@(Model.BikeFilterViewModel.SelectedName)">Price</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@(Model.BikeSortViewModel.PriceSort)" asp-route-name="@(Model.BikeFilterViewModel.SelectedName)">Price</a></th>
             <th></th>
         </tr>
     </thead>

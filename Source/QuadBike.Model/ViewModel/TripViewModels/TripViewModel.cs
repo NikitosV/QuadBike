@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using QuadBike.Common.Filters.TripFilter;
 using QuadBike.Model.Entities;
 using QuadBike.Model.ViewModel.Pagination;
 using System;
@@ -45,6 +46,10 @@ namespace QuadBike.Model.ViewModel.TripViewModels
         public IEnumerable<Trip> Trips { get; set; }
 
         public PageViewModel PageViewModel { get; set; }
+
+        public TripFilterViewModel TripFilterViewModel { get; set; }
+
+        public TripSortViewModel TripSortViewModel { get; set; }
 
         [Required]
         [Display(Name = "Trip img")]
