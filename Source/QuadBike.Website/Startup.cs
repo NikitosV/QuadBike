@@ -55,6 +55,7 @@ namespace QuadBike.Website
             services.AddScoped<IUserManagerService, UserManagerService>();
 
             services.AddMvc();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,6 +71,7 @@ namespace QuadBike.Website
             }
 
             app.UseStatusCodePages();
+            app.UseSession();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();

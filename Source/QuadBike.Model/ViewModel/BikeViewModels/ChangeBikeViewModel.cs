@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -21,5 +22,7 @@ namespace QuadBike.Model.ViewModel.BikeViewModels
         public string Description { get; set; }
 
         public int Price { get; set; }
+
+        public IFormFile BikeImg { get; set; }
     }
 }

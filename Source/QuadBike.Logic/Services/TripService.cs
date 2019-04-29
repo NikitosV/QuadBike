@@ -56,5 +56,21 @@ namespace QuadBike.Logic.Services
         {
             return _tripRepository.GetAll();
         }
+
+        public Trip GetTripById(int id)
+        {
+            var res = _tripRepository.Get(id);
+            return res;
+        }
+
+        public bool Update(Trip item)
+        {
+            if (item != null)
+            {
+                _tripRepository.Update(item);
+                return true;
+            }
+            return false;
+        }
     }
 }

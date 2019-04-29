@@ -15,4 +15,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\QuadBike.Common\QuadBike.Common.csproj" />
+  </ItemGroup>
+
 </Project>

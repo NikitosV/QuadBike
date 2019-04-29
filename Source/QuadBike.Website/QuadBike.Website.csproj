@@ -18,4 +18,9 @@
     <ProjectReference Include="..\QuadBike.Logic\QuadBike.Logic.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Views\Cart\" />
+  </ItemGroup>
+
 </Project>
