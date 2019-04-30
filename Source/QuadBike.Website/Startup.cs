@@ -44,17 +44,19 @@ namespace QuadBike.Website
             
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IBikeRepository, BikeRepository>();
-            services.AddScoped<IRentBikeRepository, RentBikeRepository>();
-            services.AddScoped<IRentTripRepository, RentTripRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
 
             services.AddScoped<IBikeService, BikeService>();
-            services.AddScoped<IRentBikeService, RentBikeService>();
-            services.AddScoped<IRentTripService, RentTripService>();
             services.AddScoped<ITripService, TripService>();
             services.AddScoped<IUserManagerService, UserManagerService>();
 
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sp => ShoppingCart.GetCart(sp));
+
             services.AddMvc();
+            services.AddMemoryCache();
             services.AddSession();
         }
 

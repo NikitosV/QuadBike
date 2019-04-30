@@ -56,7 +56,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-sm btn-outline-secondary">More</button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Rent</button>
+                                    <a class="btn btn-sm btn-outline-secondary" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-bikeId="@u.Id">Rent</a>
                                 </div>
                             </div>
                         </div>

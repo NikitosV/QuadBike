@@ -34,8 +34,6 @@ namespace QuadBike.Model.Entities
 
         public virtual Account Account { get; set; }
 
-        public virtual ICollection<RentBike> RentBikes { get; set; }
-
         public byte[] BikeImg { get; set; }
     }
 }

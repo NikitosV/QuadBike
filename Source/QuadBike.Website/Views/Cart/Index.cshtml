@@ -1,0 +1,52 @@
+﻿@model QuadBike.Model.ViewModel.ShoppingViewModel.ShoppingCartViewModel
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row checkoutForm">
+    <h2>Your shopping cart</h2>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-left" width="25">Amount</th>
+                <th class="text-center">Bike</th>
+                <th class="text-right">Price</th>
+                <th class="text-right">Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var line in Model.ShoppingCart.ShoppingCartItems)
+            {
+                <tr>
+                    <td class="text-center" width="25">@line.Amount</td>
+                    <td class="text-center">@line.Bike.Name</td>
+                    <td class="text-right">@line.Bike.Price $</td>
+                    <td class="text-right">
+                        @((line.Amount * line.Bike.Price)) $
+                    </td>
+                    <td class="text-center"><a class="glyphicon glyphicon-remove text-danger remove" asp-controller="Cart" asp-action="RemoveFromShoppingCart" asp-route-drinkId="@line.Bike.Id">R</a></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">Total:</td>
+                <td class="text-right">
+                    @Model.ShoppingCartTotal $
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="text-right">
+        <div class="btn-group ">
+            <form asp-controller="Order" asp-action="Checkout" method="post">
+                <button type="submit" class="btn btn-success">Buy</button>
+            </form>
+        </div>
+    </div>
+</div>

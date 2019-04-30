@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace QuadBike.Logic.Interfaces
+namespace QuadBike.Model.ViewModel.OrderViewModels
 {
-    public interface IRentBikeService
+    public class OrderViewModel
     {
+
     }
 }
