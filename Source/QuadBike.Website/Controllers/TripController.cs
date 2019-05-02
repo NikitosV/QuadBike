@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using QuadBike.Common.Filters.TripFilter;
 using QuadBike.Logic.Interfaces;
 using QuadBike.Model.Context.CommitProvider;
 using QuadBike.Model.ViewModel.Pagination;
@@ -24,7 +25,7 @@ namespace QuadBike.Website.Controllers
             _commitProvider = commitProvider;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(string name, int page = 1, SortState sortOrder = SortState.TripNameAsc)
         {
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
@@ -32,6 +33,53 @@ namespace QuadBike.Website.Controllers
             int pageSize = 10;   // количество элементов на странице
 
             var source = _tripService.GetTripsOfCurrentProvider(userId.Result.Id);
+
+            if (!String.IsNullOrEmpty(name))
+            {
+                source = source.Where(p => p.TripName.Contains(name));
+            }
+
+            switch (sortOrder)
+            {
+                case SortState.TripNameDesc:
+                    source = source.OrderByDescending(s => s.TripName);
+                    break;
+                case SortState.TypeAsc:
+                    source = source.OrderBy(s => s.Type);
+                    break;
+                case SortState.TypeDesc:
+                    source = source.OrderByDescending(s => s.Type);
+                    break;
+                case SortState.DistanceAsc:
+                    source = source.OrderBy(s => s.Distance);
+                    break;
+                case SortState.DistanceDesc:
+                    source = source.OrderByDescending(s => s.Distance);
+                    break;
+                case SortState.AmountOfPeopleAsc:
+                    source = source.OrderBy(s => s.AmountOfPeople);
+                    break;
+                case SortState.AmountOfPeopleDesc:
+                    source = source.OrderByDescending(s => s.AmountOfPeople);
+                    break;
+                case SortState.StartDateAsc:
+                    source = source.OrderBy(s => s.StartDate);
+                    break;
+                case SortState.StartDateDesc:
+                    source = source.OrderByDescending(s => s.StartDate);
+                    break;
+                case SortState.PriceAsc:
+                    source = source.OrderBy(s => s.Price);
+                    break;
+                case SortState.PriceDesc:
+                    source = source.OrderByDescending(s => s.Price);
+                    break;
+
+                default:
+                    source = source.OrderBy(s => s.TripName);
+                    break;
+            }
+
             var count = source.Count();
             var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
@@ -39,6 +87,8 @@ namespace QuadBike.Website.Controllers
             TripViewModel viewModel = new TripViewModel
             {
                 PageViewModel = pageViewModel,
+                TripFilterViewModel = new TripFilterViewModel(name),
+                TripSortViewModel = new TripSortViewModel(sortOrder),
                 Trips = items
             };
             return View(viewModel);

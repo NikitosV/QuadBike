@@ -16,10 +16,6 @@ namespace QuadBike.Model.Entities
 
         public string Description { get; set; }
 
-        public virtual ICollection<RentBike> RentBikes { get; set; }
-
-        public virtual ICollection<RentTrip> RentTrips { get; set; }
-
         public virtual ICollection<Trip> Trips { get; set; }
 
         public virtual ICollection<Bike> Bikes { get; set; }

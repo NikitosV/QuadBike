@@ -14,11 +14,13 @@ namespace QuadBike.Model.Context
 
         DbSet<Trip> Trips { get; set; }
 
-        DbSet<RentBike> RentBikes { get; set; }
-
-        DbSet<RentTrip> RentTrips { get; set; }
-
         DbSet<Account> Accounts { get; set; }
+
+        DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+
+        DbSet<Order> Orders { get; set; }
+
+        DbSet<OrderDetail> OrderDetails { get; set; }
 
         DbSet<FileModel> Files { get; set; }
 

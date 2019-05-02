@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.Common.Filters.BikeFilter;
+using QuadBike.DataProvider.Interfaces;
 using QuadBike.Logic.Interfaces;
 using QuadBike.Model.Context.CommitProvider;
 using QuadBike.Model.ViewModel.BikeViewModels;
+using QuadBike.Model.ViewModel.OrderViewModels;
 using QuadBike.Model.ViewModel.Pagination;
 
 namespace QuadBike.Website.Controllers
@@ -17,14 +19,16 @@ namespace QuadBike.Website.Controllers
     public class BikeController : Controller
     {
         private readonly IBikeService _bikeService;
+        private readonly IOrderRepository _orderRepository;
         private readonly IUserManagerService _userManagerService;
         private readonly ICommitProvider _commitProvider;
 
-        public BikeController(IBikeService bikeService, IUserManagerService userManagerService, ICommitProvider commitProvider)
+        public BikeController(IBikeService bikeService, IUserManagerService userManagerService, ICommitProvider commitProvider, IOrderRepository orderRepository)
         {
             _bikeService = bikeService;
             _userManagerService = userManagerService;
             _commitProvider = commitProvider;
+            _orderRepository = orderRepository;
         }
 
         public IActionResult Index(string name, int page = 1, SortState sortOrder = SortState.NameAsc)
@@ -32,7 +36,7 @@ namespace QuadBike.Website.Controllers
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
 
-            int pageSize = 3;   // количество элементов на странице
+            int pageSize = 10;   // количество элементов на странице
 
             var source = _bikeService.GetBikesOfCurrentProvider(userId.Result.Id);
 
@@ -201,6 +205,15 @@ namespace QuadBike.Website.Controllers
                 }
             }
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult OrderList()
+        {
+            var currentUserName = User.Identity.Name;
+            var userId = _userManagerService.GetUserByName(currentUserName);
+            var res = _orderRepository.OrdersForCurrentProvider(userId.Result.Id);
+            return View(res);
         }
     }
 }

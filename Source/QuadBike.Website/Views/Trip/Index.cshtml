@@ -6,9 +6,25 @@
 }
 
 <h2>Trips:</h2>
-<table class="table table-hover">
+<form asp-controller="Trip" asp-action="Index" class="form-inline" method="get">
+    @Html.TextBox("name", Model.TripFilterViewModel.SelectedName, htmlAttributes: new { @class = "form-control mr-sm-2" })
+    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Find</button>
+</form>
+<br />
+<table class="table table-hover col-lg-12">
     <thead>
-        <tr><th>Img</th><th>Trip Name</th><th>Type</th><th>Distance</th><th>Amount of people</th><th>Start Trip</th><th>End Trip</th><th>Description</th><th>Price</th><th></th></tr>
+        <tr>
+            <th><a asp-action="Index">Img</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.TripNameSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Name</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.TypeSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Type</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.DistanceSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Distance</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.AmountOfPeopleSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Count</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.StartDateSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Start</a></th>
+            <th><a asp-action="Index">End</a></th>
+            <th><a asp-action="Index">Description</a></th>
+            <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.PriceSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Price</a></th>
+            <th></th>
+        </tr>
     </thead>
     @foreach (var trip in Model.Trips)
     {
