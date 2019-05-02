@@ -12,7 +12,10 @@ namespace QuadBike.Model.Context.Initializer
         public static async Task Initialize(UserManager<Account> _userManager, RoleManager<IdentityRole> _roleManager)
         {
             string moderEmail = "moder@moder.by";
+            string userEmail = "user1@tut.by";
+            string providerEmail = "provider1@tut.by";
             string password = "657F660n_";
+
             if (await _roleManager.FindByNameAsync("moderator") == null)
             {
                 await _roleManager.CreateAsync(new IdentityRole("moderator"));
@@ -32,6 +35,24 @@ namespace QuadBike.Model.Context.Initializer
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(moder, "moderator");
+                }
+            }
+            if (await _userManager.FindByNameAsync(userEmail) == null)
+            {
+                Account user = new Account { Email = userEmail, UserName = userEmail };
+                IdentityResult result = await _userManager.CreateAsync(user, password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(user, "user");
+                }
+            }
+            if (await _userManager.FindByNameAsync(providerEmail) == null)
+            {
+                Account provider = new Account { Email = providerEmail, UserName = providerEmail };
+                IdentityResult result = await _userManager.CreateAsync(provider, password);
+                if (result.Succeeded)
+                {
+                    await _userManager.AddToRoleAsync(provider, "provider");
                 }
             }
         }

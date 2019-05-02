@@ -41,18 +41,17 @@ namespace QuadBike.Website
                 .AddEntityFrameworkStores<QuadBikeContext>();
 
             services.AddScoped<ICommitProvider, CommitProvider>();
-            
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IBikeRepository, BikeRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
 
             services.AddScoped<IBikeService, BikeService>();
             services.AddScoped<ITripService, TripService>();
             services.AddScoped<IUserManagerService, UserManagerService>();
 
-            services.AddScoped<IOrderRepository, OrderRepository>();
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped(sp => ShoppingCart.GetCart(sp));
 
             services.AddMvc();

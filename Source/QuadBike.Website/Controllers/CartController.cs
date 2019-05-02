@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.DataProvider.Interfaces;
+using QuadBike.Logic.Interfaces;
 using QuadBike.Model.Entities;
 using QuadBike.Model.ViewModel.ShoppingViewModel;
 
@@ -22,7 +23,6 @@ namespace QuadBike.Website.Controllers
             _shoppingCart = shoppingCart;
         }
 
-        //[Authorize]
         public ViewResult Index()
         {
             var items = _shoppingCart.GetShoppingCartItems();
@@ -36,11 +36,10 @@ namespace QuadBike.Website.Controllers
             return View(shoppingCartViewModel);
         }
 
-        //[Authorize]
         [Route("Cart/AddToShoppingCart/{bikeId:int}")]
         public RedirectToActionResult AddToShoppingCart(int bikeId)
         {
-            var selectedDrink = _bikeRepository.Get(bikeId);/*GetAll().FirstOrDefault(p => p.Id == bikeId);*/
+            var selectedDrink = _bikeRepository.Get(bikeId);
             if (selectedDrink != null)
             {
                 _shoppingCart.AddToCart(selectedDrink, 1);
@@ -51,7 +50,7 @@ namespace QuadBike.Website.Controllers
         [Route("Cart/RemoveFromShoppingCart/{drinkId:int}")]
         public RedirectToActionResult RemoveFromShoppingCart(int drinkId)
         {
-            var selectedDrink = _bikeRepository.Get(drinkId);/*GetAll().FirstOrDefault(p => p.Id == drinkId);*/
+            var selectedDrink = _bikeRepository.Get(drinkId);
             if (selectedDrink != null)
             {
                 _shoppingCart.RemoveFromCart(selectedDrink);

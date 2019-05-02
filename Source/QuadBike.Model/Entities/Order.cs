@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,14 +11,9 @@ namespace QuadBike.Model.Entities
     public class Order
     {
         [Key]
-        public int OrderId { get; set; }
-
-        [ForeignKey("OrderLines")]
-        public List<OrderDetail> OrderLines { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
-
-        //public int OrderTotal { get; set; }
 
         public DateTime OrderPlaced { get; set; }
     }

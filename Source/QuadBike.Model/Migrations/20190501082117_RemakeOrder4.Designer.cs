@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuadBike.Model.Context;
 
 namespace QuadBike.Model.Migrations
 {
     [DbContext(typeof(QuadBikeContext))]
-    partial class QuadBikeContextModelSnapshot : ModelSnapshot
+    [Migration("20190501082117_RemakeOrder4")]
+    partial class RemakeOrder4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -241,20 +243,7 @@ namespace QuadBike.Model.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
-
-                    b.Property<DateTime>("OrderPlaced");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("QuadBike.Model.Entities.OrderDetail", b =>
-                {
-                    b.Property<int>("OrderDetailId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("AccountId");
 
                     b.Property<string>("AccountProviderId");
 
@@ -262,17 +251,19 @@ namespace QuadBike.Model.Migrations
 
                     b.Property<int>("BikeId");
 
-                    b.Property<int>("OrderId");
+                    b.Property<string>("Name");
+
+                    b.Property<DateTime>("OrderPlaced");
 
                     b.Property<int>("Price");
 
-                    b.HasKey("OrderDetailId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
 
                     b.HasIndex("BikeId");
 
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("OrderDetails");
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("QuadBike.Model.Entities.ShoppingCartItem", b =>
@@ -384,16 +375,15 @@ namespace QuadBike.Model.Migrations
                         .HasForeignKey("AccountId");
                 });
 
-            modelBuilder.Entity("QuadBike.Model.Entities.OrderDetail", b =>
+            modelBuilder.Entity("QuadBike.Model.Entities.Order", b =>
                 {
+                    b.HasOne("QuadBike.Model.Entities.Account", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId");
+
                     b.HasOne("QuadBike.Model.Entities.Bike", "Bike")
                         .WithMany()
                         .HasForeignKey("BikeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("QuadBike.Model.Entities.Order", "Order")
-                        .WithMany()
-                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

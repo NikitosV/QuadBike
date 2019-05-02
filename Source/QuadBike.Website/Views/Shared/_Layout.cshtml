@@ -28,10 +28,8 @@
                             <a class="nav-link text-dark" asp-controller="Provider" asp-action="View">Providers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">
-                                Cart
-                               @*@await Component.InvokeAsync("CartComponent");*@
-                            </a>
+                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">Cart</a>
+                            @*@await Component.InvokeAsync("CartComponent")*@
                         </li>
                         @if (User.Identity.IsAuthenticated)
                         {

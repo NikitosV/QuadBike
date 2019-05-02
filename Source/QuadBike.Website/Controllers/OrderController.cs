@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.DataProvider.Interfaces;
 using QuadBike.Logic.Interfaces;
+using QuadBike.Model.Context;
 using QuadBike.Model.Entities;
+using QuadBike.Model.ViewModel.OrderViewModels;
 
 namespace QuadBike.Website.Controllers
 {
@@ -29,9 +31,13 @@ namespace QuadBike.Website.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            var currentUserName = User.Identity.Name;
+            var userId = _userManagerService.GetUserByName(currentUserName);
+            var res = _orderRepository.OrdersForCurrentProvider(userId.Result.Id);
+            return View(res);
         }
 
         [HttpPost]
@@ -51,7 +57,7 @@ namespace QuadBike.Website.Controllers
 
             if (ModelState.IsValid)
             {
-                _orderRepository.CreateOrder(order, userId.Result.Id, currentUserName);
+                _orderRepository.CreateOrder(order, currentUserName);
                 _shoppingCart.ClearCart();
                 return RedirectToAction("Buy");
             }
