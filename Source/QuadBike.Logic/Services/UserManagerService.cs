@@ -135,5 +135,22 @@ namespace QuadBike.Logic.Services
             var res = _accountRepository.DeleteAccount(account);
             return res;
         }
+
+        public IdentityRole GetRoleProvider()
+        {
+            return _accountRepository.GetRoleProvider();
+        }
+
+        public List<Account> AllProviderByRoleName(string roleName)
+        {
+            var res = _accountRepository.AllProviderByRoleName(roleName);
+            return res;
+        }
+
+        public List<Account> GetProviderOfBike(string bikeId)
+        {
+            var res = _accountRepository.GetProviderOfBike(bikeId);
+            return res;
+        }
     }
 }

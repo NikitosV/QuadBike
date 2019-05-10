@@ -153,5 +153,30 @@ namespace QuadBike.DataProvider.Repositories
             var res = _userManager.UpdateAsync(account);
             return res;
         }
+
+        public IdentityRole GetRoleProvider()
+        {
+            var res = _roleManager.FindByNameAsync("provider").Result;
+            return res;
+        }
+
+        public List<Account> AllProviderByRoleName(string roleName)
+        {
+            var res = _userManager.GetUsersInRoleAsync(roleName);
+            return res.Result.ToList();
+        }
+
+        public List<Account> GetProviderOfBike(string bikeId)
+        {
+            var res = _db.Accounts.Where(a => a.Id.Equals(bikeId)).ToList();
+            return res;
+        }
     }
 }
+
+//public List<Account> GetRolesToUsers(string ddlRole)
+//{
+//    var users = _roleManager.FindByNameAsync() //_db.Accounts.Where(x => x..Select(y => y.RoleId).Contains(ddlRole)).ToList();
+
+//            return users;
+//}

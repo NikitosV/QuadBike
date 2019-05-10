@@ -81,7 +81,8 @@ namespace QuadBike.Website.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Not correct login/password!");
+                    ModelState.AddModelError("Error", "Not correct login/password!");
+                    //return View("Error", new string[] { "Not correct login/password!" });
                 }
             }
             return View(model);

@@ -14,6 +14,7 @@ namespace QuadBike.Website.Controllers
     [Authorize(Roles = "user")]
     public class CartController : Controller
     {
+
         private readonly IBikeRepository  _bikeRepository;
         private readonly ShoppingCart _shoppingCart;
 

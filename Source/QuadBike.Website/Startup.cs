@@ -51,6 +51,7 @@ namespace QuadBike.Website
             services.AddScoped<IBikeService, BikeService>();
             services.AddScoped<ITripService, TripService>();
             services.AddScoped<IUserManagerService, UserManagerService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             services.AddScoped(sp => ShoppingCart.GetCart(sp));
 
