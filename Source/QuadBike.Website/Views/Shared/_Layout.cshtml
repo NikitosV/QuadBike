@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-grid.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -21,16 +22,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-primary" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
+                        @*<li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Bikes</a>
+                        </li>*@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="Index2">Trips</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Provider" asp-action="View">Providers</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="ProviderList">Providers</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">Cart</a>
-                            @*@await Component.InvokeAsync("CartComponent")*@
-                        </li>
+                        @if (User.IsInRole("user"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">Cart</a>
+                                @*@await Component.InvokeAsync("CartComponent")*@
+                            </li>
+                        }
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
@@ -51,11 +58,15 @@
     <div class="container body-content">
         @RenderBody()
     </div>
-    <div class="container body-content">
-        <hr />
-        <footer>
-            <p>&copy; 2019 - Stay with us</p>
-        </footer>
+    <div class="footer navbar-fixed-bottom">
+        <div class="navbar-inner">
+            <div class="container">
+                <hr />
+                <footer>
+                    <p>&copy; 2019 - Stay with us</p>
+                </footer>
+            </div>
+        </div>
     </div>
 </body>
 </html>

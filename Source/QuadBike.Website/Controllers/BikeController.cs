@@ -20,15 +20,17 @@ namespace QuadBike.Website.Controllers
     {
         private readonly IBikeService _bikeService;
         private readonly IOrderRepository _orderRepository;
+        private readonly IOrderService _orderService;
         private readonly IUserManagerService _userManagerService;
         private readonly ICommitProvider _commitProvider;
 
-        public BikeController(IBikeService bikeService, IUserManagerService userManagerService, ICommitProvider commitProvider, IOrderRepository orderRepository)
+        public BikeController(IBikeService bikeService, IUserManagerService userManagerService, ICommitProvider commitProvider, IOrderRepository orderRepository, IOrderService orderService)
         {
             _bikeService = bikeService;
             _userManagerService = userManagerService;
             _commitProvider = commitProvider;
             _orderRepository = orderRepository;
+            _orderService = orderService;
         }
 
         public IActionResult Index(string name, int page = 1, SortState sortOrder = SortState.NameAsc)
@@ -212,7 +214,23 @@ namespace QuadBike.Website.Controllers
         {
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
-            var res = _orderRepository.OrdersForCurrentProvider(userId.Result.Id);
+            var res = _orderService.OrdersForCurrentProvider(userId.Result.Id);
+            return View(res);
+        }
+
+        [HttpGet]
+        public IActionResult InfoOrderList(int id)
+        {
+            var currentUserName = User.Identity.Name;
+            var userId = _userManagerService.GetUserByName(currentUserName);
+            var res = _orderService.OrderDetailsOfOrderById(id, userId.Result.Id);
+            return View(res);
+        }
+
+        [HttpGet]
+        public IActionResult ContactProvider(string id)
+        {
+            var res = _userManagerService.GetUserById(id);
             return View(res);
         }
     }

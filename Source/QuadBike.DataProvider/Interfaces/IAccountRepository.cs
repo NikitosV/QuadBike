@@ -26,5 +26,9 @@ namespace QuadBike.DataProvider.Interfaces
         Task<IdentityResult> UpdateAccount(Account account);
         IEnumerable<Account> ShowUserInfoById(string accountId);
         Task<IdentityResult> DeleteAccount(Account account);
+
+        IdentityRole GetRoleProvider();
+        List<Account> AllProviderByRoleName(string roleName);
+        List<Account> GetProviderOfBike(string bikeId);
     }
 }

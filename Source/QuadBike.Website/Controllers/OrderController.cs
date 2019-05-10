@@ -15,15 +15,15 @@ namespace QuadBike.Website.Controllers
     [Authorize(Roles = "user")]
     public class OrderController : Controller
     {
-        private readonly IOrderRepository _orderRepository;
+        private readonly IOrderService _orderService;
         private readonly IUserManagerService _userManagerService;
         private readonly ShoppingCart _shoppingCart;
 
-        public OrderController(IOrderRepository orderRepository, ShoppingCart shoppingCart, IUserManagerService userManagerService)
+        public OrderController(ShoppingCart shoppingCart, IUserManagerService userManagerService, IOrderService orderService)
         {
-            _orderRepository = orderRepository;
             _shoppingCart = shoppingCart;
             _userManagerService = userManagerService;
+            _orderService = orderService;
         }
 
         public IActionResult Buy()
@@ -36,7 +36,7 @@ namespace QuadBike.Website.Controllers
         {
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
-            var res = _orderRepository.OrdersForCurrentProvider(userId.Result.Id);
+            var res = _orderService.OrdersForCurrentProvider(userId.Result.Id);
             return View(res);
         }
 
@@ -57,7 +57,7 @@ namespace QuadBike.Website.Controllers
 
             if (ModelState.IsValid)
             {
-                _orderRepository.CreateOrder(order, currentUserName);
+                _orderService.CreateOrder(order, currentUserName);
                 _shoppingCart.ClearCart();
                 return RedirectToAction("Buy");
             }

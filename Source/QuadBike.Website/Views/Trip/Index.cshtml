@@ -34,8 +34,8 @@
             <td>@trip.Type</td>
             <td>@trip.Distance km</td>
             <td>@trip.AmountOfPeople</td>
-            <td>@trip.StartDate</td>
-            <td>@trip.EndTrip</td>
+            <td>@String.Format("{0:g}", trip.StartDate)</td>
+            <td>@String.Format("{0:g}", trip.EndTrip)</td>
             <td>@trip.Description</td>
             <td>@trip.Price $</td>
             <td>

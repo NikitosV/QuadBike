@@ -1,20 +1,16 @@
 ﻿using QuadBike.Model.Entities;
 using QuadBike.Model.ViewModel.OrderViewModels;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace QuadBike.DataProvider.Interfaces
+namespace QuadBike.Logic.Interfaces
 {
-    public interface IOrderRepository
+    public interface IOrderService
     {
         void CreateOrder(Order order, string userName);
-        IEnumerable<Order> GetAllOrder();
-        IEnumerable<OrderDetail> GetAllOrderDetail();
-        List<OrderViewModel> OrdersForCurrentProvider(string id);
         Order Get(int id);
+        List<OrderViewModel> OrdersForCurrentProvider(string id);
         List<OrderDetailViewModel> OrderDetailsOfOrderById(int orderId, string accId);
     }
 }

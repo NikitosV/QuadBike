@@ -15,11 +15,13 @@ namespace QuadBike.Website.Controllers
     {
         private IBikeService _bikeService;
         private ITripService _tripService;
+        private IUserManagerService _userManagerService;
 
-        public HomeController(IBikeService bikeService, ITripService tripService)
+        public HomeController(IBikeService bikeService, ITripService tripService, IUserManagerService userManagerService)
         {
             _bikeService = bikeService;
             _tripService = tripService;
+            _userManagerService = userManagerService;
         }
 
         public IActionResult Index(int page = 1)
@@ -55,6 +57,19 @@ namespace QuadBike.Website.Controllers
             };
             return View(viewModel);
         }
+
+        public IActionResult ProviderList()
+        {
+            var res = _userManagerService.AllProviderByRoleName("provider");
+            return View(res);
+        }
+
+        public IActionResult ProviderBike(string accId)
+        {
+            var res = _userManagerService.GetProviderOfBike(accId);
+            return View(res);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

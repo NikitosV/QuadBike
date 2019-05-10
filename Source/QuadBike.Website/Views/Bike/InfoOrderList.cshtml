@@ -1,0 +1,39 @@
+﻿@model List<QuadBike.Model.ViewModel.OrderViewModels.OrderDetailViewModel>
+
+@{
+    ViewData["Title"] = "Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Orders:</h2>
+
+<br />
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Img</th>
+            <th>Name</th>
+            <th>Type Engine</th>
+            <th>Max Speed</th>
+            <th>Fuel</th>
+            <th>Price</th>
+            <th>Amount</th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var detail in Model)
+    {
+        <tr>
+            <td>@detail.BikeImg</td>
+            <td>@detail.BikeName</td>
+            <td>@detail.TypeEngine</td>
+            <td>@detail.MaxSpeed</td>
+            <td>@detail.Fuel</td>
+            <td>@detail.Price</td>
+            <td>@detail.Amount</td>
+            <td>
+                <a asp-controller="Bike" asp-action="OrderList" class="btn btn-sm btn-primary">Return</a>
+            </td>
+        </tr>
+    }
+</table>
