@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using QuadBike.Model.Context;
 using QuadBike.Model.Context.Initializer;
 using QuadBike.Model.Entities;
 
@@ -24,11 +25,12 @@ namespace QuadBike.Website
             {
                 Task t;
                 var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<QuadBikeContext>();
                 try
                 {
                     var userManager = services.GetRequiredService<UserManager<Account>>();
                     var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    t = Seed.Initialize(userManager, rolesManager);
+                    t = Seed.Initialize(context, userManager, rolesManager);
                     t.Wait();
                 }
                 catch (Exception ex)
