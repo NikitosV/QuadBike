@@ -55,7 +55,7 @@ namespace QuadBike.Logic.Services
 
         public IEnumerable<Bike> GetBikesOfCurrentProvider(string id)
         {
-            var res =_bikeRepository.GetBikesOfCurrentProvider(id);
+            var res = _bikeRepository.GetBikesOfCurrentProvider(id);
             return res;
         }
 
@@ -67,7 +67,7 @@ namespace QuadBike.Logic.Services
 
         public bool Update(Bike item)
         {
-            if(item != null)
+            if (item != null)
             {
                 _bikeRepository.Update(item);
                 return true;

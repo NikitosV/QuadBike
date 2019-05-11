@@ -37,7 +37,7 @@ namespace QuadBike.Website.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result =  await _userManagerService.CreateAccount(model);
+                var result = await _userManagerService.CreateAccount(model);
 
                 if (result.Succeeded)
                 {
@@ -82,7 +82,6 @@ namespace QuadBike.Website.Controllers
                 else
                 {
                     ModelState.AddModelError("Error", "Not correct login/password!");
-                    //return View("Error", new string[] { "Not correct login/password!" });
                 }
             }
             return View(model);
@@ -105,7 +104,8 @@ namespace QuadBike.Website.Controllers
             {
                 return NotFound();
             }
-            EditAccountUserViewModel model = new EditAccountUserViewModel {
+            EditAccountUserViewModel model = new EditAccountUserViewModel
+            {
                 Id = res.Id,
                 Name = res.Name,
                 PhoneNumber = res.PhoneNumber,

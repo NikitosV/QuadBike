@@ -22,15 +22,13 @@
                         <li class="nav-item">
                             <a class="nav-link text-primary" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        @*<li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Bikes</a>
-                        </li>*@
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index2">Trips</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="ListTrips">Trips</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="ProviderList">Providers</a>
                         </li>
+
                         @if (User.IsInRole("user"))
                         {
                             <li class="nav-item">
@@ -38,10 +36,35 @@
                                 @*@await Component.InvokeAsync("CartComponent")*@
                             </li>
                         }
+
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="btn btn-outline-success" asp-controller="Account" asp-action="Login">@User.Identity.Name</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-success" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name</a>
+                                <div class="dropdown-menu">
+                                    <p class="dropdown-header">Settings</p>
+                                    <div class="dropdown-divider"></div>
+                                    @if (User.IsInRole("moderator"))
+                                    {
+                                        <a asp-controller="Moder" asp-action="Index" class="dropdown-item">Roles list</a>
+                                        <a asp-controller="Moder" asp-action="UserList" class="dropdown-item">Users list</a>
+                                    }
+                                    else if (User.IsInRole("provider"))
+                                    {
+                                        <a class="dropdown-item" asp-controller="Bike" asp-action="Index">Bikes List</a>
+                                        <a class="dropdown-item" asp-controller="Trip" asp-action="Index">Trips List</a>
+                                        <a class="dropdown-item" asp-controller="Bike" asp-action="OrderList">Orders List</a>
+                                    }
+                                    else if (User.IsInRole("user"))
+                                    {
+                                    }
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="Index">Update Account</a>
+
+                                    <div class="dropdown-divider"></div>
+                                    <form method="post" asp-controller="Account" asp-action="LogOff">
+                                        <input class="dropdown-item text-danger" type="submit" value="Log Off"/>
+                                    </form>
+                                </div>
                             </li>
                         }
                         else

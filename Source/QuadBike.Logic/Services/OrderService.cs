@@ -22,7 +22,7 @@ namespace QuadBike.Logic.Services
             return _orderRepository.Get(id);
         }
 
-        public List<OrderViewModel> OrdersForCurrentProvider(string id)
+        public IEnumerable<OrderViewModel> OrdersForCurrentProvider(string id)
         {
             var res = _orderRepository.OrdersForCurrentProvider(id);
             return res;
@@ -37,6 +37,11 @@ namespace QuadBike.Logic.Services
         public void CreateOrder(Order order, string userName)
         {
             _orderRepository.CreateOrder(order, userName);
+        }
+
+        public void DeleteOrderById(int? orderId)
+        {
+            _orderRepository.DeleteOrderById(orderId);
         }
     }
 }

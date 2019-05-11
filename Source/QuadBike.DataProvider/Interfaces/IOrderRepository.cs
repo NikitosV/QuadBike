@@ -13,8 +13,9 @@ namespace QuadBike.DataProvider.Interfaces
         void CreateOrder(Order order, string userName);
         IEnumerable<Order> GetAllOrder();
         IEnumerable<OrderDetail> GetAllOrderDetail();
-        List<OrderViewModel> OrdersForCurrentProvider(string id);
+        IEnumerable<OrderViewModel> OrdersForCurrentProvider(string id);
         Order Get(int id);
         List<OrderDetailViewModel> OrderDetailsOfOrderById(int orderId, string accId);
+        void DeleteOrderById(int? orderId);
     }
 }

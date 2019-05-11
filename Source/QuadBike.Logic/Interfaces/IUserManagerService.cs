@@ -35,5 +35,6 @@ namespace QuadBike.Logic.Interfaces
         IdentityRole GetRoleProvider();
         List<Account> AllProviderByRoleName(string roleName);
         List<Account> GetProviderOfBike(string bikeId);
+        List<Account> GetProviderOfTrip(string tripId);
     }
 }

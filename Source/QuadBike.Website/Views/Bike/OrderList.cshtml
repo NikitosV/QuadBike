@@ -1,6 +1,4 @@
-﻿@using QuadBike.Model.Entities
-
-@model List<QuadBike.Model.ViewModel.OrderViewModels.OrderViewModel>
+﻿@model QuadBike.Model.ViewModel.OrderViewModels.OrderViewModel
 
 @{
     ViewData["Title"] = "Bikes";
@@ -9,22 +7,26 @@
 
 <h2>Orders:</h2>
 
+<form asp-controller="Bike" asp-action="OrderList" class="form-inline" method="get">
+    @Html.TextBox("name", Model.OrderFilterViewModel.SelectedName, htmlAttributes: new { @class = "form-control mr-sm-2" })
+    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Find</button>
+</form>
 <br />
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>User Email</th>
-            <th>Order time</th>
+            <th><a asp-action="OrderList" asp-route-sortOrderTwo="@(Model.OrderSortViewModel.NameSort)" asp-route-name="@(Model.OrderFilterViewModel.SelectedName)">User Email</a></th>
+            <th><a asp-action="OrderList" asp-route-sortOrderTwo="@(Model.OrderSortViewModel.DateSort)" asp-route-name="@(Model.OrderFilterViewModel.SelectedName)">Order time</a></th>
             <th></th>
         </tr>
     </thead>
-    @foreach (var order in Model)
+    @foreach (var order in Model.Orders)
     {
         <tr>
             <td>@order.Name</td>
             <td>@String.Format("{0:g}", order.OrderPlaced)</td>
             <td>
-                <form asp-controller="Order" asp-action="Delete" asp-route-id="@order.Id" method="post">
+                <form asp-controller="Bike" asp-action="DeleteOrder" asp-route-orderId="@order.Id" method="post">
                     <a asp-controller="Bike" asp-action="InfoOrderList" asp-route-id="@order.Id" class="btn btn-sm btn-primary">More</a>
                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                 </form>
@@ -32,3 +34,4 @@
         </tr>
     }
 </table>
+<page-link page-model="Model.PageViewModel" page-action="Index"></page-link>

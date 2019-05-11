@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.Common.Filters.BikeFilter;
+using QuadBike.Common.Filters.OrderFilter;
 using QuadBike.DataProvider.Interfaces;
 using QuadBike.Logic.Interfaces;
 using QuadBike.Model.Context.CommitProvider;
@@ -210,12 +211,48 @@ namespace QuadBike.Website.Controllers
         }
 
         [HttpGet]
-        public IActionResult OrderList()
+        public IActionResult OrderList(string name, int page = 1, SortStateTwo sortOrderTwo = SortStateTwo.NameAsc)
         {
+            int pageSize = 10;
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
-            var res = _orderService.OrdersForCurrentProvider(userId.Result.Id);
-            return View(res);
+            var source = _orderService.OrdersForCurrentProvider(userId.Result.Id);
+
+            if (!String.IsNullOrEmpty(name))
+            {
+                source = source.Where(p => p.Name.Contains(name));
+            }
+
+            // сортировка
+            switch (sortOrderTwo)
+            {
+                case SortStateTwo.NameDesc:
+                    source = source.OrderByDescending(s => s.Name);
+                    break;
+                case SortStateTwo.DateAsc:
+                    source = source.OrderBy(s => s.OrderPlaced);
+                    break;
+                case SortStateTwo.DateDesc:
+                    source = source.OrderByDescending(s => s.OrderPlaced);
+                    break;
+                default:
+                    source = source.OrderBy(s => s.Name);
+                    break;
+            }
+
+
+            var count = source.Count();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            OrderViewModel viewModel = new OrderViewModel()
+            {
+                PageViewModel = pageViewModel,
+                OrderFilterViewModel = new OrderFilterViewModel(name),
+                OrderSortViewModel = new OrderSortViewModel(sortOrderTwo),
+                Orders = items
+            };
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -232,6 +269,18 @@ namespace QuadBike.Website.Controllers
         {
             var res = _userManagerService.GetUserById(id);
             return View(res);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteOrder(int? orderId)
+        {
+            if (orderId != null)
+            {
+                _orderService.DeleteOrderById(orderId);
+                _commitProvider.Save();
+                return RedirectToAction("OrderList");
+            }
+            return NotFound();
         }
     }
 }

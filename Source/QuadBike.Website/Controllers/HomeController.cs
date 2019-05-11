@@ -41,7 +41,7 @@ namespace QuadBike.Website.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Index2(int page = 1)
+        public IActionResult ListTrips(int page = 1)
         {
             int pageSize = 6;   // количество элементов на странице
 
@@ -67,6 +67,12 @@ namespace QuadBike.Website.Controllers
         public IActionResult ProviderBike(string accId)
         {
             var res = _userManagerService.GetProviderOfBike(accId);
+            return View(res);
+        }
+
+        public IActionResult ProviderTrip(string tripId)
+        {
+            var res = _userManagerService.GetProviderOfTrip(tripId);
             return View(res);
         }
 

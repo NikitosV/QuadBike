@@ -171,12 +171,11 @@ namespace QuadBike.DataProvider.Repositories
             var res = _db.Accounts.Where(a => a.Id.Equals(bikeId)).ToList();
             return res;
         }
+
+        public List<Account> GetProviderOfTrip(string tripId)
+        {
+            var res = _db.Accounts.Where(a => a.Id.Equals(tripId)).ToList();
+            return res;
+        }
     }
 }
-
-//public List<Account> GetRolesToUsers(string ddlRole)
-//{
-//    var users = _roleManager.FindByNameAsync() //_db.Accounts.Where(x => x..Select(y => y.RoleId).Contains(ddlRole)).ToList();
-
-//            return users;
-//}
