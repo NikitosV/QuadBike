@@ -40,7 +40,6 @@ namespace QuadBike.DataProvider.Repositories
         public IEnumerable<Bike> GetAll()                             // read all
         {
             return _db.Bikes;
-            //Include(x => x.Name)
         }
 
         public void Update(Bike item)                               // update
