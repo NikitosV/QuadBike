@@ -13,7 +13,7 @@ namespace QuadBike.Model.Context
         DbSet<Bike> Bikes { get; set; }
 
         DbSet<Trip> Trips { get; set; }
-
+        
         DbSet<Account> Accounts { get; set; }
 
         DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }

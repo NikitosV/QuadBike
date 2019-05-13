@@ -14,4 +14,4 @@ namespace QuadBike.Model.Entities
 
         public string ShoppingCartId { get; set; }
     }
-}
+} 

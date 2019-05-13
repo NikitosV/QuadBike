@@ -74,5 +74,11 @@ namespace QuadBike.Logic.Services
             }
             return false;
         }
+
+        public IEnumerable<IndexBikeViewModel> GetBikesWithProviderInfo()
+        {
+            var res = _bikeRepository.GetBikesWithProviderInfo();
+            return res;
+        }
     }
 }
