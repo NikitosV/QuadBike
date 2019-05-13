@@ -18,7 +18,6 @@
             </p>
             <a class="btn btn-primary" asp-controller="Home" asp-action="ListTrips" role="button">See trips »</a>
         </div>
-
         <div class="row">
             @foreach (var u in Model.Bikes)
             {
@@ -69,7 +68,6 @@
                 </div>
             }
         </div>
+        <page-link page-model="Model.PageViewModel" page-action="Index"></page-link>
     </div>
 </div>
-<br/>
-<page-link page-model="Model.PageViewModel" page-action="Index"></page-link>

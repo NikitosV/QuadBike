@@ -28,7 +28,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="ProviderList">Providers</a>
                         </li>
-
                         @if (User.IsInRole("user"))
                         {
                             <li class="nav-item">
@@ -60,7 +59,6 @@
                                     {
                                     }
                                     <a class="dropdown-item" asp-controller="Account" asp-action="Index">Update Account</a>
-
                                     <div class="dropdown-divider"></div>
                                     <form method="post" asp-controller="Account" asp-action="LogOff">
                                         <input class="dropdown-item text-danger" type="submit" value="Log Off" />
@@ -81,18 +79,16 @@
             </div>
         </nav>
     </header>
-    <div class="container body-content">
-        @RenderBody()
-    </div>
-    <div class="footer navbar-fixed-bottom">
-        <div class="navbar-inner">
-            <div class="container">
-                <hr />
-                <footer>
-                    <p>&copy; 2019 - Stay with us</p>
-                </footer>
-            </div>
+    <main role="main" class="container">
+        <div class="container body-content">
+            @RenderBody()
         </div>
-    </div>
+    </main>
+    <br />
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <p>&copy; 2019 - Stay with us</p>
+        </div>
+    </footer>
 </body>
 </html>
