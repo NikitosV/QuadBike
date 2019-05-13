@@ -120,7 +120,7 @@ namespace QuadBike.Website.Controllers
                 _commitProvider.Save();
                 return RedirectToAction("Index");
             }
-            return NotFound();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

@@ -87,12 +87,5 @@ namespace QuadBike.Website.Controllers
             var res = _userManagerService.GetProviderOfTrip(tripId);
             return View(res);
         }
-
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
