@@ -61,9 +61,7 @@ namespace QuadBike.Website.Controllers
 
         public IActionResult ProviderList(int page = 1)
         {
-            int pageSize = 10;
-
-
+            int pageSize = 8;
 
             var source = _userManagerService.AllProviderByRoleName("provider");
             var count = source.Count();
