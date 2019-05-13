@@ -10,7 +10,8 @@ namespace QuadBike.Logic.Interfaces
     {
         void CreateOrder(Order order, string userName);
         Order Get(int id);
-        List<OrderViewModel> OrdersForCurrentProvider(string id);
+        IEnumerable<OrderViewModel> OrdersForCurrentProvider(string id);
         List<OrderDetailViewModel> OrderDetailsOfOrderById(int orderId, string accId);
+        void DeleteOrderById(int? orderId);
     }
 }

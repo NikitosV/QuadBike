@@ -1,14 +1,13 @@
-﻿@*@model List<QuadBike.Model.Entities.Account>*@
-@model QuadBike.Model.ViewModel.Pagination.ProviderListViewModel
+﻿@model List<QuadBike.Model.Entities.Account>
 
 @{
-    ViewData["Title"] = "ProviderList";
+    ViewData["Title"] = "ProviderTrip";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="album bg-light">
     <div class="container">
         <div class="row">
-            @foreach (var u in Model.Accounts)
+            @foreach (var u in Model)
             {
                 <div class="col-md-6">
                     <div class="card mb-4 shadow-sm">
@@ -34,5 +33,3 @@
         </div>
     </div>
 </div>
-<br/>
-<page-link page-model="Model.PageViewModel" page-action="Index"></page-link>

@@ -14,5 +14,6 @@ namespace QuadBike.Logic.Interfaces
         IEnumerable<Bike> GetBikesOfCurrentProvider(string id);
         Bike GetBikeById(int id);
         bool Update(Bike item);
+        IEnumerable<IndexBikeViewModel> GetBikesWithProviderInfo();
     }
 }

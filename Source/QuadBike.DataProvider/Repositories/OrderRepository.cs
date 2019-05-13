@@ -45,65 +45,63 @@ namespace QuadBike.DataProvider.Repositories
             _context.SaveChanges();
         }
 
-        public Order Get(int id)                                    // read
+        public Order Get(int id)
         {
             return _context.Orders.Find(id);
         }
 
-        public IEnumerable<Order> GetAllOrder()                             // read all
+        public IEnumerable<Order> GetAllOrder()
         {
             return _context.Orders;
         }
 
-        public IEnumerable<OrderDetail> GetAllOrderDetail()                             // read all
+        public IEnumerable<OrderDetail> GetAllOrderDetail()
         {
             return _context.OrderDetails;
         }
 
-        public List<OrderViewModel> OrdersForCurrentProvider(string id)
+        public IEnumerable<OrderViewModel> OrdersForCurrentProvider(string id)
         {
-            var res = _context.Orders.Join(_context.OrderDetails, p => p.Id, c => c.OrderId, (p, c) => new OrderViewModel() // результат
-            {
-                Id = p.Id,
-                Name = p.Name,
-                OrderPlaced = p.OrderPlaced,
-                AccountProviderId = c.AccountProviderId
-            }).Where(a => a.AccountProviderId.Equals(id)).Distinct().ToList();
+            var res = (from order in _context.Orders
+                       join OrderDetail in _context.OrderDetails on order.Id equals OrderDetail.OrderId
+                       select new OrderViewModel()
+                       {
+                           Id = order.Id,
+                           Name = order.Name,
+                           OrderPlaced = order.OrderPlaced,
+                           AccountProviderId = OrderDetail.AccountProviderId
+                       }).Where(ordDetail => ordDetail.AccountProviderId.Equals(id)).Distinct().ToList();
             return res;
         }
 
         public List<OrderDetailViewModel> OrderDetailsOfOrderById(int orderId, string accId)
         {
-            var res = _context.OrderDetails.Join(_context.Bikes, p => p.BikeId, c => c.Id, (p, c) => new OrderDetailViewModel() // результат
-            {
-                AccountProviderId = c.AccountId,
-                BikeName = c.Name,
-                TypeEngine = c.TypeEngine,
-                Fuel = c.Fuel,
-                MaxSpeed = c.MaxSpeed,
-                BikeImg = c.BikeImg,
-                Description = c.Description,
-                OrderId = p.OrderId,
-                Amount = p.Amount,
-                Price = c.Price
-
-            }).Where(a => a.OrderId.Equals(orderId)).Where(b => b.AccountProviderId.Equals(accId)).ToList();
+            var res = (from orderDetail in _context.OrderDetails
+                       join bike in _context.Bikes on orderDetail.BikeId equals bike.Id
+                       where orderDetail.OrderId == orderId && bike.AccountId == accId
+                       select new OrderDetailViewModel()
+                       {
+                           AccountProviderId = bike.AccountId,
+                           BikeName = bike.Name,
+                           TypeEngine = bike.TypeEngine,
+                           Fuel = bike.Fuel,
+                           MaxSpeed = bike.MaxSpeed,
+                           BikeImg = bike.BikeImg,
+                           Description = bike.Description,
+                           OrderId = orderDetail.OrderId,
+                           Amount = orderDetail.Amount,
+                           Price = bike.Price
+                       }).ToList();
             return res;
         }
 
-
-        //public DateTime OrderPlaced { get; set; }
-        //public int Price { get; set; }
-        //public int Amount { get; set; }
+        public void DeleteOrderById(int? orderId)
+        {
+            Order order = _context.Orders.Find(orderId);
+            if (order != null)
+            {
+                _context.Orders.Remove(order);
+            }
+        }
     }
 }
-//var result = from order in _context.Orders
-//             join orderDetail in _context.OrderDetails on order.Id equals orderDetail.OrderId
-//             join bike in _context.Bikes on orderDetail.BikeId equals bike.Id
-//             select new OrderViewModel()
-//             {
-//                 Id = order.Id,
-//                 Name = order.Name,
-//                 OrderPlaced = order.OrderPlaced,
-//                 AccountProviderId = orderDetail.AccountProviderId
-//             };

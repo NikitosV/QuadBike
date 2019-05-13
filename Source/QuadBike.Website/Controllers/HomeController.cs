@@ -28,7 +28,8 @@ namespace QuadBike.Website.Controllers
         {
             int pageSize = 9;   // количество элементов на странице
 
-            var source = _bikeService.GetAllBikes();
+            // var source = _bikeService.GetAllBikes();
+            var source = _bikeService.GetBikesWithProviderInfo();
             var count = source.Count();
             var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
@@ -41,7 +42,7 @@ namespace QuadBike.Website.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Index2(int page = 1)
+        public IActionResult ListTrips(int page = 1)
         {
             int pageSize = 6;   // количество элементов на странице
 
@@ -58,15 +59,34 @@ namespace QuadBike.Website.Controllers
             return View(viewModel);
         }
 
-        public IActionResult ProviderList()
+        public IActionResult ProviderList(int page = 1)
         {
-            var res = _userManagerService.AllProviderByRoleName("provider");
-            return View(res);
+            int pageSize = 10;
+
+
+
+            var source = _userManagerService.AllProviderByRoleName("provider");
+            var count = source.Count();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            ProviderListViewModel viewModel = new ProviderListViewModel()
+            {
+                PageViewModel = pageViewModel,
+                Accounts = items
+            };
+            return View(viewModel);
         }
 
         public IActionResult ProviderBike(string accId)
         {
             var res = _userManagerService.GetProviderOfBike(accId);
+            return View(res);
+        }
+
+        public IActionResult ProviderTrip(string tripId)
+        {
+            var res = _userManagerService.GetProviderOfTrip(tripId);
             return View(res);
         }
 

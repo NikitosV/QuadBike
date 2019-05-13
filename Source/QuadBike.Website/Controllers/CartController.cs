@@ -15,7 +15,7 @@ namespace QuadBike.Website.Controllers
     public class CartController : Controller
     {
 
-        private readonly IBikeRepository  _bikeRepository;
+        private readonly IBikeRepository _bikeRepository;
         private readonly ShoppingCart _shoppingCart;
 
         public CartController(IBikeRepository bikeRepository, ShoppingCart shoppingCart)
@@ -40,21 +40,21 @@ namespace QuadBike.Website.Controllers
         [Route("Cart/AddToShoppingCart/{bikeId:int}")]
         public RedirectToActionResult AddToShoppingCart(int bikeId)
         {
-            var selectedDrink = _bikeRepository.Get(bikeId);
-            if (selectedDrink != null)
+            var selectedBike = _bikeRepository.Get(bikeId);
+            if (selectedBike != null)
             {
-                _shoppingCart.AddToCart(selectedDrink, 1);
+                _shoppingCart.AddToCart(selectedBike, 1);
             }
             return RedirectToAction("Index");
         }
 
-        [Route("Cart/RemoveFromShoppingCart/{drinkId:int}")]
-        public RedirectToActionResult RemoveFromShoppingCart(int drinkId)
+        [Route("Cart/RemoveFromShoppingCart/{bikeId:int}")]
+        public RedirectToActionResult RemoveFromShoppingCart(int bikeId)
         {
-            var selectedDrink = _bikeRepository.Get(drinkId);
-            if (selectedDrink != null)
+            var selectedBike = _bikeRepository.Get(bikeId);
+            if (selectedBike != null)
             {
-                _shoppingCart.RemoveFromCart(selectedDrink);
+                _shoppingCart.RemoveFromCart(selectedBike);
             }
             return RedirectToAction("Index");
         }

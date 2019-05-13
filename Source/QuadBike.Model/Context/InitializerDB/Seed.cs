@@ -76,12 +76,12 @@ namespace QuadBike.Model.Context.Initializer
                 var us = _userManager.FindByNameAsync(providerEmail).Result;
                 var us2 = _userManager.FindByNameAsync(providerEmailTwo).Result;
 
-                string picturePath = @"D:\Proj\QuadBike\Source\QuadBike.Website\wwwroot\images_default\b1.jpg";
+                string picturePath = "wwwroot/images_default/b1.jpg";
                 FileStream fileStream = new FileStream(picturePath, FileMode.Open, FileAccess.Read);
                 byte[] PhotoBytes = new byte[fileStream.Length];
                 fileStream.Read(PhotoBytes, 0, PhotoBytes.Length);
 
-                string picturePath2 = @"D:\Proj\QuadBike\Source\QuadBike.Website\wwwroot\images_default\b2.jpg";
+                string picturePath2 = "wwwroot/images_default/b2.jpg";
                 FileStream fileStream2 = new FileStream(picturePath2, FileMode.Open, FileAccess.Read);
                 byte[] PhotoBytes2 = new byte[fileStream2.Length];
                 fileStream2.Read(PhotoBytes2, 0, PhotoBytes2.Length);
@@ -170,12 +170,12 @@ namespace QuadBike.Model.Context.Initializer
                 var us = _userManager.FindByNameAsync(providerEmail).Result;
                 var us2 = _userManager.FindByNameAsync(providerEmailTwo).Result;
 
-                string picturePath = @"D:\Proj\QuadBike\Source\QuadBike.Website\wwwroot\images_default\t1.jpg";
+                string picturePath = "wwwroot/images_default/t1.jpg";
                 FileStream fileStream = new FileStream(picturePath, FileMode.Open, FileAccess.Read);
                 byte[] PhotoBytes = new byte[fileStream.Length];
                 fileStream.Read(PhotoBytes, 0, PhotoBytes.Length);
 
-                string picturePath2 = @"D:\Proj\QuadBike\Source\QuadBike.Website\wwwroot\images_default\t2.jpg";
+                string picturePath2 = "wwwroot/images_default/t2.jpg";
                 FileStream fileStream2 = new FileStream(picturePath2, FileMode.Open, FileAccess.Read);
                 byte[] PhotoBytes2 = new byte[fileStream2.Length];
                 fileStream2.Read(PhotoBytes2, 0, PhotoBytes2.Length);

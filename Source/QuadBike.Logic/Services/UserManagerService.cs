@@ -23,7 +23,9 @@ namespace QuadBike.Logic.Services
         {
             var res = await _accountRepository.CreateAccount(new Account { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber }, model.Password);
             if (res != null)
+            {
                 return res;
+            }
             return new IdentityResult();
         }
 
@@ -58,8 +60,8 @@ namespace QuadBike.Logic.Services
 
         public Task<IdentityResult> DeleteRole(IdentityRole role)
         {
-           var res = _accountRepository.DeleteRole(role);
-           return res;
+            var res = _accountRepository.DeleteRole(role);
+            return res;
         }
 
         public IEnumerable<Account> ShowListUsers()
@@ -150,6 +152,12 @@ namespace QuadBike.Logic.Services
         public List<Account> GetProviderOfBike(string bikeId)
         {
             var res = _accountRepository.GetProviderOfBike(bikeId);
+            return res;
+        }
+
+        public List<Account> GetProviderOfTrip(string tripId)
+        {
+            var res = _accountRepository.GetProviderOfTrip(tripId);
             return res;
         }
     }
