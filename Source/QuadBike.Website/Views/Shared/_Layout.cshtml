@@ -6,8 +6,9 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/site.min.css" />
     <link rel="stylesheet" href="~/lib/css/bootstrap.min.css" />
-    <script rel="stylesheet" href="~/lib/js/bootstarp.min.js" ></script>
+    <script src="~/lib/js/bootstrap.min.js" ></script>
     <script src="~/js/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </head>
 <body>
     <header>
@@ -36,8 +37,8 @@
                     {
                         <ul class="nav navbar-nav navbar-right">
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-success" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name</a>
-                                <div class="dropdown-menu">
+                                <a class="nav-link dropdown-toggle text-success" data-toggle="dropdown" href="#" id="dropdownMenuButton" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.Name</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <p class="dropdown-header">Settings</p>
                                     <div class="dropdown-divider"></div>
                                     @if (User.IsInRole("moderator"))
