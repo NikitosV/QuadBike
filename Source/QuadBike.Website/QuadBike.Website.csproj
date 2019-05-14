@@ -5,6 +5,10 @@
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="node_modules\bootstrap\dist\css\bootstrap.css" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="dropzone" Version="4.3.0" />
