@@ -18,6 +18,12 @@
     ]
   },
   {
+    "outputFileName": "wwwroot/lib/js/min/bootstrap.bundle.js",
+    "inputFiles": [
+      "node_modules/bootstrap/dist/js/bootstrap.bundle.js"
+    ]
+  },
+  {
     "outputFileName": "wwwroot/js/jquery.min.js",
     "inputFiles": [
       "node_modules/jquery/dist/jquery.js"

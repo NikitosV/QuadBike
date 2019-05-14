@@ -6,7 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="node_modules\bootstrap\dist\css\bootstrap.css" />
+    <Content Remove="wwwroot\lib\js\min\bootstrap.bundle.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\lib\js\min\bootstrap.bundle.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\js\min\bootstrap.bundle.js" />
   </ItemGroup>
 
 
