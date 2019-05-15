@@ -6,14 +6,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\lib\js\bootstrap-datetimepicker.js" />
     <Content Remove="wwwroot\lib\js\min\bootstrap.bundle.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\lib\js\bootstrap-datetimepicker.js" />
     <_ContentIncludedByDefault Remove="wwwroot\lib\js\min\bootstrap.bundle.js" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\lib\js\bootstrap-datetimepicker.js" />
     <None Include="wwwroot\lib\js\min\bootstrap.bundle.js" />
   </ItemGroup>
 
