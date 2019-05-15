@@ -39,8 +39,9 @@ namespace QuadBike.Website
             services.AddDbContext<QuadBikeContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<Account, IdentityRole>()           // Attention
-                .AddEntityFrameworkStores<QuadBikeContext>();
+            services.AddIdentity<Account, IdentityRole>()
+                .AddEntityFrameworkStores<QuadBikeContext>()
+                .AddDefaultTokenProviders();
 
             services.AddScoped<ICommitProvider, CommitProvider>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -54,6 +55,8 @@ namespace QuadBike.Website
             services.AddScoped<ITripService, TripService>();
             services.AddScoped<IUserManagerService, UserManagerService>();
             services.AddScoped<IOrderService, OrderService>();
+
+            services.AddTransient<IEmailService, EmailService>();
 
             services.AddScoped(sp => ShoppingCart.GetCart(sp));
 
