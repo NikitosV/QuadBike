@@ -7,7 +7,6 @@
 
 
   <ItemGroup>
-    <PackageReference Include="dropzone" Version="4.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
@@ -17,6 +16,11 @@
   <ItemGroup>
     <ProjectReference Include="..\QuadBike.DataProvider\QuadBike.DataProvider.csproj" />
     <ProjectReference Include="..\QuadBike.Logic\QuadBike.Logic.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
 </Project>
