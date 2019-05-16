@@ -53,7 +53,7 @@ namespace QuadBike.Website.Controllers
                     EmailService emailService = new EmailService();
                     await emailService.SendEmailAsync(model.Email, "Confirm your account",
                         $"Confirm the registration by clicking on the link: <a href='{callbackUrl}'>link</a>");
-                    return Content("To complete the registration, check the email and click on the link indicated in the letter.");
+                    return RedirectToAction("CheckEmailIndex", "Home");
                 }
                 else
                 {
