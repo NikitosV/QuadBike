@@ -1,31 +1,57 @@
 ﻿@model QuadBike.Model.ViewModel.AccountViewModels.LoginViewModel
+@*<form class="text-center border border-light p-5" method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+        <div asp-validation-summary="ModelOnly"></div>
+        <p class="h4 mb-4">Sign in</p>
+        <div class="form-row mb-4">
+            <div class="col">
+                <label asp-for="Email"></label><br />
+                <input class="form-control" asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+            <div class="col">
+                <label asp-for="Password"></label><br />
+                <input class="form-control" asp-for="Password" />
+                <span asp-validation-for="Password"></span>
+            </div>
+            <div class="col">
+                <label asp-for="RememberMe"></label><br />
+                <div class="form-check">
+                    <input class="form-check-input" asp-for="RememberMe" />
+                </div><br />
+            </div>
+            <div>
+                <a class="link text-primary" asp-controller="Account" asp-action="Register">I am not registered yet :(</a>
+            </div>
+            <br />
+            <div>
+                <button class="btn btn-info btn-block my-4" type="submit" value="Submit">Sign in</button>
+            </div>
+        </div>
+    </form>*@
 
-<form method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+<form style="background-color: #f7f9fc" class="text-center border border-light p-5 mb-4 col-md-6 offset-md-3" method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>
-    <div class="col-3">
-        <h2>Login</h2>
-        <div class="form-group">
-            <label asp-for="Email"></label><br />
-            <input class="form-control" asp-for="Email" />
-            <span asp-validation-for="Email"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Password"></label><br />
-            <input class="form-control" asp-for="Password" />
-            <span asp-validation-for="Password"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="RememberMe"></label><br />
-            <div class="form-check">
-                <input class="form-check-input" asp-for="RememberMe" />
-            </div><br />
-        </div>
+    <p class="h4 mb-4">Sign in</p>
+
+    <input type="email" asp-for="Email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+    <span class="text-danger" asp-validation-for="Email"></span>
+
+    <input type="password" asp-for="Password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+    <span class="text-danger" asp-validation-for="Password"></span>
+
+    <div class="d-flex justify-content-around">
         <div>
-            <a class="link text-primary" asp-controller="Account" asp-action="Register">I am not registered yet :(</a>
-        </div>
-        <br />
-        <div>
-            <input class="btn btn-primary" type="submit" value="Submit" />
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" asp-for="RememberMe" class="custom-control-input" id="defaultLoginFormRemember">
+                <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+            </div>
         </div>
     </div>
+
+    <button class="btn btn-info btn-block my-4 col-md-5 offset-md-3" type="submit">Sign in</button>
+
+    <p>
+        Not a member?
+        <a class="link text-primary" asp-controller="Account" asp-action="Register">Register</a>
+    </p>
 </form>

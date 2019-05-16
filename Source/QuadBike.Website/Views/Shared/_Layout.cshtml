@@ -77,8 +77,8 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="container">
-        <div class="container body-content">
+    <main style="width: 100%" role="main">
+        <div style="width: 100%" class="container body-content">
             @RenderBody()
         </div>
     </main>
@@ -86,25 +86,6 @@
     <footer class="footer mt-auto py-3">
         <div class="container">
             <p>&copy; 2019 - Stay with us</p>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class='col-sm-6'>
-                    <div class="form-group">
-                        <div class='input-group date' id='datetimepicker1'>
-                            <input type='text' class="form-control" />
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    $(function () {
-                        $('#datetimepicker1').datetimepicker();
-                    });
-                </script>
-            </div>
         </div>
     </footer>
 </body>
