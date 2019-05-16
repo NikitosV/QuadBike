@@ -46,9 +46,31 @@
         </div>
         <div class="form-group">
             <label asp-for="TripImg"></label><br />
-            <input class="form-control" asp-for="TripImg" type="file" name="TripImg" />
+            <div class="custom-file">
+                <input asp-for="TripImg" type="file" name="TripImg" class="custom-file-input" id="inputGroupFile02" aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+            </div>
             <span asp-validation-for="TripImg"></span>
         </div>
+
+        <div class="form-group">
+            <!-- элемент input с id = datetimepicker1 -->
+            <div class="input-group" id="datetimepicker1">
+                <input type="text" class="form-control" />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Инициализация виджета "Bootstrap datetimepicker" -->
+        <script type="text/javascript">
+            $(function () {
+                // идентификатор элемента (например: #datetimepicker1), для которого необходимо инициализировать виджет Bootstrap DateTimePicker
+                $('#datetimepicker1').datetimepicker();
+            });
+        </script>
+
         <button type="submit" class="btn btn-primary">Add</button>
     </div>
 </form>

@@ -21,7 +21,10 @@ namespace QuadBike.Logic.Services
 
         public async Task<IdentityResult> CreateAccount(RegisterViewModel model)
         {
-            var res = await _accountRepository.CreateAccount(new Account { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber }, model.Password);
+            Account account = new Account { Email = model.Email, UserName = model.Email, PhoneNumber = model.PhoneNumber };
+            model.Account = account;
+            model.Id = account.Id;
+            var res = await _accountRepository.CreateAccount(account, model.Password);
             if (res != null)
             {
                 return res;
@@ -159,6 +162,21 @@ namespace QuadBike.Logic.Services
         {
             var res = _accountRepository.GetProviderOfTrip(tripId);
             return res;
+        }
+
+        public Task<string> GenerateEmailConfirmationTokenAsync(Account model)
+        {
+            return _accountRepository.GenerateEmailConfirmationTokenAsync(model);
+        }
+
+        public Task<IdentityResult> ConfirmEmailAsync(Account account, string code)
+        {
+            return _accountRepository.ConfirmEmailAsync(account, code);
+        }
+
+        public Task<bool> IsEmailConfirmedAsync(Account account)
+        {
+            return _accountRepository.IsEmailConfirmedAsync(account);
         }
     }
 }

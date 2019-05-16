@@ -39,8 +39,9 @@ namespace QuadBike.Website
             services.AddDbContext<QuadBikeContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<Account, IdentityRole>()           // Attention
-                .AddEntityFrameworkStores<QuadBikeContext>();
+            services.AddIdentity<Account, IdentityRole>()
+                .AddEntityFrameworkStores<QuadBikeContext>()
+                .AddDefaultTokenProviders();
 
             services.AddScoped<ICommitProvider, CommitProvider>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -54,6 +55,8 @@ namespace QuadBike.Website
             services.AddScoped<ITripService, TripService>();
             services.AddScoped<IUserManagerService, UserManagerService>();
             services.AddScoped<IOrderService, OrderService>();
+
+            services.AddTransient<IEmailService, EmailService>();
 
             services.AddScoped(sp => ShoppingCart.GetCart(sp));
 
@@ -79,25 +82,31 @@ namespace QuadBike.Website
 
             app.UseSession();
             app.UseStaticFiles();
-            app.UseFileServer(new FileServerOptions()
+            app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(
-                    Path.Combine(env.ContentRootPath, "node_modules")
-                ),
-                RequestPath = "/node_modules",
-                EnableDirectoryBrowsing = false
+                  Path.Combine(Directory.GetCurrentDirectory(), @"node_modules")),
+                RequestPath = new PathString("/vendor")
             });
+            //app.UseFileServer(new FileServerOptions()
+            //{
+            //    FileProvider = new PhysicalFileProvider(
+            //        Path.Combine(env.ContentRootPath, "node_modules")
+            //    ),
+            //    RequestPath = "/node_modules",
+            //    EnableDirectoryBrowsing = false
+            //});
             app.UseCookiePolicy();
             app.UseAuthentication();
 
-            app.UseMvcWithDefaultRoute();
+            //app.UseMvcWithDefaultRoute();
 
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=Home}/{action=Index}/{id?}");
-            //});
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

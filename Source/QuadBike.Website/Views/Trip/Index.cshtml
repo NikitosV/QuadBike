@@ -1,53 +1,54 @@
 ﻿@model QuadBike.Model.ViewModel.TripViewModels.TripViewModel
-
 @{
     ViewData["Title"] = "Trips";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="table-responsive">
+    <h2>Trips:</h2>
+    <form asp-controller="Trip" asp-action="Index" class="form-inline" method="get">
+        @Html.TextBox("name", Model.TripFilterViewModel.SelectedName, htmlAttributes: new { @class = "form-control mr-sm-2" })
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Find</button>
+    </form>
+    <br />
 
-<h2>Trips:</h2>
-<form asp-controller="Trip" asp-action="Index" class="form-inline" method="get">
-    @Html.TextBox("name", Model.TripFilterViewModel.SelectedName, htmlAttributes: new { @class = "form-control mr-sm-2" })
-    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Find</button>
-</form>
-<br />
-<table class="table table-hover col-lg-12">
-    <thead>
-        <tr>
-            <th><a asp-action="Index">Img</a></th>
-            <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.TripNameSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Name</a></th>
-            <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.TypeSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Type</a></th>
-            <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.DistanceSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Distance</a></th>
-            <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.AmountOfPeopleSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Count</a></th>
-            <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.StartDateSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Start</a></th>
-            <th><a asp-action="Index">End</a></th>
-            <th><a asp-action="Index">Description</a></th>
-            <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.PriceSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Price</a></th>
-            <th></th>
-        </tr>
-    </thead>
-    @foreach (var trip in Model.Trips)
-    {
-        <tr>
-            <td><img class="bd-placeholder-img card-img-top" style="width:50px; height:50px" src="data:image/jpg;base64,@(Convert.ToBase64String(trip.TripImg))" /></td>
-            <td>@trip.TripName</td>
-            <td>@trip.Type</td>
-            <td>@trip.Distance km</td>
-            <td>@trip.AmountOfPeople</td>
-            <td>@String.Format("{0:g}", trip.StartDate)</td>
-            <td>@String.Format("{0:g}", trip.EndTrip)</td>
-            <td>@trip.Description</td>
-            <td>@trip.Price $</td>
-            <td>
-                <form asp-controller="Trip" asp-action="Delete" asp-route-id="@trip.Id" method="post">
-                    <a asp-controller="Trip" asp-action="Edit" asp-route-id="@trip.Id" class="btn btn-sm btn-primary">Update</a>
-                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                </form>
-            </td>
-        </tr>
-    }
-</table>
-<page-link page-model="Model.PageViewModel" page-action="Index"></page-link>
-<div>
-    <a class="btn btn-primary" asp-controller="Trip" asp-action="Create">Add Trip</a>
+    <table class="table table-hover col-lg-12">
+        <thead>
+            <tr>
+                <th><a asp-action="Index">Img</a></th>
+                <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.TripNameSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Name</a></th>
+                <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.TypeSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Type</a></th>
+                <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.DistanceSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Distance</a></th>
+                <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.AmountOfPeopleSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Count</a></th>
+                <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.StartDateSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Start</a></th>
+                <th><a asp-action="Index">End</a></th>
+                <th><a asp-action="Index">Description</a></th>
+                <th><a asp-action="Index" asp-route-sortOrder="@(Model.TripSortViewModel.PriceSort)" asp-route-name="@(Model.TripFilterViewModel.SelectedName)">Price</a></th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var trip in Model.Trips)
+        {
+            <tr>
+                <td><img class="bd-placeholder-img card-img-top" style="width:50px; height:50px" src="data:image/jpg;base64,@(Convert.ToBase64String(trip.TripImg))" /></td>
+                <td>@trip.TripName</td>
+                <td>@trip.Type</td>
+                <td>@trip.Distance km</td>
+                <td>@trip.AmountOfPeople</td>
+                <td>@String.Format("{0:g}", trip.StartDate)</td>
+                <td>@String.Format("{0:g}", trip.EndTrip)</td>
+                <td>@trip.Description</td>
+                <td>@trip.Price $</td>
+                <td>
+                    <form asp-controller="Trip" asp-action="Delete" asp-route-id="@trip.Id" method="post">
+                        <a asp-controller="Trip" asp-action="Edit" asp-route-id="@trip.Id" class="btn btn-sm btn-primary">Update</a>
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+    <page-link page-model="Model.PageViewModel" page-action="Index"></page-link>
+    <div>
+        <a class="btn btn-primary" asp-controller="Trip" asp-action="Create">Add Trip</a>
+    </div>
 </div>
