@@ -33,13 +33,13 @@ namespace QuadBike.DataProvider.Repositories
             var res = await _userManager.CreateAsync(model, password);
             if (res.Succeeded)
             {
-                await _signInManager.SignInAsync(model, false);
+                //await _signInManager.SignInAsync(model, false);
                 await _userManager.AddToRoleAsync(model, "user");
                 return res;
             }
             else
             {
-                return null;
+                return new IdentityResult();
             }
         }
 
@@ -176,6 +176,21 @@ namespace QuadBike.DataProvider.Repositories
         {
             var res = _db.Accounts.Where(a => a.Id.Equals(tripId)).ToList();
             return res;
+        }
+
+        public Task<string> GenerateEmailConfirmationTokenAsync(Account model)
+        {
+            return _userManager.GenerateEmailConfirmationTokenAsync(model);
+        }
+
+        public Task<IdentityResult> ConfirmEmailAsync(Account account, string code)
+        {
+            return _userManager.ConfirmEmailAsync(account, code);
+        }
+
+        public Task<bool> IsEmailConfirmedAsync(Account account)
+        {
+            return _userManager.IsEmailConfirmedAsync(account);
         }
     }
 }

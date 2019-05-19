@@ -16,7 +16,6 @@ namespace QuadBike.Logic.Interfaces
         Task LogOffAccount();
 
         IList<IdentityRole> ShowListOfRoles();
-        //Task<IList<IdentityRole>> ShowListOfRoles();
         Task<IdentityResult> CreateRole(string name);
         Task<IdentityRole> FindByIdRole(string id);
         Task<Account> GetUserByName(string userName);
@@ -36,5 +35,9 @@ namespace QuadBike.Logic.Interfaces
         List<Account> AllProviderByRoleName(string roleName);
         List<Account> GetProviderOfBike(string bikeId);
         List<Account> GetProviderOfTrip(string tripId);
+
+        Task<string> GenerateEmailConfirmationTokenAsync(Account model);
+        Task<IdentityResult> ConfirmEmailAsync(Account account, string code);
+        Task<bool> IsEmailConfirmedAsync(Account account);
     }
 }

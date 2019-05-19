@@ -31,5 +31,9 @@ namespace QuadBike.DataProvider.Interfaces
         List<Account> AllProviderByRoleName(string roleName);
         List<Account> GetProviderOfBike(string bikeId);
         List<Account> GetProviderOfTrip(string tripId);
+
+        Task<string> GenerateEmailConfirmationTokenAsync(Account model);
+        Task<IdentityResult> ConfirmEmailAsync(Account account, string code);
+        Task<bool> IsEmailConfirmedAsync(Account account);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuadBike.Model.Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -7,6 +8,8 @@ namespace QuadBike.Model.ViewModel.AccountViewModels
 {
     public class RegisterViewModel
     {
+        public string Id { get; set; }
+
         [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -25,6 +28,8 @@ namespace QuadBike.Model.ViewModel.AccountViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         public string PasswordConfirm { get; set; }
+
+        public Account Account { get; set; }
 
     }
 }
