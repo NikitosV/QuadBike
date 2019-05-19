@@ -29,15 +29,24 @@
         </div>
     </form>*@
 
-<form style="background-color: #f7f9fc" class="text-center border border-light p-5 mb-4 col-md-6 offset-md-3" method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
+<form style="background-color: #f7f9fc" class="text-center border border-light p-5 mb-4 col-md-6 offset-md-3 needs-validation" method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" novalidate>
     <div asp-validation-summary="ModelOnly"></div>
     <p class="h4 mb-4">Sign in</p>
+    <div>
+        <input type="email" asp-for="Email" id="defaultLoginFormEmail" class="form-control mb-4 col-md-4 offset-md-4" placeholder="E-mail" required>
+        <div class="invalid-feedback">
+            Please provide a valid email.
+        </div>
+        <span class="text-danger" asp-validation-for="Email"></span>
+    </div>
 
-    <input type="email" asp-for="Email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
-    <span class="text-danger" asp-validation-for="Email"></span>
-
-    <input type="password" asp-for="Password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
-    <span class="text-danger" asp-validation-for="Password"></span>
+    <div>
+        <input type="password" asp-for="Password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password" required>
+        <div class="invalid-feedback">
+            Please provide a valid email.
+        </div>
+        <span class="text-danger" asp-validation-for="Password"></span>
+    </div>
 
     <div class="d-flex justify-content-around">
         <div>
@@ -48,10 +57,29 @@
         </div>
     </div>
 
-    <button class="btn btn-info btn-block my-4 col-md-5 offset-md-3" type="submit">Sign in</button>
-
+    <button class="btn btn-info btn-block my-4 col-md-6 offset-md-3" type="submit">Sign in</button>
     <p>
         Not a member?
         <a class="link text-primary" asp-controller="Account" asp-action="Register">Register</a>
     </p>
 </form>
+
+<script type="text/javascript">
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
