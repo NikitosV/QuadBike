@@ -4,11 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/site.min.css" />
-    <link rel="stylesheet" href="~/lib/css/bootstrap.min.css" />
-    <script src="~/lib/js/bootstrap.min.js" ></script>
-    <script src="~/js/jquery.min.js"></script>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/vendor/bootstrap/dist/css/bootstrap.min.css" />
+    <script type="text/javascript" src="~/vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="~/vendor/moment/min/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="~/vendor/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="~/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/vendor/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </head>
 <body>
     <header>
@@ -29,7 +31,6 @@
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Cart" asp-action="Index">Cart</a>
-                                @*@await Component.InvokeAsync("CartComponent")*@
                             </li>
                         }
                     </ul>
@@ -76,8 +77,8 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="container">
-        <div class="container body-content">
+    <main style="width: 100%" role="main">
+        <div style="width: 100%" class="container body-content">
             @RenderBody()
         </div>
     </main>

@@ -87,5 +87,11 @@ namespace QuadBike.Website.Controllers
             var res = _userManagerService.GetProviderOfTrip(tripId);
             return View(res);
         }
+
+        [HttpGet]
+        public IActionResult CheckEmailIndex()
+        {
+            return View();
+        }
     }
 }

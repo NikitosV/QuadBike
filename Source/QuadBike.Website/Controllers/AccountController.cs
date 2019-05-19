@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.Logic.Interfaces;
+using QuadBike.Logic.Services;
 using QuadBike.Model.Entities;
 using QuadBike.Model.ViewModel.AccountViewModels;
 
@@ -41,7 +43,17 @@ namespace QuadBike.Website.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    // генерация токена для пользователя
+                    var code = await _userManagerService.GenerateEmailConfirmationTokenAsync(model.Account);
+                    var callbackUrl = Url.Action(
+                        "ConfirmEmail",
+                        "Account",
+                        new { userId = model.Id, code = code },
+                        protocol: HttpContext.Request.Scheme);
+                    EmailService emailService = new EmailService();
+                    await emailService.SendEmailAsync(model.Email, "Confirm your account",
+                        $"Confirm the registration by clicking on the link: <a href='{callbackUrl}'>link</a>");
+                    return RedirectToAction("CheckEmailIndex", "Home");
                 }
                 else
                 {
@@ -52,6 +64,26 @@ namespace QuadBike.Website.Controllers
                 }
             }
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            var user = await _userManagerService.GetUserById(userId);
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+            if (user == null)
+            {
+                return View("Error");
+            }
+            var result = await _userManagerService.ConfirmEmailAsync(user, code);
+            if (result.Succeeded)
+                return RedirectToAction("Index", "Home");
+            else
+                return View("Error");
         }
 
         [HttpGet]
