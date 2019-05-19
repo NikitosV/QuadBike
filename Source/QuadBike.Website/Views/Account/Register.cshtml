@@ -1,40 +1,89 @@
 ﻿@model QuadBike.Model.ViewModel.AccountViewModels.RegisterViewModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Sign Up";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<form method="post" asp-controller="Account" asp-action="Register">
+
+<form style="background-color: #f7f9fc; vertical-align:central;" class="text-center border border-light p-5 mb-4 col-md-6 offset-md-3 needs-validation" method="post" asp-controller="Account" asp-action="Register" novalidate>
     <div asp-validation-summary="ModelOnly"></div>
-    <div class="col-3">
-        <h2>Registration</h2>
-        <div class="form-group">
-            <label asp-for="Email"></label><br />
-            <input class="form-control" asp-for="Email" />
-            <span asp-validation-for="Email"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="PhoneNumber"></label><br />
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic1">+</span>
-                </div>
-                <input class="form-control" asp-for="PhoneNumber" placeholder="375(xx)xxx-xx-xx" aria-describedby="basic1" />
-            </div>
-            <span asp-validation-for="PhoneNumber"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Password"></label><br />
-            <input class="form-control" asp-for="Password" />
-            <span asp-validation-for="Password"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="PasswordConfirm"></label><br />
-            <input class="form-control" asp-for="PasswordConfirm" />
-            <span asp-validation-for="PasswordConfirm"></span>
-        </div>
-        <br />
-        <div>
-            <input class="btn btn-primary" type="submit" value="Register" />
+    <p class="h4 mb-4">Sign Up</p>
+    <div>
+        <input type="email" asp-for="Email" id="defaultLoginFormEmail" class="form-control mb-2 col-md-8 offset-md-2" placeholder="E-mail" required pattern="^(?=.*[.]).{1,}$">
+        <span asp-validation-for="Email" class="invalid-feedback">
+            Please, write correct Email!
+        </span>
+    </div>
+    <div>
+        <div class="input-group">
+            <span class="input-group-text mb-2 col-md-1 offset-md-2" style="max-width: 50px" id="basic1">+</span>
+            <input type="tel" class="form-control mb-2 col-md-7 " asp-for="PhoneNumber" id="defaultPhoneNumber" placeholder="375(xx)xxx-xx-xx" aria-describedby="basic1" required pattern="375[0-9]{2}[0-9]{3}[0-9]{2}[0-9]{2}"/>
+            <span asp-validation-for="Email" class="invalid-feedback">
+                Please, write correct phone!
+            </span>
         </div>
     </div>
+    <div>
+        <input type="password" asp-for="Password" id="defaultLoginFormPassword" class="form-control mb-2 col-md-8 offset-md-2" placeholder="Password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!#$%^&*_])(?=.*[^a-zA-Z0-9])\S{6,16}$">
+        <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-1">
+            At least min 6 characters, 1 digit, 1 spec symbol, 1 upper digit<br />
+        </small>
+        <span asp-validation-for="Password" class="invalid-feedback">
+            Password cannot be empty!
+        </span>
+    </div>
+    <div>
+        <input type="password" asp-for="PasswordConfirm" id="defaultLoginFormPassword2" class="form-control mb-2 col-md-8 offset-md-2" placeholder="Confirm password" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!#$%^&*_])(?=.*[^a-zA-Z0-9])\S{6,16}$">
+        <span asp-validation-for="PasswordConfirm" class="invalid-feedback">
+            Passwords do not match!
+        </span>
+    </div>
+
+    <button class="btn btn-info btn-block my-4 col-md-6 offset-md-3" type="submit">Confirm</button>
 </form>
+
+<script type="text/javascript">
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    var email = document.getElementById("defaultLoginFormEmail");
+                    var phone = document.getElementById("defaultPhoneNumber");
+                    var pass = document.getElementById("defaultLoginFormPassword");
+                    var pass2 = document.getElementById("defaultLoginFormPassword2");
+                    if (email.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    if (phone.checkValidity === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    if (pass.checkValidity === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    if (pass2.checkValidity === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    //if (form.checkValidity() === false) {
+                    //    event.preventDefault();
+                    //    event.stopPropagation();
+                    //}
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
+
+@*email.addEventListener("input", function (event) {
+  if (email.validity.typeMismatch) {
+    email.setCustomValidity("I expect an e-mail, darling!");
+  } else {
+    email.setCustomValidity("");
+  }
+});*@

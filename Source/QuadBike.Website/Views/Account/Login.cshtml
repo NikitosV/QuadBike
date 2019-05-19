@@ -1,43 +1,14 @@
 ﻿@model QuadBike.Model.ViewModel.AccountViewModels.LoginViewModel
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Sign In";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@*<form class="text-center border border-light p-5" method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">
-        <div asp-validation-summary="ModelOnly"></div>
-        <p class="h4 mb-4">Sign in</p>
-        <div class="form-row mb-4">
-            <div class="col">
-                <label asp-for="Email"></label><br />
-                <input class="form-control" asp-for="Email" />
-                <span asp-validation-for="Email"></span>
-            </div>
-            <div class="col">
-                <label asp-for="Password"></label><br />
-                <input class="form-control" asp-for="Password" />
-                <span asp-validation-for="Password"></span>
-            </div>
-            <div class="col">
-                <label asp-for="RememberMe"></label><br />
-                <div class="form-check">
-                    <input class="form-check-input" asp-for="RememberMe" />
-                </div><br />
-            </div>
-            <div>
-                <a class="link text-primary" asp-controller="Account" asp-action="Register">I am not registered yet :(</a>
-            </div>
-            <br />
-            <div>
-                <button class="btn btn-info btn-block my-4" type="submit" value="Submit">Sign in</button>
-            </div>
-        </div>
-    </form>*@
 
 <form style="background-color: #f7f9fc; vertical-align:central;" class="text-center border border-light p-5 mb-4 col-md-6 offset-md-3 needs-validation" method="post" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" novalidate>
     <div asp-validation-summary="ModelOnly"></div>
     <p class="h4 mb-4">Sign in</p>
     <div>
-        <input type="email" asp-for="Email" id="defaultLoginFormEmail" class="form-control mb-2 col-md-8 offset-md-2" placeholder="E-mail" required>
+        <input type="email" asp-for="Email" id="defaultLoginFormEmail" class="form-control mb-2 col-md-8 offset-md-2" placeholder="E-mail" required pattern="^(?=.*[.]).{1,}$">
         <span asp-validation-for="Email" class="invalid-feedback">
             Please, write correct Email!
         </span>

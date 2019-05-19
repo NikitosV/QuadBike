@@ -1,59 +1,55 @@
 ﻿@model QuadBike.Model.ViewModel.BikeViewModels.BikeViewModel
+@{
+    ViewData["Title"] = "Add Bike";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
 <div asp-validation-summary="All" class="text-danger"></div>
-<form asp-controller="Bike" asp-action="Create" method="post" enctype="multipart/form-data">
-    <div class="col-7">
-        <div class="form-group">
-            <label asp-for="Name"></label><br />
-            <input class="form-control" asp-for="Name" />
-            <span asp-validation-for="Name"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="MaxSpeed"></label><br />
-            <input class="form-control" asp-for="MaxSpeed" />
-            <span asp-validation-for="MaxSpeed"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="TypeEngine"></label><br />
-            <input class="form-control" asp-for="TypeEngine" />
-            <span asp-validation-for="TypeEngine"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Power"></label><br />
-            <input class="form-control" asp-for="Power" />
-            <span asp-validation-for="Power"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Fuel"></label><br />
-            <input class="form-control" asp-for="Fuel" />
-            <span asp-validation-for="Fuel"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description"></label><br />
-            <input class="form-control" asp-for="Description" />
-            <span asp-validation-for="Description"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Price"></label><br />
-            <input class="form-control" asp-for="Price" />
-            <span asp-validation-for="Price"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="BikeImg"></label><br />
-            <div class="custom-file">
-                <input asp-for="BikeImg" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+    <form asp-controller="Bike" asp-action="Create" method="post" enctype="multipart/form-data">
+        <div class="col-7">
+            <div class="form-group">
+                <label asp-for="Name"></label><br />
+                <input class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name"></span>
             </div>
-            <span asp-validation-for="BikeImg"></span>
-        </div><br />
-        <button type="submit" class="btn btn-primary">Add</button>
-    </div>
-</form>
-@*<div class="form-group">
-        <label asp-for="BikeImg"></label><br />
-        <input class="form-control" asp-for="BikeImg" type="file" name="BikeImg" />
-        <span asp-validation-for="BikeImg"></span>
-    </div>
-                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Upload img</span>
+            <div class="form-group">
+                <label asp-for="MaxSpeed"></label><br />
+                <input class="form-control" asp-for="MaxSpeed" />
+                <span asp-validation-for="MaxSpeed"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeEngine"></label><br />
+                <input class="form-control" asp-for="TypeEngine" />
+                <span asp-validation-for="TypeEngine"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Power"></label><br />
+                <input class="form-control" asp-for="Power" />
+                <span asp-validation-for="Power"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fuel"></label><br />
+                <input class="form-control" asp-for="Fuel" />
+                <span asp-validation-for="Fuel"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description"></label><br />
+                <input class="form-control" asp-for="Description" />
+                <span asp-validation-for="Description"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price"></label><br />
+                <input class="form-control" asp-for="Price" />
+                <span asp-validation-for="Price"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BikeImg"></label><br />
+                <div class="custom-file">
+                    <input asp-for="BikeImg" type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
                 </div>
-*@
+                <span asp-validation-for="BikeImg"></span>
+            </div><br />
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </form>
