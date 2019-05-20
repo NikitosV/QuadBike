@@ -63,6 +63,10 @@ namespace QuadBike.Website.Controllers
                     }
                 }
             }
+            else
+            {
+                ViewData["Message"] = "Passwords do not match!";
+            }
             return View(model);
         }
 
@@ -113,7 +117,7 @@ namespace QuadBike.Website.Controllers
                 }
                 else
                 {
-                    
+                    ViewData["Message"] = "Not correct login/password!";
                     ModelState.AddModelError("Error", "Not correct login/password!");
                 }
             }
