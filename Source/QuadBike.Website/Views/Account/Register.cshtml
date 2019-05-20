@@ -3,7 +3,13 @@
     ViewData["Title"] = "Sign Up";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@if (ViewData["Message"] != null)
+{
+    <div id="popupdiv2" class="alert alert-danger" style="display: none;">
+        @ViewData["Message"]
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+}
 <form style="background-color: #f7f9fc; vertical-align:central;" class="text-center border border-light p-5 mb-4 col-md-6 offset-md-3 needs-validation" method="post" asp-controller="Account" asp-action="Register" novalidate>
     <div asp-validation-summary="ModelOnly"></div>
     <p class="h4 mb-4">Sign Up</p>
@@ -16,7 +22,7 @@
     <div>
         <div class="input-group">
             <span class="input-group-text mb-2 col-md-1 offset-md-2" style="max-width: 50px" id="basic1">+</span>
-            <input type="tel" class="form-control mb-2 col-md-7 " asp-for="PhoneNumber" id="defaultPhoneNumber" placeholder="375(xx)xxx-xx-xx" aria-describedby="basic1" required pattern="375[0-9]{2}[0-9]{3}[0-9]{2}[0-9]{2}"/>
+            <input type="tel" class="form-control mb-2 col-md-7 " asp-for="PhoneNumber" id="defaultPhoneNumber" placeholder="375(xx)xxx-xx-xx" aria-describedby="basic1" required pattern="375[0-9]{2}[0-9]{3}[0-9]{2}[0-9]{2}" />
             <span asp-validation-for="Email" class="invalid-feedback">
                 Please, write correct phone!
             </span>
@@ -47,6 +53,8 @@
         window.addEventListener('load', function () {
             var forms = document.getElementsByClassName('needs-validation');
             var validation = Array.prototype.filter.call(forms, function (form) {
+                //var pass = document.getElementById("defaultLoginFormPassword").value;
+                //var pass2 = document.getElementById("defaultLoginFormPassword2").value;
                 form.addEventListener('submit', function (event) {
                     var email = document.getElementById("defaultLoginFormEmail");
                     var phone = document.getElementById("defaultPhoneNumber");
@@ -68,22 +76,18 @@
                         event.preventDefault();
                         event.stopPropagation();
                     }
-                    //if (form.checkValidity() === false) {
-                    //    event.preventDefault();
-                    //    event.stopPropagation();
-                    //}
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
                     form.classList.add('was-validated');
                 }, false);
             });
         }, false);
+        $(document).ready(function () {
+            if ($('#popupdiv2').html() != '') {
+                $("#popupdiv2").show();
+            }
+        });
     })();
 </script>
-
-
-@*email.addEventListener("input", function (event) {
-  if (email.validity.typeMismatch) {
-    email.setCustomValidity("I expect an e-mail, darling!");
-  } else {
-    email.setCustomValidity("");
-  }
-});*@

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using QuadBike.Common.Filters.BikeFilter;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -28,5 +29,7 @@ namespace QuadBike.Model.ViewModel.BikeViewModels
         public string AccountId { get; set; }
    
         public string Email { get; set; }
+
+        public BikeFilterViewModel BikeFilterViewModel { get; set; }
     }
 }
