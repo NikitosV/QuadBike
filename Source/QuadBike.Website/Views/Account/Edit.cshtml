@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<form asp-controller="Account" asp-action="Edit">
+<form asp-controller="Account" asp-action="Edit" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
         <input type="hidden" asp-for="Id" />
@@ -25,6 +25,11 @@
     <div class="form-group">
         <label asp-for="Description" class="control-label">Description</label>
         <input type="text" asp-for="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="AccountImg"></label><br />
+        <input class="form-control" asp-for="AccountImg" type="file" name="AccountImg" />
+        <span asp-validation-for="AccountImg"></span>
     </div>
     <div class="form-group">
         <input type="submit" value="Save" class="btn btn-primary" />

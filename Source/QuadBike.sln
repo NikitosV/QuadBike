@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuadBike.Model", "QuadBike.Model\QuadBike.Model.csproj", "{11CD8266-F1FD-4F51-A64A-10151B50BA47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuadBike.Model", "QuadBike.Model\QuadBike.Model.csproj", "{11CD8266-F1FD-4F51-A64A-10151B50BA47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuadBike.DataProvider", "QuadBike.DataProvider\QuadBike.DataProvider.csproj", "{CE61C155-1023-41DF-8E36-DF0AC8E42CBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuadBike.DataProvider", "QuadBike.DataProvider\QuadBike.DataProvider.csproj", "{CE61C155-1023-41DF-8E36-DF0AC8E42CBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuadBike.Logic", "QuadBike.Logic\QuadBike.Logic.csproj", "{B6D6E8D6-43AC-44C3-A553-0DE6864884EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuadBike.Logic", "QuadBike.Logic\QuadBike.Logic.csproj", "{B6D6E8D6-43AC-44C3-A553-0DE6864884EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuadBike.Common", "QuadBike.Common\QuadBike.Common.csproj", "{CCB9017A-4852-4714-9CE7-16CDD017F8FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuadBike.Common", "QuadBike.Common\QuadBike.Common.csproj", "{CCB9017A-4852-4714-9CE7-16CDD017F8FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuadBike.Website", "QuadBike.Website\QuadBike.Website.csproj", "{6D4E22E9-22A9-436E-8380-3E0DC8C8F691}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuadBike.Website", "QuadBike.Website\QuadBike.Website.csproj", "{6D4E22E9-22A9-436E-8380-3E0DC8C8F691}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

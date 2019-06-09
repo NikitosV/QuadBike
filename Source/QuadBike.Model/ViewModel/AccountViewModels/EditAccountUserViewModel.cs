@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace QuadBike.Model.ViewModel.AccountViewModels
@@ -15,5 +17,8 @@ namespace QuadBike.Model.ViewModel.AccountViewModels
         public string Adress { get; set; }
 
         public string Description { get; set; }
+
+        [Display(Name = "Account img")]
+        public IFormFile AccountImg { get; set; }
     }
 }

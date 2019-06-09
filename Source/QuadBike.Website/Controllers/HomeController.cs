@@ -93,5 +93,19 @@ namespace QuadBike.Website.Controllers
         {
             return View();
         }
+
+        [HttpGet]
+        public IActionResult BikesOfCurrentProvider(string providerId)
+        {
+            var res = _bikeService.GetBikesOfCurrentProvider(providerId);
+            return View(res);
+        }
+
+        [HttpGet]
+        public IActionResult TripsOfCurrentProvider(string providerId)
+        {
+            var res = _tripService.GetTripsOfCurrentProvider(providerId);
+            return View(res);
+        }
     }
 }
