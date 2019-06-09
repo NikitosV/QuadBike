@@ -12,6 +12,15 @@
             {
                 <div class="col-md-6">
                     <div class="card mb-4 shadow-sm">
+                        @if (u.AccountImg != null)
+                        {
+                            <div class="card-img-left">
+                                <img class="bd-placeholder-img" style="width:200px; height:225px" src="data:image/jpg;base64,@(Convert.ToBase64String(u.AccountImg))" alt="Card image cap" />
+                                <a>
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+                        }
                         <div class="card-body">
                             <p class="card-text">
                                 <div>
@@ -27,6 +36,10 @@
                                     <b>Email:</b> @u.Email
                                 </div>
                             </p>
+                            <div>
+                                <a class="btn btn-sm btn-outline-secondary" asp-controller="Home" asp-action="BikesOfCurrentProvider" asp-route-providerId="@u.Id">View Bikes</a>
+                                <a class="btn btn-sm btn-outline-secondary" asp-controller="Home" asp-action="TripsOfCurrentProvider" asp-route-providerId="@u.Id">View Trips</a>
+                            </div>
                         </div>
                     </div>
                 </div>

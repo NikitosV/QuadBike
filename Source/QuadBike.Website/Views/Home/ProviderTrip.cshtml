@@ -26,6 +26,10 @@
                                     <b>Email:</b> @u.Email
                                 </div>
                             </p>
+                            <div>
+                                <a class="btn btn-sm btn-outline-secondary" asp-controller="Home" asp-action="BikesOfCurrentProvider" asp-route-providerId="@u.Id">View Bikes</a>
+                                <a class="btn btn-sm btn-outline-secondary" asp-controller="Home" asp-action="TripsOfCurrentProvider" asp-route-providerId="@u.Id">View Trips</a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -10,6 +10,8 @@ namespace QuadBike.Model.Entities
 {
     public class Account : IdentityUser
     {
+        public byte[] AccountImg { get; set; }
+
         public string Name { get; set; }
 
         public string Adress { get; set; }

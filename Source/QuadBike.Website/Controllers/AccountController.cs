@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.Logic.Interfaces;
 using QuadBike.Logic.Services;
+using QuadBike.Model.Context.CommitProvider;
 using QuadBike.Model.Entities;
 using QuadBike.Model.ViewModel.AccountViewModels;
 
@@ -15,10 +17,12 @@ namespace QuadBike.Website.Controllers
     public class AccountController : Controller
     {
         private readonly IUserManagerService _userManagerService;
+        private readonly ICommitProvider _commitProvider;
 
-        public AccountController(IUserManagerService userManagerService)
+        public AccountController(IUserManagerService userManagerService, ICommitProvider commitProvider)
         {
             _userManagerService = userManagerService;
+            _commitProvider = commitProvider;
         }
 
         public IActionResult Index()
@@ -160,21 +164,32 @@ namespace QuadBike.Website.Controllers
                 var account = await _userManagerService.GetUserById(model.Id);
                 if (account != null)
                 {
-                    account.Name = model.Name;
-                    account.PhoneNumber = model.PhoneNumber;
-                    account.Adress = model.Adress;
-                    account.Description = model.Description;
-
-                    var result = await _userManagerService.UpdateAccount(account);
-                    if (result.Succeeded)
+                    if (model.AccountImg != null)
                     {
-                        return RedirectToAction("Index");
-                    }
-                    else
-                    {
-                        foreach (var error in result.Errors)
+                        byte[] imageData = null;
+                        using (var binaryReader = new BinaryReader(model.AccountImg.OpenReadStream()))
                         {
-                            ModelState.AddModelError(string.Empty, error.Description);
+                            imageData = binaryReader.ReadBytes((int)model.AccountImg.Length);
+                        }
+
+                        account.Name = model.Name;
+                        account.PhoneNumber = model.PhoneNumber;
+                        account.Adress = model.Adress;
+                        account.Description = model.Description;
+                        account.AccountImg = imageData;
+
+                        var result = await _userManagerService.UpdateAccount(account);
+                        if (result.Succeeded)
+                        {
+                            _commitProvider.Save();
+                            return RedirectToAction("Index");
+                        }
+                        else
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
                         }
                     }
                 }
