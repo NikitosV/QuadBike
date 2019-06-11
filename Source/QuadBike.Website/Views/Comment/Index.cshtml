@@ -1,0 +1,33 @@
+﻿@model IEnumerable<QuadBike.Model.ViewModel.CommentViewModels.CommentViewModel>
+@{
+    ViewData["Title"] = "Comments";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/site.css" />
+<div class="container">
+    @if (User.IsInRole("user"))
+    {
+        <a asp-controller="Comment" asp-action="Create">Add comment</a>
+    }
+    @foreach (var u in Model)
+    {
+        <div class="row">
+            @*<div class="col-sm-1">
+                <div class="thumbnail">
+                    <img class="img-responsive user-photo" style="width: 50px; height: 50px" src="~/images_default/L1.png">
+                </div>
+            </div>*@
+            <div class="card col-sm-5 shadow-sm">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>@u.UserName</strong> <span class="text-muted">commented @String.Format("{0:g}", u.Time)</span>
+                    </div>
+                    <div class="panel-body">
+                        @u.Content
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/>
+    }
+</div>
