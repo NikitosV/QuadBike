@@ -18,11 +18,6 @@
             </p>
             <a class="btn btn-primary" asp-controller="Home" asp-action="ListTrips" role="button">See trips »</a>
         </div>
-        @*<form asp-controller="Bike" asp-action="Index" class="form-inline" method="get">
-            @Html.TextBox("name", Model.BikeFilterViewModel.SelectedName, htmlAttributes: new { @class = "form-control mr-sm-2" })
-            <input class="form-control mr-sm-2" type="search" placeholder="Search">
-            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Find</button>
-        </form>*@
         <br />
         <div class="row">
             @foreach (var u in Model.Bikes)
@@ -32,12 +27,11 @@
                         @if (u.BikeImg != null)
                         {
                             <div class="view view-cascade overlay">
-                                <img class="bd-placeholder-img card-img-top" style="width:100%; height:225px" src="data:image/jpg;base64,@(Convert.ToBase64String(u.BikeImg))" alt="Card image cap"/>
+                                <img class="bd-placeholder-img card-img-top" style="width:100%; height:225px" src="data:image/jpg;base64,@(Convert.ToBase64String(u.BikeImg))" alt="Card image cap" />
                                 <a>
                                     <div class="mask rgba-white-slight"></div>
                                 </a>
                             </div>
-                            @*<img class="bd-placeholder-img card-img-top" style="width:100%; height:225px" src="data:image/jpg;base64,@(Convert.ToBase64String(u.BikeImg))" />*@
                         }
                         <div class="card-body card-body-cascade">
                             <p class="card-text">
@@ -62,15 +56,30 @@
                                 <div>
                                     <b>Price:</b> @u.Price $ per one day
                                 </div>
-                            </p>
-                            <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
-                                    <a class="btn btn-sm btn-outline-secondary" asp-controller="Home" asp-action="ProviderBike" asp-route-accId="@u.AccountId">@u.Email</a>
-                                    @if (User.IsInRole("user"))
-                                    {
-                                        <a class="btn btn-sm btn-outline-secondary" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-bikeId="@u.Id">Rent</a>
-                                    }
+                                    <b>Provider:&nbsp</b> <a asp-controller="Home" asp-action="ProviderBike" asp-route-accId="@u.AccountId"> @u.Email</a>
                                 </div>
+                            </p>
+                            <hr />
+                            <div class="d-flex justify-content-between align-items-center">
+                                <form class="needs-validation" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-bikeId="@u.Id" novalidate>
+                                    <div class="form-groupe">
+                                        <label><b>Date Start</b></label>
+                                        <input type="datetime-local" class="form-control mb-2" id="datetime" placeholder="Date start" required>
+                                        <span class="invalid-feedback">
+                                            Cannot be empty!
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label><b>Date End</b></label>
+                                        <input type="datetime-local" class="form-control mb-2" id="datetime2" placeholder="Date end" required>
+                                        <span class="invalid-feedback">
+                                            Cannot be empty!
+                                        </span>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-success" type="submit">Rent</button>
+                                    @*<a class="btn btn-sm btn-outline-success" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-bikeId="@u.Id">Rent</a>*@
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -80,3 +89,28 @@
         <page-link page-model="Model.PageViewModel" page-action="Index"></page-link>
     </div>
 </div>
+
+<script type="text/javascript">
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        if ($('#popupdiv').html() != '') {
+            $("#popupdiv").show();
+        }
+    });
+</script>
