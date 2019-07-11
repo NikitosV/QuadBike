@@ -39,7 +39,7 @@ namespace QuadBike.Website.Controllers
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
 
-            int pageSize = 10;   // количество элементов на странице
+            int pageSize = 10;
 
             var source = _bikeService.GetBikesOfCurrentProvider(userId.Result.Id);
 
@@ -48,7 +48,6 @@ namespace QuadBike.Website.Controllers
                 source = source.Where(p => p.Name.Contains(name));
             }
 
-            // сортировка
             switch (sortOrder)
             {
                 case SortState.NameDesc:

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using QuadBike.Model.Context;
 
 namespace QuadBike.Model.Migrations
 {
     [DbContext(typeof(QuadBikeContext))]
-    partial class QuadBikeContextModelSnapshot : ModelSnapshot
+    [Migration("20190609092959_LogoProvider")]
+    partial class LogoProvider
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,28 +224,6 @@ namespace QuadBike.Model.Migrations
                     b.ToTable("Bike");
                 });
 
-            modelBuilder.Entity("QuadBike.Model.Entities.Comment", b =>
-                {
-                    b.Property<int>("CommentId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AccountId");
-
-                    b.Property<string>("Content")
-                        .HasMaxLength(100);
-
-                    b.Property<DateTime>("OrderPlaced");
-
-                    b.Property<string>("UserId");
-
-                    b.HasKey("CommentId");
-
-                    b.HasIndex("AccountId");
-
-                    b.ToTable("Comment");
-                });
-
             modelBuilder.Entity("QuadBike.Model.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
@@ -390,13 +370,6 @@ namespace QuadBike.Model.Migrations
                 {
                     b.HasOne("QuadBike.Model.Entities.Account", "Account")
                         .WithMany("Bikes")
-                        .HasForeignKey("AccountId");
-                });
-
-            modelBuilder.Entity("QuadBike.Model.Entities.Comment", b =>
-                {
-                    b.HasOne("QuadBike.Model.Entities.Account", "Account")
-                        .WithMany()
                         .HasForeignKey("AccountId");
                 });
 

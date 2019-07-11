@@ -9,23 +9,37 @@
         <div class="row">
             @foreach (var u in Model)
             {
-                <div class="col-md-6">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <p class="card-text">
-                                <div>
-                                    <b>Name:</b> @u.Name
-                                </div>
-                                <div>
-                                    <b>Mobile:</b> @u.PhoneNumber
-                                </div>
-                                <div>
-                                    <b>Description:</b> @u.Description
-                                </div>
-                                <div>
-                                    <b>Email:</b> @u.Email
-                                </div>
-                            </p>
+                <div class="card flex-row flex-wrap col-md-6">
+                    <div class="card-header border-0">
+                        @if (u.AccountImg != null)
+                        {
+                            <div class="card-img">
+                                <img class="bd-placeholder-img" style="width:200px; height:180px" src="data:image/jpg;base64,@(Convert.ToBase64String(u.AccountImg))" alt="Card image cap" />
+                                <a>
+                                    <div class="mask rgba-white-slight"></div>
+                                </a>
+                            </div>
+                        }
+                    </div>
+                    <div class="card-block px-2">
+                        <p class="card-text">
+                            <div>
+                                <b>Name:</b> @u.Name
+                            </div>
+                            <div>
+                                <b>Mobile:</b> @u.PhoneNumber
+                            </div>
+                            <div>
+                                <b>Description:</b> @u.Description
+                            </div>
+                            <div>
+                                <b>Email:</b> @u.Email
+                            </div>
+                        </p>
+                        <div>
+                            <a class="btn btn-sm btn-outline-secondary" asp-controller="Home" asp-action="BikesOfCurrentProvider" asp-route-providerId="@u.Id">View Bikes</a>
+                            <a class="btn btn-sm btn-outline-secondary" asp-controller="Home" asp-action="TripsOfCurrentProvider" asp-route-providerId="@u.Id">View Trips</a>
+                            <a class="btn btn-sm btn-outline-secondary" asp-controller="Comment" asp-action="Index" asp-route-providerId="@u.Id">Comments</a>
                         </div>
                     </div>
                 </div>

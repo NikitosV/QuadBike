@@ -1,0 +1,20 @@
+﻿@model QuadBike.Model.ViewModel.CommentViewModels.CommentViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <h3>Box Comments</h3>
+        <form asp-controller="Comment" asp-action="Create" class="form-inline" role="form">
+            <div class="form-group">
+                <input asp-for="Content" class="form-control" type="text" placeholder="Your comments" />
+            </div>
+            <div class="form-group">
+                <button class="btn btn-secondary">Add</button>
+            </div>
+        </form>
+    </div>
+</div>

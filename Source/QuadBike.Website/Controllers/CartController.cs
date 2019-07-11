@@ -37,7 +37,7 @@ namespace QuadBike.Website.Controllers
             return View(shoppingCartViewModel);
         }
 
-        [Route("Cart/AddToShoppingCart/{bikeId:int}")]
+        //[Route("Cart/AddToShoppingCart/{bikeId:int}")]
         public RedirectToActionResult AddToShoppingCart(int bikeId)
         {
             var selectedBike = _bikeRepository.Get(bikeId);

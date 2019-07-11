@@ -50,11 +50,13 @@ namespace QuadBike.Website
             services.AddScoped<IBikeRepository, BikeRepository>();
             services.AddScoped<ITripRepository, TripRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<ICommentRepository, CommentRepository>();
 
             services.AddScoped<IBikeService, BikeService>();
             services.AddScoped<ITripService, TripService>();
             services.AddScoped<IUserManagerService, UserManagerService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<ICommentService, CommentService>();
 
             services.AddTransient<IEmailService, EmailService>();
 
