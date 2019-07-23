@@ -5,16 +5,63 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@*<div class="row">
+        <div class="col-sm-12">
+            <h3>Box Comments</h3>
+            <form asp-controller="Comment" asp-action="Create" class="form-inline" role="form">
+                <div class="form-group">
+                    <input asp-for="Content" class="form-control" type="text" placeholder="Your comments" id="inputContentComment"/>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-secondary" id="addComment">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>*@
+
 <div class="row">
     <div class="col-sm-12">
         <h3>Box Comments</h3>
-        <form asp-controller="Comment" asp-action="Create" class="form-inline" role="form">
+        <form class="form-inline" role="form">
             <div class="form-group">
-                <input asp-for="Content" class="form-control" type="text" placeholder="Your comments" />
+                <input class="form-control" type="text" placeholder="Your comments" id="inputContentComment" />
             </div>
             <div class="form-group">
-                <button class="btn btn-secondary">Add</button>
+                <button class="btn btn-secondary" id="addComment">Add</button>
             </div>
         </form>
     </div>
 </div>
+@*$.ajax({
+     url: '@Url.Action("PassIntFromView", "ControllerName")',
+    type: "post",
+    contentType: 'application/x-www-form-urlencoded',
+    data: data,
+    success: function (result) {
+    console.log(result);
+    }
+    });*@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#addComment").click(function () {
+            var comment = $("#inputContentComment").val();
+            if (comment) {
+                $.ajax({
+                    type: "POST",
+                    url: '/Comments/Create',
+                    contentType: 'application/x-www-form-urlencoded',
+                    data: {
+                        Content: comment
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        $("#div1").empty();
+                        $("#div1").append(data);
+                    }
+                });
+            }
+        });
+
+    });
+</script>

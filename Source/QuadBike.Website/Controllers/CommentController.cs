@@ -22,7 +22,6 @@ namespace QuadBike.Website.Controllers
         [HttpGet]
         public IActionResult Index(string providerId)
         {
-            TempData["PROVID"] = providerId;
             var res = _commentService.GetAllCommentsOfProvider(providerId);
             return View(res);
         }
@@ -34,18 +33,34 @@ namespace QuadBike.Website.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(CommentViewModel commnent)
+        public IActionResult Create([FromBody]string content)
         {
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
-            var providerId = Convert.ToString(TempData["PROVID"]);
+            //var providerId = Convert.ToString(TempData["PROVID"]);
 
-            if (ModelState.IsValid)
-            {
-                _commentService.Create(commnent, userId.Result.Id, providerId, userId.Result.Email);
-                return RedirectToAction("Index");
-            }
-            return View(commnent);
+            //if (ModelState.IsValid)
+            //{
+            //    _commentService.Create(commnent, userId.Result.Id, providerId, userId.Result.Email);
+            //    return RedirectToAction("Index");
+            //}
+            return View();
         }
+        //[HttpPost]
+        //public IActionResult Create(CommentViewModel commnent)
+        //{
+        //    var currentUserName = User.Identity.Name;
+        //    var userId = _userManagerService.GetUserByName(currentUserName);
+        //    var providerId = Convert.ToString(TempData["PROVID"]);
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        _commentService.Create(commnent, userId.Result.Id, providerId, userId.Result.Email);
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(commnent);
+        //}
+
+        
     }
 }
