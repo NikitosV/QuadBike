@@ -7,11 +7,11 @@
 <div class="container">
     @if (User.IsInRole("user"))
     {
-        <a asp-controller="Comment" asp-action="Create">Add comment</a>
+        <a asp-controller="Comment" asp-action="Create">Add comment</a>// add parameter
     }
     @foreach (var u in Model)
     {
-        <div class="row">
+        <div id="div1" class="row">
             @*<div class="col-sm-1">
                 <div class="thumbnail">
                     <img class="img-responsive user-photo" style="width: 50px; height: 50px" src="~/images_default/L1.png">

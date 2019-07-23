@@ -1,0 +1,19 @@
+﻿@model IEnumerable<QuadBike.Model.ViewModel.CommentViewModels.CommentViewModel>
+
+@foreach (var u in Model)
+{
+    <div id="div1" class="row">
+        <div class="card col-sm-5 shadow-sm">
+            <div class="panel panel-default">
+                <div>
+                    <strong>@u.UserName</strong> <span class="text-muted">commented @String.Format("{0:g}", u.Time)</span>
+                </div>
+                <div class="panel-body">
+                    @u.Content
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+}
