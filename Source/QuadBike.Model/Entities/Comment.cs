@@ -12,6 +12,7 @@ namespace QuadBike.Model.Entities
         [Key]
         public int CommentId { get; set; }           //Id
 
+        [Required(ErrorMessage = "Field not be empty!")]
         [MaxLength(100)]
         public string Content { get; set; }     //message
 

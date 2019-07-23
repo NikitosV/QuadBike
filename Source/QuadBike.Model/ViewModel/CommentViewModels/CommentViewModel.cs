@@ -16,7 +16,5 @@ namespace QuadBike.Model.ViewModel.CommentViewModels
         public string UserName { get; set; }
 
         public DateTime Time { get; set; }
-
-        public IEnumerable<CommentViewModel> Comments { get; set; }
     }
 }
