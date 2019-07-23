@@ -8,7 +8,7 @@ namespace QuadBike.Logic.Interfaces
 {
     public interface ICommentService
     {
-        void Create(CommentViewModel model, string userId, string providerId, string currentUserName);
+        void Create(string model, string userId, string providerId, string currentUserName);
         IEnumerable<CommentViewModel> GetAllCommentsOfProvider(string id);
     }
 }

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<QuadBike.Model.ViewModel.CommentViewModels.CommentViewModel>
+@{
+    ViewData["Title"] = "TestChat";
+}
+
+<h1>Test Chat</h1>
+<link rel="stylesheet" href="~/css/site.css" />
+
+<div class="container">
+    <div id="errorComment"></div>
+    @if (User.IsInRole("user"))
+    {
+        <form asp-controller="Comment" asp-action="Test" class="form-inline" role="form" id="form1">
+            <div class="form-group">
+                <input type="hidden" id="idProvider" value="@ViewBag.ProviderId" />                                                                    @*hidden input !!!!!!!!!!!!!!!!! как передать id *@
+                <input class="form-control" type="text" placeholder="Your comments" id="inputContentComment" />
+            </div>
+            <div class="form-group">
+                <button class="btn btn-secondary" id="addCom">Add</button>
+            </div>
+        </form>
+
+        <br />
+    }
+    <div class="container" id="comments">
+        @{Html.RenderPartial("TestComments", Model);}
+    </div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#form1").submit(function (e) {
+            return false;
+        });
+        $("#addCom").click(function () {
+            var content = $("#inputContentComment").val();
+            var providerId = $("#idProvider").val();
+            if (content) {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Comment/Create',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                    data: {
+                        Content: content,
+                        AccountId: providerId
+                    },
+                    success: function (result) {
+                        $("#comments").append(result);
+                    },
+                    error: function (result) {
+                        //$("errorComment").ajaxError(alert(err.statusText));
+                        alert(result.statusText);
+
+                    }
+
+                });
+            }
+        });
+
+    });
+</script>
+

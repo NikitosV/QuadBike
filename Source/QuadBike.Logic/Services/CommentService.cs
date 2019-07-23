@@ -22,12 +22,12 @@ namespace QuadBike.Logic.Services
             _userManagerService = userManagerService;
         }
 
-        public void Create(CommentViewModel model, string userId, string providerId, string currentUserName)
+        public void Create(string model, string userId, string providerId, string currentUserName)
         {
             //var res = _userManagerService.GetUserById(userId);
             _commentRepository.Create(new Comment
             {
-                Content = model.Content,
+                Content = model,
                 OrderPlaced = DateTime.Now,
                 AccountId = providerId,
                 Name = currentUserName,
