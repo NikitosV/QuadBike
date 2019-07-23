@@ -36,6 +36,7 @@
         $("#addCom").click(function () {
             var content = $("#inputContentComment").val();
             var providerId = $("#idProvider").val();
+            //debugger;
             if (content) {
                 $.ajax({
                     type: 'POST',
@@ -44,6 +45,40 @@
                     data: {
                         Content: content,
                         AccountId: providerId
+                    },
+                    statusCode: {
+                        400: function (content) {
+                            alert(content.statusText);
+                            //var errors = $.parseJSON(err);
+                            //validator.showErrors(errors);
+                        }
+                    },
+                    success: function (result) {
+                        $("#comments").append(result);
+                    },
+                    error: function (result) {
+                        //$("errorComment").ajaxError(alert(err.statusText));
+                        alert(result.statusText);
+
+                    }
+
+                });
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: '/Comment/Create',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                    data: {
+                        Content: content,
+                        AccountId: providerId
+                    },
+                    statusCode: {
+                        400: function (content) {
+                            alert(content.statusText);
+                            //var errors = $.parseJSON(err);
+                            //validator.showErrors(errors);
+                        }
                     },
                     success: function (result) {
                         $("#comments").append(result);

@@ -48,12 +48,33 @@ namespace QuadBike.Website.Controllers
             var currentUserName = User.Identity.Name;
             var userId = _userManagerService.GetUserByName(currentUserName);
 
+            //if (!ModelState.IsValid)
+            //{
+            //    var message = string.Join(" | ", ModelState.Values
+            //        .SelectMany(v => v.Errors)
+            //        .Select(e => e.ErrorMessage));
+            //    return BadRequest();
+            //}
+            //else
+            //{
+            //    _commentService.Create(Content, userId.Result.Id, AccountId, userId.Result.Email);
+            //    var res = new List<CommentViewModel>();
+            //    res.Add(new CommentViewModel { Content = Content, AccountId = AccountId, UserId = userId.Result.Id, UserName = userId.Result.Email, Time = DateTime.Now });
+            //    return PartialView("TestComments", res);
+            //}
+            if (Content.Equals(null))
+            {
+                var message = string.Join(" | ", ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage));
+                return BadRequest(message);
+            }
             if (!ModelState.IsValid)
             {
                 var message = string.Join(" | ", ModelState.Values
                     .SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage));
-                return View(message);
+                return BadRequest(message);
             }
             else
             {
