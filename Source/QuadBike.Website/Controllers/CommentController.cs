@@ -36,9 +36,10 @@ namespace QuadBike.Website.Controllers
 
             if (!ModelState.IsValid)
             {
-                var message = string.Join(" | ", ModelState.Values
+                var message = ModelState.Values
                     .SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage));
+                    .Select(e => e.ErrorMessage);
+
                 return BadRequest(message);
             }
             else

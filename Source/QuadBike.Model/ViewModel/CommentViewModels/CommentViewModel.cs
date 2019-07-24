@@ -10,6 +10,8 @@ namespace QuadBike.Model.ViewModel.CommentViewModels
     {
 
         [Required(ErrorMessage = "Field not be empty!")]
+        [StringLength(5, ErrorMessage = "String should not be more than 5 symbols!")]
+        [RegularExpression(@"[<>@_]+", ErrorMessage = "Forbidden symbol!")]
         public string Content { get; set; }     //message
 
         public string UserId { get; set; }
