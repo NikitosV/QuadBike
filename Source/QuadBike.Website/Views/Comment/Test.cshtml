@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<QuadBike.Model.ViewModel.CommentViewModels.CommentViewModel>
+
 @{
     ViewData["Title"] = "TestChat";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Test Chat</h1>
@@ -10,7 +12,20 @@
     <div id="errorComment"></div>
     @if (User.IsInRole("user"))
     {
-        Html.RenderPartial("AddComment");
+        /// Html.RenderPartial("AddComment");
+        <div id="errorComment">
+        </div>
+        <form asp-controller="Comment" asp-action="Test" class="form-inline" role="form" id="form1">
+            <div class="form-group">
+                <input type="hidden" id="idProvider" value="@ViewBag.ProviderId" />                                                                    @*hidden input !!!!!!!!!!!!!!!!! как передать id *@
+                <input class="form-control" type="text" placeholder="Your comments" id="inputContentComment" />
+            </div>
+            <div class="form-group">
+                <button class="btn btn-secondary" id="addCom">Add</button>
+            </div>
+        </form>
+
+        <br />
     }
     <div class="container" id="comments">
         @{Html.RenderPartial("TestComments", Model);}
@@ -34,59 +49,19 @@
                     Content: content,
                     AccountId: providerId
                 },
-                statusCode: {
-                    400: function (content) {
-                        alert(content.statusText);
-                        //var errors = $.parseJSON(err);
-                        //validator.showErrors(errors);
-                    }
+                success: function (result) {
+                    $("#comments").append(result);
                 },
-                //success: function (result) {
-                //    $("#comments").append(result);
-                success: function (data) {
-
-                    if ($.isEmptyObject(data.error)) {
-
-                        alert(data.success);
-
-                    } else {
-
-                        printErrorMsg(data.error);
-
-                    }
-                },
-                //error: function (result) {
-                //    debugger;
-                //    //$("errorComment").ajaxError(alert(err.statusText));
-                //    alert(result.statusText);
-
-                //}
-                //error: function (data) {
-                //    var errors = data.responseJSON;
-                //    console.log(errors);
-                //}
-                error: function (response) {
-                    debugger;
-                    alert(response);
+                error: function (request, status, error) {
+                    $("#errorComment").html("<div class='alert alert-danger'>" + request.responseText + "<button type='button' class='close' data-dismiss='alert'>&times;</button> " + "</div>");
+                    //$("#errorComment").alert("Oopss... " + status + ": " + error.toString() + " || " + request.responseText);
+                    //console.log("Oopss... " + status + ": " + error.toString() + " || " + request.responseText);
                 }
-
             });
         });
-        function printErrorMsg(msg) {
-
-            $(".print-error-msg").find("ul").html('');
-
-            $(".print-error-msg").css('display', 'block');
-
-            $.each(msg, function (key, value) {
-
-                $(".print-error-msg").find("ul").append('<li>' + value + '</li>');
-
-            });
-
-        }
     });
 </script>
 @*if (xhr.status == 400) {
         DisplayModelStateErrors(xhr.responseJSON.ModelState);
+    $("#errorComment").html("<div class='alert alert-danger'>" + "Oopss... " + status + ": " + error.toString() + " || " + request.responseText + "<button type='button' class='close' data-dismiss='alert'>&times;</button> " + "</div>");
     }*@
