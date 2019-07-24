@@ -37,6 +37,11 @@
         $("#form1").submit(function (e) {
             return false;
         });
+
+        $("#addCom").mouseover(function () {
+            document.getElementById('alertError').remove();
+        });
+
         $("#addCom").click(function () {
             var content = $("#inputContentComment").val();
             var providerId = $("#idProvider").val();
@@ -57,8 +62,11 @@
 
                     var container = document.getElementById("errorComment");
                     for (var i = 0; i < answer.length; i++) {
-                        container.innerHTML += '<div class="alert alert-danger">' + answer[i].replace(/[\[\]'"]+/g, "") + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>';
+                        container.innerHTML += '<div id="alertError" class="alert alert-danger">' + answer[i].replace(/[\[\]'"]+/g, "") + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>';
                     }
+                    //setTimeout(function () {
+                    //    document.getElementById('alertError').remove();
+                    //}, 4000);
                 }
             });
         });
