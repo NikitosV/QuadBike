@@ -62,13 +62,6 @@ namespace QuadBike.Website.Controllers
             //    res.Add(new CommentViewModel { Content = Content, AccountId = AccountId, UserId = userId.Result.Id, UserName = userId.Result.Email, Time = DateTime.Now });
             //    return PartialView("TestComments", res);
             //}
-            if (Content.Equals(null))
-            {
-                var message = string.Join(" | ", ModelState.Values
-                    .SelectMany(v => v.Errors)
-                    .Select(e => e.ErrorMessage));
-                return BadRequest(message);
-            }
             if (!ModelState.IsValid)
             {
                 var message = string.Join(" | ", ModelState.Values
