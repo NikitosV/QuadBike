@@ -6,7 +6,10 @@
         <div class="card col-sm-5 shadow-sm">
             <div class="panel panel-default">
                 <div>
-                    <strong>@u.UserName</strong> <span class="text-muted">commented @String.Format("{0:g}", u.Time)</span>
+                    <input type="hidden" value="@u.UserId" id="userIdCom" />
+                    <strong>@u.UserName</strong>
+                    <span class="text-muted">commented @String.Format("{0:g}", u.Time)</span>
+                    <button type="button" formmethod="post" class="close" id="delCom">&times;</button>
                 </div>
                 <div class="panel-body">
                     @u.Content

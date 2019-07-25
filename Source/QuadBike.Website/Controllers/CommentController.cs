@@ -50,6 +50,18 @@ namespace QuadBike.Website.Controllers
                 return PartialView("TestComments", res);
             }
         }
-        #endregion
-    }
+
+        [HttpPost]
+        public IActionResult Delete(string UserId)
+        {
+            if (UserId != null)
+            {
+                //_commentService.DeleteCommentById(UserId);
+                //var res = _commentService.GetAllCommentsOfProvider(providerId);
+                return PartialView("TestComments");
+            }
+            return BadRequest();
+        }
+            #endregion
+        }
 }
