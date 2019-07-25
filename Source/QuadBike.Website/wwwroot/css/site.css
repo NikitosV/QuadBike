@@ -84,3 +84,10 @@ body {
     border-right-color:#ddd;
     border-width:8px;
 }
+
+form .error {
+    color: #ff0000;
+}
+.error {
+    color: #ff0000;
+}
