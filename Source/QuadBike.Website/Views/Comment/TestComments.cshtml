@@ -6,10 +6,13 @@
         <div class="card col-sm-5 shadow-sm">
             <div class="panel panel-default">
                 <div>
-                    <input type="hidden" value="@u.UserId" id="userIdCom" />
+                    <input type="hidden" id="commentId" data-comment-id="@u.CommentId" />
+                    <input type="hidden" id="providerId" data-provider-id="@u.AccountId" />
                     <strong>@u.UserName</strong>
                     <span class="text-muted">commented @String.Format("{0:g}", u.Time)</span>
-                    <button type="button" formmethod="post" class="close" id="delCom">&times;</button>
+                    <form method="delete">
+                        <button class="close" id="delCom">&times;</button>
+                    </form>
                 </div>
                 <div class="panel-body">
                     @u.Content
@@ -20,3 +23,23 @@
 
     <br />
 }
+
+<script type="text/javascript">
+    $("#delCom").click(function () {
+        //debugger;
+        var commentId = $("#commentId").data('commentId');
+        var providerId = $("#providerId").data('providerId');
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/Comment/Delete',
+            data: {
+                CommentId: commentId,
+                AccountId: providerId
+            },
+            success: function () {
+                alert("Delete!");
+            },
+        });
+    });
+</script>

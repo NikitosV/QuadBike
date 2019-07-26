@@ -10,5 +10,6 @@ namespace QuadBike.Logic.Interfaces
     {
         void Create(string model, string userId, string providerId, string currentUserName);
         IEnumerable<CommentViewModel> GetAllCommentsOfProvider(string id);
+        void DeleteById(int? id);
     }
 }

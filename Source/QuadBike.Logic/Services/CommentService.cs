@@ -41,5 +41,10 @@ namespace QuadBike.Logic.Services
             var res = _commentRepository.GetAllCommentsOfProvider(id);
             return res;
         }
+
+        public void DeleteById(int? id)                                 // get by id
+        {
+            _commentRepository.DeleteById(id);
+        }
     }
 }

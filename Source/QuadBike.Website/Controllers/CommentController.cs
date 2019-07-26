@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using QuadBike.Logic.Interfaces;
+using QuadBike.Model.Context.CommitProvider;
 using QuadBike.Model.ViewModel.CommentViewModels;
 
 namespace QuadBike.Website.Controllers
@@ -12,9 +13,11 @@ namespace QuadBike.Website.Controllers
     {
         public readonly IUserManagerService _userManagerService;
         public readonly ICommentService _commentService;
+        private readonly ICommitProvider _commitProvider;
 
-        public CommentController(IUserManagerService userManagerService, ICommentService commentService)
+        public CommentController(IUserManagerService userManagerService, ICommentService commentService, ICommitProvider commitProvider)
         {
+            _commitProvider = commitProvider;
             _userManagerService = userManagerService;
             _commentService = commentService;
         }
@@ -51,17 +54,21 @@ namespace QuadBike.Website.Controllers
             }
         }
 
-        [HttpPost]
-        public IActionResult Delete(string UserId)
+        [HttpDelete]
+        public IActionResult Delete(int? CommentId, string AccountId)
         {
-            if (UserId != null)
+            if (CommentId != null)
             {
-                //_commentService.DeleteCommentById(UserId);
-                //var res = _commentService.GetAllCommentsOfProvider(providerId);
-                return PartialView("TestComments");
+                _commentService.DeleteById(CommentId);
+                _commitProvider.Save();
+                var res = _commentService.GetAllCommentsOfProvider(AccountId);
+                return PartialView("TestComments", res);
             }
-            return BadRequest();
+            else
+            {
+                return BadRequest();
+            }
         }
-            #endregion
-        }
+        #endregion
+    }
 }

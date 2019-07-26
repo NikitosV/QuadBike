@@ -9,5 +9,6 @@ namespace QuadBike.DataProvider.Interfaces
     public interface ICommentRepository : IRepository<Comment>
     {
         IEnumerable<CommentViewModel> GetAllCommentsOfProvider(string id);
+        void DeleteById(int? id);
     }
 }

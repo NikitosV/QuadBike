@@ -14,10 +14,10 @@
     {
         /// Html.RenderPartial("AddComment");
         <div id="errorComment"></div>
-        <form asp-controller="Comment" asp-action="Test" class="form-inline" role="form" name="formComment" id="formComment">
+        <form asp-controller="Comment" asp-action="Test" class="form-group col-md-6" role="form" name="formComment" id="formComment">
             <div class="form-group">
                 <input type="hidden" id="idProvider" value="@ViewBag.ProviderId" />                                                                    @*hidden input !!!!!!!!!!!!!!!!! передать id *@
-                <input class="form-control" type="text" placeholder="Your comments" name="inputContentComment" id="inputContentComment" />
+                <input class="form-control required" type="text" placeholder="Your comments" name="inputContentComment" id="inputContentComment" />
             </div>
             <div class="form-group">
                 <button class="btn btn-secondary" id="addCom">Add</button>
@@ -38,24 +38,22 @@
             return false;
         });
 
-        $("#inputContentComment").keypress(function () {
-            $("#formComment").validate({
-                rules: {
-                    inputContentComment: {
-                        required: true,
-                        maxlength: 5
-                    }
-                },
-                messages: {
-                    inputContentComment: {
-                        required: "Required field",
-                        maxlength: "Field must be at least 5 characters long"
-                    }
-                },
-                submitHandler: function (form) {
-
+        $("#formComment").validate({
+            rules: {
+                inputContentComment: {
+                    required: true,
+                    maxlength: 5
                 }
-            });
+            },
+            messages: {
+                inputContentComment: {
+                    required: "Required field",
+                    maxlength: "Field must be at least 5 characters long"
+                }
+            },
+            submitHandler: function (form) {
+
+            }
         });
 
         $("#addCom").click(function () {
@@ -85,22 +83,6 @@
                         $("#errorComment").append("<div id='alertError' class='alert alert-danger'>" + answer[i].replace(/[\[\]'"]+/g, "") + "<button type='button' class='close' data-dismiss='alert'>&times;</button></div>");
                     }
                 }
-            });
-        });
-
-        $("delCom").click(function () {
-            var userId = $("#userIdCom").val();
-
-            $.ajax({
-                type: 'POST',
-                url: '/Comment/Delete',
-                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
-                data: {
-                    UserId: userId
-                },
-                success: function (result) {
-
-                },
             });
         });
     });

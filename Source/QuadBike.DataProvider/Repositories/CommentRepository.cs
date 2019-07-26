@@ -52,6 +52,7 @@ namespace QuadBike.DataProvider.Repositories
                 join provider in _db.Accounts on comment.AccountId equals provider.Id
                 select new CommentViewModel()
                 {
+                    CommentId = comment.CommentId,
                     Content = comment.Content,
                     AccountId = provider.Id,
                     UserId = comment.UserId,
@@ -62,6 +63,13 @@ namespace QuadBike.DataProvider.Repositories
 
             //var res = _db.Comments.Where(x => x.AccountId.Equals(id));
             //return res;
+        }
+
+        public void DeleteById(int? id)
+        {
+            Comment item = _db.Comments.Find(id);
+            if (item != null)
+                _db.Comments.Remove(item);
         }
     }
 }
