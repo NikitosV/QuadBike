@@ -11,6 +11,7 @@
 @*<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">*@
 @*<script type="text/javascript" src="~/vendor/bootstrap-datetimepicker/src/js/bootstrap-datetimepicker.js"></script>
     <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" />*@
+@*https://trentrichardson.com/examples/timepicker/*@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-timepicker-addon/1.6.3/jquery-ui-timepicker-addon.min.css" />
@@ -76,7 +77,7 @@
                                 <form class="needs-validation" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-bikeId="@u.Id" novalidate>
                                     <div class="form-groupe">
                                         <label><b>Date Start</b></label>
-                                        <input class="form-control mb-2" id="datetime" placeholder="Date start" required>
+                                        <input class="form-control mb-2" id="startTime" placeholder="Date start" required>
                                         <span class="invalid-feedback">
                                             Cannot be empty!
                                         </span>
@@ -84,7 +85,7 @@
 
                                     <div class="form-groupe">
                                         <label><b>Date End</b></label>
-                                        <input class="form-control mb-2" id="datetime2" placeholder="Date end" required>
+                                        <input class="form-control mb-2" id="endTime" placeholder="Date end" required>
                                         <span class="invalid-feedback">
                                             Cannot be empty!
                                         </span>
@@ -129,8 +130,16 @@
     $(function () {
 
         $.datepicker.setDefaults($.datepicker.regional['en']);
-        $('#datetime').datetimepicker(
+        $('#startTime').datetimepicker(
             {
+                onSelect: function (date) {
+                    var dt1 = $('#startTime').datepicker('getDate');
+                    var dt2 = $('#endTime').datepicker('getDate');
+                    if (dt1 > dt2) {
+                        $('#endTime').datepicker('setDate', dt1);
+                    }
+                    $('#endTime').datepicker('option', 'minDate', dt1);
+                },
                 controlType: 'select',
                 oneLine: true,
                 timeFormat: 'hh:mm tt',
@@ -146,8 +155,16 @@
                 maxDate: "+31",
                 showTime: true
             });
-        $('#datetime2').datetimepicker(
+        $('#endTime').datetimepicker(
             {
+                onSelect: function (date) {
+                    var dt1 = $('#startTime').datepicker('getDate');
+                    var dt2 = $('#endTime').datepicker('getDate');
+                    if (dt1 < dt2) {
+                        $('#endTime').datepicker('setDate', dt2);
+                    }
+                    $('#endTime').datepicker('option', 'minDate', dt2);
+                },
                 showTime: true,
                 format: 'dd/MM/yyyy hh:mm:ss',
                 numberOfMonths: [1, 2],
@@ -162,6 +179,5 @@
                 addSliderAccess: true,
                 sliderAccessArgs: { touchonly: false }
             });
-
     });
 </script>
