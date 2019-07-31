@@ -63,6 +63,7 @@ namespace QuadBike.Website.Controllers
                 _commitProvider.Save();
                 var res = _commentService.GetAllCommentsOfProvider(AccountId);
                 return PartialView("TestComments", res);
+                //return RedirectToAction("Test");
             }
             else
             {

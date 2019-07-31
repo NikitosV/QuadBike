@@ -6,6 +6,9 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
 
 <div class="album bg-light">
     <div class="container">
@@ -65,7 +68,7 @@
                                 <form class="needs-validation" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-bikeId="@u.Id" novalidate>
                                     <div class="form-groupe">
                                         <label><b>Date Start</b></label>
-                                        <input type="datetime-local" class="form-control mb-2" id="datetime" placeholder="Date start" required>
+                                        <input class="form-control mb-2" id="datetime" placeholder="Date start" required>
                                         <span class="invalid-feedback">
                                             Cannot be empty!
                                         </span>
@@ -112,5 +115,22 @@
         if ($('#popupdiv').html() != '') {
             $("#popupdiv").show();
         }
+    });
+
+    $(function () {
+
+        $.datepicker.setDefaults($.datepicker.regional['en']);
+        $('#datetime').datepicker(
+            {
+                numberOfMonths: [1, 2],
+                constrainInput: true,
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '2019:2100',
+                minDate: "+0",
+                maxDate: "+31"
+                //defaultDate: "+3m +2y"
+            });
+
     });
 </script>

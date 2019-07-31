@@ -10,9 +10,7 @@
                     <input type="hidden" id="providerId" data-provider-id="@u.AccountId" />
                     <strong>@u.UserName</strong>
                     <span class="text-muted">commented @String.Format("{0:g}", u.Time)</span>
-                    <form method="delete">
-                        <button class="close" id="delCom">&times;</button>
-                    </form>
+                    <button class="close" id="delCom" formmethod="delete">&times;</button>
                 </div>
                 <div class="panel-body">
                     @u.Content
