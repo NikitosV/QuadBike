@@ -131,6 +131,9 @@
         $.datepicker.setDefaults($.datepicker.regional['en']);
         $('#datetime').datetimepicker(
             {
+                controlType: 'select',
+                oneLine: true,
+                timeFormat: 'hh:mm tt',
                 showTime: true,
                 format: 'dd/MM/yyyy hh:mm:ss',
                 numberOfMonths: [1, 2],
@@ -155,7 +158,9 @@
                 pickTime: true,
                 minDate: "+0",
                 maxDate: "+31",
-                showTime: true
+                showTime: true,
+                addSliderAccess: true,
+                sliderAccessArgs: { touchonly: false }
             });
 
     });
