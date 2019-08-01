@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using QuadBike.Logic.Interfaces;
 using QuadBike.Model.Entities;
+using QuadBike.Model.ViewModel.BikeViewModels;
 
 namespace QuadBike.Website.Controllers
 {
@@ -43,5 +44,15 @@ namespace QuadBike.Website.Controllers
             //JsonResult categoryJson = new JsonResult(source);
             return Json(source);
         }
+
+        //[HttpGet]
+        //public JsonResult GetBikesPaggination(int pageSize, int currentPage)
+        //{
+        //    IQueryable<PaginationBikeViewModel> bikes = _bikeService.PaginationBikes(pageSize, currentPage);
+
+        //    int totalCount = _bikeService.CountBikes();
+
+        //    return Json(new { bikes, totalCount });
+        //}
     }
 }

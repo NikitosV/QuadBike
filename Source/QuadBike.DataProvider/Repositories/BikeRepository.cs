@@ -83,5 +83,17 @@ namespace QuadBike.DataProvider.Repositories
                 }).ToList();
             return res;
         }
+
+        public IQueryable<Bike> GetBikes(int pageSize, int currentPage)
+        {
+            IQueryable<Bike> bikes = _db.Bikes.Skip((currentPage - 1) * pageSize).Take(pageSize);
+
+            return bikes;
+        }
+
+        public int CountBikes()
+        {
+            return _db.Bikes.Count();
+        }
     }
 }

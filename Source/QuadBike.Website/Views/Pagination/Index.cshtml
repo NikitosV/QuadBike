@@ -7,20 +7,22 @@
 <h1>Test Pagination</h1>
 <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
 @*<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">*@
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">*@
+@*$.getJSON("Pagination/GetBikesPaggination?pageSize=" + pageSize + "&currentPage=" + currentPage,*@
+@*$.getJSON("Pagination/GetAllBikes",*@
 
 <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
 
 <script>
     $(document).ready(function () {
-        //Call EmpDetails jsonResult Method
-        $.getJSON("Pagination/GetAllBikes",
+        var pageSize = 6;
+        var currentPage = 1;
+
+        $.getJSON("Pagination/GetBikesPaggination?pageSize=" + pageSize + "&currentPage=" + currentPage,
             function (json) {
                 var tr;
-                //Append each row to html table
                 for (var i = 0; i < json.length; i++) {
                     tr = $('<tr/>');
-                    tr.append("<td>" + json[i].id + "</td>");
                     tr.append("<td>" + json[i].name + "</td>");
                     tr.append("<td>" + json[i].maxSpeed + "</td>");
                     tr.append("<td>" + json[i].typeEngine + "</td>");
@@ -31,6 +33,9 @@
                     $('table').append(tr);
                 }
                 $('#EmpInfo').DataTable({
+                    "processing": true,
+                    "lengthChange": false,
+                    "pageLength": 5,
                     "deferRender": true
                 });
             });
@@ -39,7 +44,6 @@
 <table id="EmpInfo" class="table table-bordered table-condensed table-hover table-striped">
     <thead>
         <tr>
-            <th>#</th>
             <th>Name</th>
             <th>MaxSpeed</th>
             <th>TypeEngine</th>
@@ -52,7 +56,7 @@
     <tbody></tbody>
 </table>
 @*class="table table-bordered table-condensed table-hover table-striped"*@
-Id = bike.Id,
+@*Id = bike.Id,
 BikeImg = bike.BikeImg,
 Name = bike.Name,
 MaxSpeed = bike.MaxSpeed,
@@ -60,4 +64,4 @@ TypeEngine = bike.TypeEngine,
 Power = bike.Power,
 Fuel = bike.Fuel,
 Description = bike.Description,
-Price = bike.Price
+Price = bike.Price*@

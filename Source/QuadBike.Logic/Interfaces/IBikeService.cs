@@ -2,6 +2,7 @@
 using QuadBike.Model.ViewModel.BikeViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace QuadBike.Logic.Interfaces
@@ -15,5 +16,8 @@ namespace QuadBike.Logic.Interfaces
         Bike GetBikeById(int id);
         bool Update(Bike item);
         IEnumerable<IndexBikeViewModel> GetBikesWithProviderInfo();
+
+        IQueryable<PaginationBikeViewModel> PaginationBikes(int pageSize, int currentPage);
+        int CountBikes();
     }
 }

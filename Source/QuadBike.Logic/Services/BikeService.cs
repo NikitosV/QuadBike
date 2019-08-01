@@ -7,6 +7,7 @@ using QuadBike.Model.Entities;
 using QuadBike.Model.ViewModel.BikeViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -79,6 +80,26 @@ namespace QuadBike.Logic.Services
         {
             var res = _bikeRepository.GetBikesWithProviderInfo();
             return res;
+        }
+
+        public IQueryable<PaginationBikeViewModel> PaginationBikes(int pageSize, int currentPage)
+        {
+            return _bikeRepository.GetBikes(pageSize, currentPage)
+                .Select(x => new PaginationBikeViewModel()
+                {
+                    Name = x.Name,
+                    MaxSpeed = x.MaxSpeed,
+                    TypeEngine = x.TypeEngine,
+                    Power = x.Power,
+                    Fuel = x.Fuel,
+                    Description = x.Description,
+                    Price = x.Price
+                });
+        }
+
+        public int CountBikes()
+        {
+           return _bikeRepository.CountBikes();
         }
     }
 }
