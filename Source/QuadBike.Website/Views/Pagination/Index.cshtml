@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Test Pagination</h1>
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css">
+@*<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">*@
+
+<script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        //Call EmpDetails jsonResult Method
+        $.getJSON("Pagination/GetAllBikes",
+            function (json) {
+                var tr;
+                //Append each row to html table
+                for (var i = 0; i < json.length; i++) {
+                    tr = $('<tr/>');
+                    tr.append("<td>" + json[i].id + "</td>");
+                    tr.append("<td>" + json[i].name + "</td>");
+                    tr.append("<td>" + json[i].maxSpeed + "</td>");
+                    tr.append("<td>" + json[i].typeEngine + "</td>");
+                    tr.append("<td>" + json[i].power + "</td>");
+                    tr.append("<td>" + json[i].fuel + "</td>");
+                    tr.append("<td>" + json[i].description + "</td>");
+                    tr.append("<td>" + json[i].price + "</td>");
+                    $('table').append(tr);
+                }
+                $('#EmpInfo').DataTable({
+                    "deferRender": true
+                });
+            });
+    });
+</script>
+<table id="EmpInfo" class="table table-bordered table-condensed table-hover table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>MaxSpeed</th>
+            <th>TypeEngine</th>
+            <th>Power</th>
+            <th>Fuel</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+@*class="table table-bordered table-condensed table-hover table-striped"*@
+Id = bike.Id,
+BikeImg = bike.BikeImg,
+Name = bike.Name,
+MaxSpeed = bike.MaxSpeed,
+TypeEngine = bike.TypeEngine,
+Power = bike.Power,
+Fuel = bike.Fuel,
+Description = bike.Description,
+Price = bike.Price
