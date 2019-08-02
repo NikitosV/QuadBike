@@ -31,75 +31,11 @@
             <a class="btn btn-primary" asp-controller="Home" asp-action="ListTrips" role="button">See trips »</a>
         </div>
         <br />
-        <div class="row">
-            @foreach (var u in Model.Bikes)
-            {
-                <div class="col-md-4 align-self-between">
-                    <div class="card mb-4 shadow-sm">
-                        @if (u.BikeImg != null)
-                        {
-                            <div class="view view-cascade overlay">
-                                <img class="bd-placeholder-img card-img-top" style="width:100%; height:225px" src="data:image/jpg;base64,@(Convert.ToBase64String(u.BikeImg))" alt="Card image cap" />
-                                <a>
-                                    <div class="mask rgba-white-slight"></div>
-                                </a>
-                            </div>
-                        }
-                        <div class="card-body card-body-cascade">
-                            <p class="card-text">
-                                <div>
-                                    <b>Name:</b> @u.Name
-                                </div>
-                                <div>
-                                    <b>Type Engine:</b> @u.TypeEngine
-                                </div>
-                                <div>
-                                    <b>Max Speed:</b> @u.MaxSpeed km / hour
-                                </div>
-                                <div>
-                                    <b>Power:</b> @u.Power
-                                </div>
-                                <div>
-                                    <b>Fuel:</b> @u.Fuel
-                                </div>
-                                <div>
-                                    <b>Description:</b> @u.Description
-                                </div>
-                                <div>
-                                    <b>Price:</b> @u.Price $ per one day
-                                </div>
-                                <div class="btn-group">
-                                    <b>Provider:&nbsp</b> <a asp-controller="Home" asp-action="ProviderBike" asp-route-accId="@u.AccountId"> @u.Email</a>
-                                </div>
-                            </p>
-                            <hr />
-                            <div class="d-flex justify-content-between align-items-center">
-                                <form class="needs-validation" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-bikeId="@u.Id" novalidate>
-                                    <div class="form-groupe">
-                                        <label><b>Date Start</b></label>
-                                        <input class="form-control mb-2" id="startTime" placeholder="Date start" required>
-                                        <span class="invalid-feedback">
-                                            Cannot be empty!
-                                        </span>
-                                    </div>
 
-                                    <div class="form-groupe">
-                                        <label><b>Date End</b></label>
-                                        <input class="form-control mb-2" id="endTime" placeholder="Date end" required>
-                                        <span class="invalid-feedback">
-                                            Cannot be empty!
-                                        </span>
-                                    </div>
-                                    <button class="btn btn-sm btn-outline-success" type="submit">Rent</button>
-                                    @*<a class="btn btn-sm btn-outline-success" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-bikeId="@u.Id">Rent</a>*@
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
+        <div id="bikeTemp">
+            @{Html.RenderPartial("PartialBikeIndex", Model);}
         </div>
-        <page-link page-model="Model.PageViewModel" page-action="Index"></page-link>
+
     </div>
 </div>
 

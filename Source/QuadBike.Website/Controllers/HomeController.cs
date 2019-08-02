@@ -42,6 +42,42 @@ namespace QuadBike.Website.Controllers
             return View(viewModel);
         }
 
+        public IActionResult IndexPartial(int page = 1)
+        {
+            int pageSize = 9;   // количество элементов на странице
+
+            // var source = _bikeService.GetAllBikes();
+            var source = _bikeService.GetBikesWithProviderInfo();
+            var count = source.Count();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                Bikes = items
+            };
+            return PartialView(viewModel);
+        }
+
+        public IActionResult IndexData(int page = 1)
+        {
+            int pageSize = 9;   // количество элементов на странице
+
+            // var source = _bikeService.GetAllBikes();
+            var source = _bikeService.GetBikesWithProviderInfo();
+            var count = source.Count();
+            var items = source.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+
+            PageViewModel pageViewModel = new PageViewModel(count, page, pageSize);
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = pageViewModel,
+                Bikes = items
+            };
+            return View(viewModel);
+        }
+
         public IActionResult ListTrips(int page = 1)
         {
             int pageSize = 6;   // количество элементов на странице

@@ -45,14 +45,14 @@ namespace QuadBike.Website.Controllers
             return Json(source);
         }
 
-        //[HttpGet]
-        //public JsonResult GetBikesPaggination(int pageSize, int currentPage)
-        //{
-        //    IQueryable<PaginationBikeViewModel> bikes = _bikeService.PaginationBikes(pageSize, currentPage);
+        [HttpGet]
+        public JsonResult GetBikesPaggination(int pageSize, int currentPage)
+        {
+            IQueryable<PaginationBikeViewModel> bikes = _bikeService.PaginationBikes(pageSize, currentPage);
 
-        //    int totalCount = _bikeService.CountBikes();
+            int totalCount = _bikeService.CountBikes();
 
-        //    return Json(new { bikes, totalCount });
-        //}
+            return Json(new { bikes, totalCount });
+        }
     }
 }
